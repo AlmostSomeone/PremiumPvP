@@ -5,6 +5,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.logging.Level;
 
 public class Config {
 
@@ -22,8 +23,10 @@ public class Config {
         if(!file.exists()) {
             try {
                 Main.getInstance().saveResource("config.yml", false);
+                javaPlugin.getLogger().log(Level.INFO, "Successfully generated config.yml");
             } catch (Exception exception) {
                 exception.printStackTrace();
+                javaPlugin.getLogger().log(Level.WARNING, "Could not generate config.yml");
             }
         }
 

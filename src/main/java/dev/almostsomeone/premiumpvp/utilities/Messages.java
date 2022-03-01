@@ -1,6 +1,7 @@
 package dev.almostsomeone.premiumpvp.utilities;
 
 import dev.almostsomeone.premiumpvp.Main;
+import jdk.jfr.internal.LogLevel;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -8,6 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.*;
 import java.util.Objects;
+import java.util.logging.Level;
 
 public class Messages {
 
@@ -25,9 +27,9 @@ public class Messages {
         if(!dir.exists()){
             try {
                 if(dir.mkdir())
-                    Bukkit.getLogger().info("[PremiumPvP] Languages directory created.");
+                    javaPlugin.getLogger().log(Level.INFO, "Languages directory created.");
                 else
-                    Bukkit.getLogger().warning("[PremiumPvP] Something went wrong creating a directory for the languages.");
+                    javaPlugin.getLogger().log(Level.WARNING, "Something went wrong creating a directory for the languages.");
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
@@ -53,11 +55,11 @@ public class Messages {
                 while ((read = inputStream != null ? inputStream.read(bytes) : 0) != -1) {
                     outputStream.write(bytes, 0, read);
                 }
+
+                javaPlugin.getLogger().log(Level.INFO, "Successfully generated " + fileName);
             } catch (IOException e) {
                 e.printStackTrace();
-                Bukkit.getServer()
-                        .getLogger()
-                        .warning("[PremiumPvP] Could not create " + fileName + "!");
+                javaPlugin.getLogger().log(Level.WARNING, "Could not generate " + fileName);
             } finally {
                 if (inputStream != null) {
                     try {
