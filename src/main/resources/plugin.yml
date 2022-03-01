@@ -2,6 +2,7 @@ name: ${project.name}
 main: ${project.groupId}.premiumpvp.Main
 version: ${project.version}
 api-version: 1.8
+load: STARTUP
 website: ${project.url}
 description: ${project.description}
 author: AlmostSomeone

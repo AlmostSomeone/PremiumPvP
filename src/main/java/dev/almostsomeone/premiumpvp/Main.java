@@ -2,10 +2,12 @@ package dev.almostsomeone.premiumpvp;
 
 import dev.almostsomeone.premiumpvp.commands.KitPvPCMD;
 import dev.almostsomeone.premiumpvp.commands.WorldCMD;
+import dev.almostsomeone.premiumpvp.common.bukkit.world.VoidGenerator;
 import dev.almostsomeone.premiumpvp.common.bukkit.world.WorldManager;
 import dev.almostsomeone.premiumpvp.utilities.*;
 import org.bstats.bukkit.Metrics;
 import org.bstats.charts.SimplePie;
+import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Level;
@@ -17,6 +19,11 @@ public class Main extends JavaPlugin {
     public Messages messages;
 
     public WorldManager worldManager;
+
+    @Override
+    public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
+        return new VoidGenerator();
+    }
 
     @Override
     public void onEnable() {

@@ -160,7 +160,6 @@ world-settings:
     hunger: false # If you enable this, players will be able to get hungry in this world
     type: FLAT # You can set this to NORMAL, FLAT, LARGE_BIOMES, AMPLIFIED
     generate-structures: false # Enabling this allows the generation of structures like villages and temples
-    environment: NORMAL # You can set this to NORMAL, NETHER or THE_END to have creative maps
   duels: # These settings count for all Duels maps, overriding "global"
     void: true
     weather-lock: CLEAR
@@ -168,16 +167,14 @@ world-settings:
     hunger: false
     type: FLAT
     generate-structures: false
-    environment: NORMAL
   specifics:  # These are settings for specific worlds. Exceptions on duels worlds can also be added here. Adding a non-existent world will make PremiumPvP generate this world.
-    ffa:
+    ffa: # This will generate a new world called "FFA", and will load this world every time the plugin (re)starts.
       void: true
       weather-lock: CLEAR
       gamemode: ADVENTURE
       hunger: false
       type: FLAT
       generate-structures: false
-      environment: NORMAL
 
 
 
