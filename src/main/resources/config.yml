@@ -170,7 +170,7 @@ world-settings:
     generate-structures: false
     environment: NORMAL
   specifics:  # These are settings for specific worlds. Exceptions on duels worlds can also be added here. Adding a non-existent world will make PremiumPvP generate this world.
-    world:
+    ffa:
       void: true
       weather-lock: CLEAR
       gamemode: ADVENTURE
