@@ -8,6 +8,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
 
 import java.lang.reflect.Field;
@@ -81,13 +82,27 @@ public abstract class CommandBuilder extends Command {
 
     @Override
     public List<String> tabComplete(CommandSender sender, String alias, String[] args) throws IllegalArgumentException {
-        List<String> autoCompletes = new ArrayList<>();
-        if (args.length == 1) {
+        String lastWord = args[args.length - 1];
+
+        if (args.length == 1 && subCommands != null) {
+            List<String> autoCompletes = new ArrayList<>();
             for (String sub : this.subCommands.keySet().toArray(new String[0]))
                 if (StringUtil.startsWithIgnoreCase(sub, args[0]))
                     autoCompletes.add(sub);
-            return autoCompletes;
+                autoCompletes.sort(String.CASE_INSENSITIVE_ORDER);
+                return autoCompletes;
+        } else {
+            Player senderPlayer = sender instanceof Player ? (Player) sender : null;
+            ArrayList<String> matchedPlayers = new ArrayList<>();
+            for(Player player : sender.getServer().getOnlinePlayers()) {
+                String name = player.getName();
+                if((sender == null || senderPlayer.canSee(player)) && StringUtil.startsWithIgnoreCase(name, lastWord))
+                    matchedPlayers.add(name);
+            }
+            matchedPlayers.sort(String.CASE_INSENSITIVE_ORDER);
+            return matchedPlayers;
         }
-        return null;
     }
+
+
 }
