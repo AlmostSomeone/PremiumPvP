@@ -1,7 +1,6 @@
-package dev.almostsomeone.premiumpvp.commands.kitpvp;
+package dev.almostsomeone.premiumpvp.commands;
 
 import dev.almostsomeone.premiumpvp.Main;
-import dev.almostsomeone.premiumpvp.commands.CommandBuilder;
 import dev.almostsomeone.premiumpvp.utilities.Config;
 import dev.almostsomeone.premiumpvp.utilities.Messages;
 import org.bukkit.command.CommandSender;
