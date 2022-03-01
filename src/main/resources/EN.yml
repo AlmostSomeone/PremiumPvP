@@ -1,4 +1,15 @@
 global:
-  no-permissions: "&4You don't have enough permissions to execute this command!"
-  reloaded: "&aThe config has been reloaded!"
+  no-permissions: "&4You don't have enough permissions to do this."
+commands:
   use-help: "&cPlease use %command% for help."
+  helpmenu:
+    header: "&e---------&f Help: %command% &e---------"
+    item: "&6%subcommand%: &f%description%"
+    footer: "&e-----------------------------"
+  kitpvp:
+    config:
+      reload-success: "&aYou have successfully reloaded the configuration."
+      reload-failed: "&cSomething went wrong reloading the configuration."
+    data:
+      save-success: "&aThe data has been saved."
+      save-failed: "&cSomething went wrong saving the data."

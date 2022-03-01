@@ -1,4 +1,15 @@
-global:
+ global:
   no-permissions: "&4Je hebt niet genoeg rechten om dit uit te voeren!"
-  reloaded: "&aDe configuratie is herladen!"
+commands:
   use-help: "&cGebruik %command% voor hulp."
+  helpmenu:
+    header: "&e---------&f Hulp: %command% &e---------"
+    item: "&6%subcommand%: &f%description%"
+    footer: "&e-----------------------------"
+  kitpvp:
+    config:
+      reload-success: "&aJe hebt de configuratie succesvol herladen."
+      reload-failed: "&cEr is iets fout gegaan bij het herladen van de configuratie."
+    data:
+      save-success: "&aDe data is opgeslagen."
+      save-failed: "&cEr is iets fout gegaan tijdens het opslaan van de data."

@@ -14,7 +14,8 @@ import java.lang.reflect.Field;
 public abstract class CommandBuilder extends Command {
 
     private Main main = Main.getInstance();
-    private Config config = main.config;
+
+    public Config config = main.config;
     public Messages messages = main.messages;
 
     @Override

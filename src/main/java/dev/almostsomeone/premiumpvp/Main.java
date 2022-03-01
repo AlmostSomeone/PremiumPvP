@@ -34,7 +34,7 @@ public class Main extends JavaPlugin {
         new Updater(this).checkForUpdate();
 
         // Initialize all commands
-        new KitPvPCMD();
+        new KitPvPCMD(this);
 
         // Inform the server administrators about possible issues with non-stable releases
         String version = getDescription().getVersion();
