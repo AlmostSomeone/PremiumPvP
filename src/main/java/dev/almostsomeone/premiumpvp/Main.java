@@ -16,31 +16,28 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Initialize the configuration and messages
-        config = new Config(this);
-        messages = new Messages(this);
+        // Loading the configuration and messages
+        this.getLogger().log(Level.INFO, "Loading configuration...");
+        this.config = new Config(this);
+        this.messages = new Messages(this);
 
-        // Load the configuration and messages
-        config.loadConfig();
-        messages.loadMessages();
-
-        // Initialize bStats
+        // Loading bStats metrics
+        this.getLogger().log(Level.INFO, "Loading bStats metrics...");
         Metrics metrics = new Metrics(this, 14487);
-        metrics.addCustomChart(new SimplePie("language", () ->
-                Main.getInstance().config.get().getString("language")
-        ));
+        String language = (this.config.get().isSet("language") ? this.config.get().getString("language") : "EN");
+        metrics.addCustomChart(new SimplePie("language", () -> language));
 
-        // Initialize the updater
-        new Updater(this).checkForUpdate();
+        // Starting the updater
+        new Updater(this);
 
         // Initialize all commands
         new KitPvPCMD(this);
 
         // Inform the server administrators about possible issues with non-stable releases
-        String version = getDescription().getVersion();
+        String version = this.getDescription().getVersion();
         if(version.contains("-")) {
             String suffix = version.split("-")[1].toLowerCase();
-            getLogger().log(Level.WARNING, "You are running a " + suffix + " release. Consider using our latest stable release for public servers.");
+            this.getLogger().log(Level.WARNING, "You are running a " + suffix + " release. Consider using our latest stable release for public servers.");
         }
     }
 

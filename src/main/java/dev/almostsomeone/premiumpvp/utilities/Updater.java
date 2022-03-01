@@ -34,6 +34,8 @@ public class Updater {
     public Updater(final JavaPlugin javaPlugin) {
         this.javaPlugin = javaPlugin;
         this.localPluginVersion = javaPlugin.getDescription().getVersion();
+
+        this.checkForUpdate();
     }
 
     public void checkForUpdate() {

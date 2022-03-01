@@ -16,6 +16,7 @@ public class Config {
 
     public Config(final JavaPlugin javaPlugin){
         this.javaPlugin = javaPlugin;
+        this.loadConfig();
     }
 
     public void loadConfig() {

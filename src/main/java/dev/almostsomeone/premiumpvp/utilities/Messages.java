@@ -20,6 +20,7 @@ public class Messages {
 
     public Messages(final JavaPlugin javaPlugin){
         this.javaPlugin = javaPlugin;
+        this.loadMessages();
     }
 
     public void loadMessages() {
