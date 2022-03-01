@@ -1,6 +1,8 @@
 package dev.almostsomeone.premiumpvp;
 
-import dev.almostsomeone.premiumpvp.commands.kitpvp.KitPvPCMD;
+import dev.almostsomeone.premiumpvp.commands.KitPvPCMD;
+import dev.almostsomeone.premiumpvp.commands.WorldCMD;
+import dev.almostsomeone.premiumpvp.common.bukkit.world.WorldManager;
 import dev.almostsomeone.premiumpvp.utilities.*;
 import org.bstats.bukkit.Metrics;
 import org.bstats.charts.SimplePie;
@@ -13,6 +15,8 @@ public class Main extends JavaPlugin {
     // Get the configuration and messages
     public Config config;
     public Messages messages;
+
+    public WorldManager worldManager;
 
     @Override
     public void onEnable() {
@@ -27,11 +31,17 @@ public class Main extends JavaPlugin {
         String language = (this.config.get().isSet("language") ? this.config.get().getString("language") : "EN");
         metrics.addCustomChart(new SimplePie("language", () -> language));
 
+        // Load Worlds
+        this.getLogger().log(Level.INFO, "Loading worlds...");
+        worldManager = new WorldManager(this);
+        this.getLogger().log(Level.INFO, "Loaded all worlds");
+
         // Starting the updater
         new Updater(this);
 
         // Initialize all commands
         new KitPvPCMD(this);
+        new WorldCMD();
 
         // Inform the server administrators about possible issues with non-stable releases
         String version = this.getDescription().getVersion();

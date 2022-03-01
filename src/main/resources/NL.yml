@@ -1,5 +1,7 @@
  global:
   no-permissions: "&4Je hebt niet genoeg rechten om dit uit te voeren!"
+  only-players: "&cAlleen spelers kunnen dit doen."
+  target-not-online: "&cDe opgegeven speler is niet online."
 commands:
   use-help: "&cGebruik %command% voor hulp."
   helpmenu:
@@ -13,3 +15,7 @@ commands:
     data:
       save-success: "&aDe data is opgeslagen."
       save-failed: "&cEr is iets fout gegaan tijdens het opslaan van de data."
+  world:
+    usage: "&cGebruik /world (wereld) [speler] om te teleporteren."
+    no-world: "&cDe wereld %world% bestaat niet."
+    teleported: "&aJe bent geteleporteerd naar de wereld %world%."

@@ -34,9 +34,22 @@ main-command:
     - premiumpvp
     - pvp
 
+# The world command allows you to teleport you and others to other worlds
+# This is added to make using our world management system easier.
+world-command:
+  enabled: true
+  name: world
+  description: "Teleport between worlds"
+  permission:
+    enabled: true
+    name: premiumpvp.worlds
+
 # Here are the basic game settings.
 # This allows you to modify the pvp experience to your likings.
 #settings:
+#  join-kitpvp: # When should a player "join" the KitPvP
+#    on-server-join: true # Enable this if players should directly join the KitPvP
+#    join-command: false # Enable this if you want to be able to join players by /kitpvp join (name). Could be useful for servers with multiple games in one server.
 #  kit-customization:
 #    enabled: true
 #    permission:
@@ -100,7 +113,7 @@ main-command:
 #      - coin
 #      - balance
 #      - bal
-#    permissions:
+#    permission:
 #      enabled: false
 #      name: premiumpvp.command.economy
 #  starters-balance: 100
@@ -116,7 +129,7 @@ main-command:
 #    aliases:
 #      - duels
 #      - 1v1
-#    permissions:
+#    permission:
 #      enabled: false
 #      name: premiumpvp.duels.command
 #  inviting:
@@ -139,23 +152,32 @@ main-command:
 # World settings allow you to configure settings for your worlds.
 # For example, you can lock a world to specific weather types, making it easy to add themes to your maps.
 # You can also set a gamemode, which a player will switch to when visiting this world.
-#world-settings:
-#  global: # These settings are the default for all maps created by PremiumPvP
-#    void: true
-#    weather-lock: sun
-#    gamemode: adventure
-#    hunger: false
-#  duels: # These settings count for all Duels maps, overriding "global"
-#    void: true
-#    weather-lock: sun
-#    gamdemode: adventure
-#    hunger: false
-#  specifics:  # These are settings for specific worlds. Exceptions on duels worlds can also be added here.
-#    world:
-#      void: false
-#      weather-lock: none
-#      gamemode: survival
-#      hunger: true
+world-settings:
+  global: # These settings are the default for all maps loaded by PremiumPvP
+    void: true # If you enable this, there will be no world generation.
+    weather-lock: CLEAR # You can lock the weather to CLEAR or DOWNFALL, disable this by setting it to NONE
+    gamemode: ADVENTURE # Players visiting this world will be forced to this gamemode, disable this by setting it to NONE
+    hunger: false # If you enable this, players will be able to get hungry in this world
+    type: FLAT # You can set this to NORMAL, FLAT, LARGE_BIOMES, AMPLIFIED
+    generate-structures: false # Enabling this allows the generation of structures like villages and temples
+    environment: NORMAL # You can set this to NORMAL, NETHER or THE_END to have creative maps
+  duels: # These settings count for all Duels maps, overriding "global"
+    void: true
+    weather-lock: CLEAR
+    gamemode: ADVENTURE
+    hunger: false
+    type: FLAT
+    generate-structures: false
+    environment: NORMAL
+  specifics:  # These are settings for specific worlds. Exceptions on duels worlds can also be added here. Adding a non-existent world will make PremiumPvP generate this world.
+    world:
+      void: true
+      weather-lock: CLEAR
+      gamemode: ADVENTURE
+      hunger: false
+      type: FLAT
+      generate-structures: false
+      environment: NORMAL
 
 
 
