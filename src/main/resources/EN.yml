@@ -1,0 +1,4 @@
+global:
+  no-permissions: "&4You don't have enough permissions to execute this command!"
+  reloaded: "&aThe config has been reloaded!"
+  use-help: "&cPlease use %command% for help."

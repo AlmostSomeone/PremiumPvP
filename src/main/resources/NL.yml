@@ -1,0 +1,4 @@
+global:
+  no-permissions: "&4Je hebt niet genoeg rechten om dit uit te voeren!"
+  reloaded: "&aDe configuratie is herladen!"
+  use-help: "&cGebruik %command% voor hulp."

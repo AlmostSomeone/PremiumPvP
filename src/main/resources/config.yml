@@ -1,0 +1,193 @@
+#
+#        PremiumPvP
+#     By AlmostSomeone
+#
+
+# Please do not change this version
+version: 0.1
+
+# Keep this setting enabled for the best experience with PremiumPvP
+# If your server runs on a not supported fork, it might be worth it to test the new update on a test server first.
+update-notify: true
+
+# Languages supported: EN, NL
+language: EN
+
+# Configure this part when you wish to save data like stats, kits, guilds, cosmetics in MySQL
+# If not enabled, the data will be stored in local JSON files in the "data" folder.
+# There is a migrate command if you wish to migrate your local data to MySQL later on.
+#mysql:
+#  enabled: false
+#  host: localhost
+#  port: 3306
+#  database: kitpvp
+#  table-prefix: premiumpvp
+#  username: username
+#  password: password
+
+# The main command allows you to manage the plugin
+# You can customize the command here
+main-command:
+  description: "Manage your KitPvP Experience"
+  aliases:
+    - kp
+    - premiumpvp
+    - pvp
+
+# Here are the basic game settings.
+# This allows you to modify the pvp experience to your likings.
+#settings:
+#  kit-customization:
+#    enabled: true
+#    permission:
+#      enabled: true
+#      name: premiumpvp.kit.customize
+#  healthbar:
+#    enabled: true
+#    message: "&f%player_health% &c%symbol_heart%"
+#  tablist:
+#    enabled: true
+#    header: "\n &5&lExampleServer \n &71.8.9 is recommended \n"
+#    footer: "\n &7Players: &5%server_players% &7- TPS: &5%server_tps% &7- Ping &5%player_ping% ms \n\n &7play.exampleserver.com \n"
+#  combattimer:
+#    enabled: true
+#    seconds: 10
+#    kill-on-leave: true
+#  banknotes:
+#    enabled: false
+#    lose-on-death: true
+#    lose-on-spawn: false
+#    lose-on-leave: false
+#  soups:
+#    enabled: true
+#    instant: true
+#    keep-bowl: false
+#    health: 5
+#  drop-items: false
+
+# Configure the basics of the guild system.
+# The permissions within a guild can be configured by the guild leader or by those with the correct guild permissions.
+#guilds:
+#  enabled: true
+#  permissions:
+#    global:
+#      enabled: false
+#      name: premiumpvp.guild.global
+#    create:
+#      enabled: true
+#      name: premiumpvp.guild.create
+#  command:
+#    enabled: true
+#    name: guild
+#    description: "Manage your guilds"
+#    aliases:
+#      - guilds
+#      - g
+#  tags:
+#    enabled: true
+#    max-length: 4
+#    default-color: 7
+
+# The server's economy settings.
+# Please configure this carefully, especially when your server is already launched.
+#economy:
+#  name: Coins
+#  command:
+#    enabled: true
+#    name: coins
+#    description: "See how many coins you have"
+#    aliases:
+#      - coin
+#      - balance
+#      - bal
+#    permissions:
+#      enabled: false
+#      name: premiumpvp.command.economy
+#  starters-balance: 100
+#  kill-reward: 10
+
+# The duels' system allows your players to go in private fights against each other.
+# Configure the system here to make it work how you want it.
+#duels:
+#  enabled: true
+#  command:
+#    enabled: true
+#    description: "Invite your friend for a fair fight"
+#    aliases:
+#      - duels
+#      - 1v1
+#    permissions:
+#      enabled: false
+#      name: premiumpvp.duels.command
+#  inviting:
+#    permission:
+#      enabled: false
+#      name: premiumpvp.duels.invite
+#  spectating:
+#    enabled: true
+#    permission:
+#      enabled: false
+#      name: premiumpvp.duels.spectate
+#  settings:
+#    be-in-spawn: true
+#    broadcast-win: true
+#    count-stats: false
+#    allow-bids: true
+#    allow-custom-kits: true
+#    allow-abilities: false
+
+# World settings allow you to configure settings for your worlds.
+# For example, you can lock a world to specific weather types, making it easy to add themes to your maps.
+# You can also set a gamemode, which a player will switch to when visiting this world.
+#world-settings:
+#  global: # These settings are the default for all maps created by PremiumPvP
+#    void: true
+#    weather-lock: sun
+#    gamemode: adventure
+#    hunger: false
+#  duels: # These settings count for all Duels maps, overriding "global"
+#    void: true
+#    weather-lock: sun
+#    gamdemode: adventure
+#    hunger: false
+#  specifics:  # These are settings for specific worlds. Exceptions on duels worlds can also be added here.
+#    world:
+#      void: false
+#      weather-lock: none
+#      gamemode: survival
+#      hunger: true
+
+
+
+
+
+
+#placeholders:
+#  Symbols
+#  %symbol_heart%
+
+#  Server
+#  %server_players%
+#  %server_playermax%
+#  %server_tps%
+
+#  Player
+#  %player_ping%
+#  %player_level%
+#  %player_exp%
+#  %player_neededexp%
+#  %player_progress%
+#  %player_health%
+#  %player_kills%
+#  %player_assists%
+#  %player_deaths%
+#  %player_kdratio%
+#  %player_killstreak%
+#  %player_highestkillstreak%
+
+#  Guild
+#  %guild_name%
+#  %guild_tag%
+#  %guild_level%
+#  %guild_exp%
+#  %guild_neededexp%
