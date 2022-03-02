@@ -37,12 +37,12 @@ main-command:
 # The world command allows you to teleport you and others to other worlds
 # This is added to make using our world management system easier.
 world-command:
-  enabled: true
-  name: world
-  description: "Teleport between worlds"
-  permission:
-    enabled: true
-    name: premiumpvp.worlds
+  enabled: true # This will completely enable or disable the command.
+  name: world # The name of the command. For example if the name is "world" the command would be /world
+  description: "Teleport between worlds" # The description is used for Bukkit's /help system.
+  permission: # The permission you need to execute this command
+    enabled: true # If you need the permission, set to "false" to make it so everyone can do this. (Not recommended for this command)
+    name: premiumpvp.worlds # The permission they would need to execute this command.
 
 # Here are the basic game settings.
 # This allows you to modify the pvp experience to your likings.
@@ -61,7 +61,7 @@ world-command:
 #  tablist:
 #    enabled: true
 #    header: "\n &5&lExampleServer \n &71.8.9 is recommended \n"
-#    footer: "\n &7Players: &5%server_players% &7- TPS: &5%server_tps% &7- Ping &5%player_ping% ms \n\n &7play.exampleserver.com \n"
+#    footer: "\n &7Players: &5%server_online% &7- TPS: &5%server_tps% &7- Ping &5%player_ping% ms \n\n &7play.exampleserver.com \n"
 #  combattimer:
 #    enabled: true
 #    seconds: 10
@@ -155,58 +155,30 @@ world-command:
 world-settings:
   global: # These settings are the default for all maps loaded by PremiumPvP
     void: true # If you enable this, there will be no world generation.
-    weather-lock: CLEAR # You can lock the weather to CLEAR or DOWNFALL, disable this by setting it to NONE
-    gamemode: ADVENTURE # Players visiting this world will be forced to this gamemode, disable this by setting it to NONE
-    hunger: false # If you enable this, players will be able to get hungry in this world
     type: FLAT # You can set this to NORMAL, FLAT, LARGE_BIOMES, AMPLIFIED
     generate-structures: false # Enabling this allows the generation of structures like villages and temples
+    gamemode: ADVENTURE # Players visiting this world will be forced to this gamemode, disable this by setting it to NONE
+    weather-lock: CLEAR # You can lock the weather to CLEAR or DOWNFALL, disable this by setting it to NONE
+    hunger: false # If you enable this, players will be able to get hungry in this world
   duels: # These settings count for all Duels maps, overriding "global"
     void: true
-    weather-lock: CLEAR
-    gamemode: ADVENTURE
-    hunger: false
     type: FLAT
     generate-structures: false
+    gamemode: ADVENTURE
+    weather-lock: CLEAR
+    hunger: false
   specifics:  # These are settings for specific worlds. Exceptions on duels worlds can also be added here. Adding a non-existent world will make PremiumPvP generate this world.
+    world:
+      # If your server's default world is "world", we can not change: void, type or generate-structures.
+      # You can however use PremiumPvP as a void generator in your bukkit.yml.
+      # To do this, read this page https://bukkit.fandom.com/wiki/Bukkit.yml#.2AOPTIONAL.2A_worlds
+      gamemode: ADVENTURE
+      weather-lock: CLEAR
+      hunger: false
     ffa: # This will generate a new world called "FFA", and will load this world every time the plugin (re)starts.
       void: true
-      weather-lock: CLEAR
-      gamemode: ADVENTURE
-      hunger: false
       type: FLAT
       generate-structures: false
-
-
-
-
-
-
-#placeholders:
-#  Symbols
-#  %symbol_heart%
-
-#  Server
-#  %server_players%
-#  %server_playermax%
-#  %server_tps%
-
-#  Player
-#  %player_ping%
-#  %player_level%
-#  %player_exp%
-#  %player_neededexp%
-#  %player_progress%
-#  %player_health%
-#  %player_kills%
-#  %player_assists%
-#  %player_deaths%
-#  %player_kdratio%
-#  %player_killstreak%
-#  %player_highestkillstreak%
-
-#  Guild
-#  %guild_name%
-#  %guild_tag%
-#  %guild_level%
-#  %guild_exp%
-#  %guild_neededexp%
+      gamemode: ADVENTURE
+      weather-lock: CLEAR
+      hunger: false
