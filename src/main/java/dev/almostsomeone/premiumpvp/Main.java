@@ -35,7 +35,6 @@ public class Main extends JavaPlugin {
 
     private void onStartup() {
         // Loading the configuration and messages
-        this.getLogger().log(Level.INFO, "Loading configuration...");
         this.config = new Config(this);
         this.messages = new Messages(this);
 
@@ -51,9 +50,7 @@ public class Main extends JavaPlugin {
 
     private void onStarted() {
         // Load Worlds
-        this.getLogger().log(Level.INFO, "Loading worlds...");
         this.worldManager = new WorldManager(getInstance());
-        this.getLogger().log(Level.INFO, "Loaded all worlds");
 
         // Initialize all commands
         new KitPvPCMD(getInstance());

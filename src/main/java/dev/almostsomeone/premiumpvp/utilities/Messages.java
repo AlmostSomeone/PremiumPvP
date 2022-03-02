@@ -24,6 +24,7 @@ public class Messages {
     }
 
     public void loadMessages() {
+        this.javaPlugin.getLogger().log(Level.INFO, "Loading messages...");
         File dir = new File(Main.getInstance().getDataFolder() + File.separator + "languages" + File.separator);
         if(!dir.exists()){
             try {

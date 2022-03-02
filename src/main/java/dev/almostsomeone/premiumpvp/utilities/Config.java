@@ -20,6 +20,7 @@ public class Config {
     }
 
     public void loadConfig() {
+        this.javaPlugin.getLogger().log(Level.INFO, "Loading configuration...");
         file = new File(Main.getInstance().getDataFolder(), "config.yml");
         if(!file.exists()) {
             try {
