@@ -2,6 +2,7 @@ package dev.almostsomeone.premiumpvp;
 
 import dev.almostsomeone.premiumpvp.commands.KitPvPCMD;
 import dev.almostsomeone.premiumpvp.commands.WorldCMD;
+import dev.almostsomeone.premiumpvp.common.bukkit.placeholder.Placeholder;
 import dev.almostsomeone.premiumpvp.common.bukkit.world.VoidGenerator;
 import dev.almostsomeone.premiumpvp.common.bukkit.world.WorldManager;
 import dev.almostsomeone.premiumpvp.common.nms.NMS;
@@ -20,7 +21,9 @@ public class Main extends JavaPlugin {
     public Config config;
     public Messages messages;
 
+    // Instances
     public WorldManager worldManager;
+    public Placeholder placeholder;
 
     @Override
     public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
@@ -46,6 +49,9 @@ public class Main extends JavaPlugin {
 
         // Hooking into NMS
         new NMS(this);
+
+        // Preparing placeholders
+        placeholder = new Placeholder(this);
     }
 
     private void onStarted() {
