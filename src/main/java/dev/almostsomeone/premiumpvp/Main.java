@@ -4,8 +4,9 @@ import dev.almostsomeone.premiumpvp.commands.KitPvPCMD;
 import dev.almostsomeone.premiumpvp.commands.WorldCMD;
 import dev.almostsomeone.premiumpvp.common.bukkit.placeholder.Placeholder;
 import dev.almostsomeone.premiumpvp.common.bukkit.world.VoidGenerator;
-import dev.almostsomeone.premiumpvp.common.bukkit.world.WorldManager;
 import dev.almostsomeone.premiumpvp.common.nms.NMS;
+import dev.almostsomeone.premiumpvp.game.Game;
+import dev.almostsomeone.premiumpvp.listeners.ListenerHandler;
 import dev.almostsomeone.premiumpvp.utilities.*;
 import org.bstats.bukkit.Metrics;
 import org.bstats.charts.SimplePie;
@@ -22,7 +23,7 @@ public class Main extends JavaPlugin {
     public Messages messages;
 
     // Instances
-    public WorldManager worldManager;
+    private Game game;
     public Placeholder placeholder;
 
     @Override
@@ -55,8 +56,11 @@ public class Main extends JavaPlugin {
     }
 
     private void onStarted() {
-        // Load Worlds
-        this.worldManager = new WorldManager(getInstance());
+        // Initialize game
+        game = new Game();
+
+        // Register all listeners
+        new ListenerHandler(this);
 
         // Initialize all commands
         new KitPvPCMD(getInstance());
@@ -71,6 +75,10 @@ public class Main extends JavaPlugin {
             String suffix = version.split("-")[1].toLowerCase();
             this.getLogger().log(Level.WARNING, "You are running a " + suffix + " release. Consider using our latest stable release for public servers.");
         }
+    }
+
+    public Game getGame() {
+        return this.game;
     }
 
     public static Main getInstance() {

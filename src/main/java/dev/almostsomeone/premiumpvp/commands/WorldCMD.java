@@ -70,7 +70,7 @@ public class WorldCMD extends CommandBuilder {
     }
 
     private void teleport(Player player, World world) throws NullPointerException {
-        player.teleport(world.getHighestBlockAt(world.getSpawnLocation()).getLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);
+        player.teleport(world.getSpawnLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);
         player.sendMessage(format(player, messages.getMessage("commands.world.teleported")));
     }
 }

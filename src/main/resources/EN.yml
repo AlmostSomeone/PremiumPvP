@@ -9,6 +9,8 @@ commands:
     item: "&6{subcommand}: &f{description}"
     footer: "&e-----------------------------"
   kitpvp:
+    join: "&aYou joined KitPvP."
+    leave: "&cYou left KitPvP."
     config:
       reload-success: "&aYou have successfully reloaded the configuration."
       reload-failed: "&cSomething went wrong reloading the configuration."

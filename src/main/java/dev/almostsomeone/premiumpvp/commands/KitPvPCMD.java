@@ -1,8 +1,11 @@
 package dev.almostsomeone.premiumpvp.commands;
 
 import dev.almostsomeone.premiumpvp.Main;
+import dev.almostsomeone.premiumpvp.events.gameplayer.GamePlayerJoinEvent;
+import dev.almostsomeone.premiumpvp.events.gameplayer.GamePlayerLeaveEvent;
 import dev.almostsomeone.premiumpvp.utilities.Config;
 import dev.almostsomeone.premiumpvp.utilities.Messages;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -19,6 +22,9 @@ public class KitPvPCMD extends CommandBuilder {
     private final Config config = Main.getInstance().config;
     private final Messages messages = Main.getInstance().messages;
 
+    private Boolean joinCommand = false;
+    private Boolean leaveCommand = false;
+
     public KitPvPCMD(final Plugin plugin) {
         super("main-command", "kitpvp", true);
         this.plugin = plugin;
@@ -29,6 +35,15 @@ public class KitPvPCMD extends CommandBuilder {
             put("reload", "Reload the configurations");
             put("save", "Force the plugin to save its data");
         }};
+
+        if(config.get().isSet("participate.join.command") && config.get().getBoolean("participate.join.command")) {
+            subCommands.put("join", "Join the KitPvP");
+            joinCommand = true;
+        }
+        if(config.get().isSet("participate.leave.command") && config.get().getBoolean("participate.leave.command")) {
+            subCommands.put("leave", "Leave the KitPvP");
+            leaveCommand = true;
+        }
     }
 
     @Override
@@ -81,6 +96,15 @@ public class KitPvPCMD extends CommandBuilder {
                         player.sendMessage(format(player, this.messages.getMessage("commands.kitpvp.data.save-failed")));
                     }
                     break;
+                case "join":
+                    if(!joinCommand) break;
+                    Bukkit.getPluginManager().callEvent(new GamePlayerJoinEvent(player.getUniqueId())); // Trigger the GamePlayerJoinEvent
+                    player.sendMessage(format(player, this.messages.getMessage("commands.kitpvp.join")));
+                    break;
+                case "leave":
+                    if(!leaveCommand) break;
+                    Bukkit.getPluginManager().callEvent(new GamePlayerLeaveEvent(player.getUniqueId())); // Trigger the GamePlayerLeaveEvent
+                    player.sendMessage(format(player, this.messages.getMessage("commands.kitpvp.leave")));
                 default:
                     player.sendMessage(format(player, this.messages.getMessage("commands.help.use-help").replaceAll("\\{command\\}", "/" + label)));
                     break;

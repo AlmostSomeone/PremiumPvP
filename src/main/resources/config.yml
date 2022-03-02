@@ -44,12 +44,20 @@ world-command:
     enabled: true # If you need the permission, set to "false" to make it so everyone can do this. (Not recommended for this command)
     name: premiumpvp.worlds # The permission they would need to execute this command.
 
+# Configure how players can participate in KitPvP
+# I'd recommend leaving this as it is if you only have this gamemode on the server.
+# This is useful if you have multiple gamemodes in one server, since PremiumPvP will not interact with players that are not "joined".
+participate:
+  join:
+    server: true # Join the KitPvP on server join
+    command: false # Allow users to join with /kitpvp join
+  leave:
+    command: false # Allows users to leave with /kitpvp leave
+    execute-command: "lobby {player}" # Allows you to execute console commands when someone uses /kitpvp leave.
+
 # Here are the basic game settings.
 # This allows you to modify the pvp experience to your likings.
 #settings:
-#  join-kitpvp: # When should a player "join" the KitPvP
-#    on-server-join: true # Enable this if players should directly join the KitPvP
-#    join-command: false # Enable this if you want to be able to join players by /kitpvp join (name). Could be useful for servers with multiple games in one server.
 #  kit-customization:
 #    enabled: true
 #    permission:
@@ -158,7 +166,7 @@ world-settings:
     type: FLAT # You can set this to NORMAL, FLAT, LARGE_BIOMES, AMPLIFIED
     generate-structures: false # Enabling this allows the generation of structures like villages and temples
     gamemode: ADVENTURE # Players visiting this world will be forced to this gamemode, disable this by setting it to NONE
-    weather-lock: CLEAR # You can lock the weather to CLEAR or DOWNFALL, disable this by setting it to NONE
+    weather-lock: CLEAR # You can lock the weather to CLEAR. Disable this by setting it to NONE
     hunger: false # If you enable this, players will be able to get hungry in this world
   duels: # These settings count for all Duels maps, overriding "global"
     void: true
