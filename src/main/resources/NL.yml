@@ -1,12 +1,12 @@
- global:
-  no-permissions: "&4Je hebt niet genoeg rechten om dit uit te voeren!"
+global:
   only-players: "&cAlleen spelers kunnen dit doen."
+  no-permissions: "&4Je hebt niet genoeg rechten om dit uit te voeren!"
   target-not-online: "&cDe opgegeven speler is niet online."
 commands:
-  use-help: "&cGebruik %command% voor hulp."
-  helpmenu:
-    header: "&e---------&f Hulp: %command% &e---------"
-    item: "&6%subcommand%: &f%description%"
+  help:
+    use-help: "&cGebruik {command} voor hulp."
+    header: "&e---------&f Hulp: {command} &e---------"
+    item: "&6{subcommand}: &f{description}"
     footer: "&e-----------------------------"
   kitpvp:
     config:
@@ -17,5 +17,5 @@ commands:
       save-failed: "&cEr is iets fout gegaan tijdens het opslaan van de data."
   world:
     usage: "&cGebruik /world (wereld) [speler] om te teleporteren."
-    no-world: "&cDe wereld %world% bestaat niet."
-    teleported: "&aJe bent geteleporteerd naar de wereld %world%."
+    no-world: "&cDe opgegeven wereld bestaat niet."
+    teleported: "&aJe bent naar de wereld geteleporteerd."

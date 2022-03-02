@@ -1,12 +1,12 @@
 global:
-  no-permissions: "&4You don't have enough permissions to do this."
   only-players: "&cOnly players can do this."
+  no-permissions: "&4You don't have enough permissions to do this."
   target-not-online: "&cThe player you provided is not online"
 commands:
-  use-help: "&cPlease use %command% for help."
-  helpmenu:
-    header: "&e---------&f Help: %command% &e---------"
-    item: "&6%subcommand%: &f%description%"
+  help:
+    use-help: "&cPlease use {command} for help."
+    header: "&e---------&f Help: {command} &e---------"
+    item: "&6{subcommand}: &f{description}"
     footer: "&e-----------------------------"
   kitpvp:
     config:
@@ -17,5 +17,5 @@ commands:
       save-failed: "&cSomething went wrong saving the data."
   world:
     usage: "&cPlease use /world (world) [player] to teleport."
-    no-world: "&cThe world %world% does not exist."
-    teleported: "&aYou got teleported to the world %world%."
+    no-world: "&cThe given world does not exist."
+    teleported: "&aYou got teleported to the world."
