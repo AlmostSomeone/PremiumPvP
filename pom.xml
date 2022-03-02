@@ -85,7 +85,7 @@
                     <relocations>
                         <relocation>
                             <pattern>org.bstats</pattern>
-                            <shadedPattern>dev.almostsomeone</shadedPattern>
+                            <shadedPattern>dev.almostsomeone.premiumpvp.common.http</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
