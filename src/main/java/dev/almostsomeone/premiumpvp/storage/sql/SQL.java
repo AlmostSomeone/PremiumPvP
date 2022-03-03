@@ -3,15 +3,21 @@ package dev.almostsomeone.premiumpvp.storage.sql;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import dev.almostsomeone.premiumpvp.storage.sql.tables.TableBuilder;
+import dev.almostsomeone.premiumpvp.storage.sql.tables.user.UserLevelingTable;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
 
 public class SQL {
 
     protected HikariConfig hikariConfig;
-
     private HikariDataSource hikariDataSource;
+
+    private List<TableBuilder> tables = Arrays.asList(
+            new UserLevelingTable()
+    );
 
     public void setupPool() {
         this.hikariConfig.setMinimumIdle(10);
@@ -28,7 +34,12 @@ public class SQL {
             this.hikariDataSource.close();
     }
 
-    public void createTable(TableBuilder tableBuilder) {
+    public void createTables(){
+        for(TableBuilder table : this.tables)
+           this.createTable(table);
+    }
+
+    private void createTable(TableBuilder tableBuilder) {
         tableBuilder.create(this.hikariDataSource);
     }
 

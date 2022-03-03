@@ -4,11 +4,12 @@ import dev.almostsomeone.premiumpvp.Main;
 import dev.almostsomeone.premiumpvp.storage.sql.MySQL;
 import dev.almostsomeone.premiumpvp.storage.sql.SQL;
 import dev.almostsomeone.premiumpvp.storage.sql.SQLite;
-import dev.almostsomeone.premiumpvp.storage.sql.tables.PlayerStatsTable;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
 import java.io.File;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.logging.Level;
 
 public class Storage {
@@ -44,15 +45,19 @@ public class Storage {
 
         // Set up the pool with the configured SQL
         plugin.getLogger().log(Level.INFO, "Setting up connection pool...");
-        sql.setupPool();
+        this.sql.setupPool();
 
         // Prepare the database
         plugin.getLogger().log(Level.INFO, "Preparing databases...");
-        sql.createTable(new PlayerStatsTable());
+        this.sql.createTables();
+    }
+
+    public Connection getConnection() throws SQLException {
+        return sql.getConnection();
     }
 
     public void closePool() {
         plugin.getLogger().log(Level.INFO, "Closing the connection pool...");
-        sql.closePool();
+        this.sql.closePool();
     }
 }

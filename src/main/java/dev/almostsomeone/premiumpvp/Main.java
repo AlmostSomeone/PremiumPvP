@@ -94,6 +94,10 @@ public class Main extends JavaPlugin {
         return this.placeholder;
     }
 
+    public Storage getStorage() {
+        return this.storage;
+    }
+
     public static Main getInstance() {
         return Main.getPlugin(Main.class);
     }

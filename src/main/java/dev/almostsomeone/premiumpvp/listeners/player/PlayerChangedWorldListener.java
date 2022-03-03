@@ -21,7 +21,7 @@ public class PlayerChangedWorldListener implements Listener {
         Game game = Main.getInstance().getGame();
         GamePlayerManager gamePlayerManager = game.getGamePlayerManager();
         GamePlayer gamePlayer = gamePlayerManager.getGamePlayer(player.getUniqueId());
-        if(gamePlayer == null || !gamePlayer.getIngame()) return;
+        if(gamePlayer == null || !gamePlayer.isIngame()) return;
 
         // Don't do anything if the world has no profile
         WorldManager worldManager = game.getWorldManager();

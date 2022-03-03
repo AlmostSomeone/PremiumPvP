@@ -11,13 +11,18 @@ import java.util.List;
 
 public class TableBuilder {
 
-    private String sqlQuery;
+    private final String createQuery;
+
+    private final String tableName;
+    private final List<String> columns;
 
     public TableBuilder(String tableName, List<String> columns) {
+        this.columns = columns;
+
         YamlConfiguration config = Main.getInstance().config.get();
-        String prefix = (config.isSet("mysql.prefix") ? config.getString("mysql.prefix").length() > 0 ? config.getString("mysql.prefix") + "_" : "" : "premiumpvp_");
+        this.tableName = (config.isSet("mysql.prefix") ? config.getString("mysql.prefix").length() > 0 ? config.getString("mysql.prefix") + "_" : "" : "premiumpvp_") + tableName;
         String colText = columns.toString().replaceAll("\\[", "").replaceAll("\\]", "");
-        this.sqlQuery = "CREATE TABLE IF NOT EXISTS `" + prefix + tableName + "` " +
+        this.createQuery = "CREATE TABLE IF NOT EXISTS `" + this.tableName + "` " +
         "(" +
                 colText +
         ");";
@@ -28,7 +33,7 @@ public class TableBuilder {
         PreparedStatement preparedStatement = null;
         try {
             connection = dataSource.getConnection();
-            preparedStatement = connection.prepareStatement(this.sqlQuery);
+            preparedStatement = connection.prepareStatement(this.createQuery);
             preparedStatement.executeUpdate();
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -36,5 +41,9 @@ public class TableBuilder {
             if (connection != null) try { connection.close(); } catch (SQLException ignored) {}
             if (preparedStatement != null) try { preparedStatement.close(); } catch (SQLException ignored) {}
         }
+    }
+
+    public String getTableName() {
+        return this.tableName;
     }
 }
