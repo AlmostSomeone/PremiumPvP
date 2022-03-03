@@ -11,6 +11,6 @@ public class ChatUtil {
     }
 
     public static String format(Player player, String message) {
-        return color(Main.getInstance().placeholder.setPlaceholders(player, message));
+        return color(Main.getInstance().getPlaceholder().setPlaceholders(player, message));
     }
 }
