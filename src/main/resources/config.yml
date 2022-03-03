@@ -25,25 +25,6 @@ mysql:
   username: username
   password: password
 
-# The main command allows you to manage the plugin
-# You can customize the command here
-main-command:
-  description: "Manage your KitPvP Experience"
-  aliases:
-    - kp
-    - premiumpvp
-    - pvp
-
-# The world command allows you to teleport you and others to other worlds
-# This is added to make using our world management system easier.
-world-command:
-  enabled: true # This will completely enable or disable the command.
-  name: world # The name of the command. For example if the name is "world" the command would be /world
-  description: "Teleport between worlds" # The description is used for Bukkit's /help system.
-  permission: # The permission you need to execute this command
-    enabled: true # If you need the permission, set to "false" to make it so everyone can do this. (Not recommended for this command)
-    name: premiumpvp.worlds # The permission they would need to execute this command.
-
 # Configure how players can participate in KitPvP
 # I'd recommend leaving this as it is if you only have this gamemode on the server.
 # This is useful if you have multiple gamemodes in one server, since PremiumPvP will not interact with players that are not "joined".
@@ -89,21 +70,6 @@ participate:
 # Configure the basics of the guild system.
 # The permissions within a guild can be configured by the guild leader or by those with the correct guild permissions.
 #guilds:
-#  enabled: true
-#  permissions:
-#    global:
-#      enabled: false
-#      name: premiumpvp.guild.global
-#    create:
-#      enabled: true
-#      name: premiumpvp.guild.create
-#  command:
-#    enabled: true
-#    name: guild
-#    description: "Manage your guilds"
-#    aliases:
-#      - guilds
-#      - g
 #  tags:
 #    enabled: true
 #    max-length: 4
@@ -112,8 +78,41 @@ participate:
 # The server's economy settings.
 # Please configure this carefully, especially when your server is already launched.
 #economy:
-#  name: Coins
-#  command:
+#  starters-balance: 100
+#  kill-reward: 10
+
+# The duels' system allows your players to go in private fights against each other.
+# Configure the system here to make it work how you want it.
+#duels:
+#  settings:
+#    be-in-spawn: true
+#    broadcast-win: true
+#    count-stats: false
+#    allow-bids: true
+#    allow-custom-kits: true
+#    allow-abilities: false
+#    allow-spectating: true
+
+# Configure the commands to your likings.
+# You can toggle commands, change their names, add aliases, set their descriptions and also set permissions.
+# Please do not remove a command, this will cause problems.
+commands:
+  main: # The main command can not be disabled, can not have permissions and the name can not be changed.
+    description: "Manage your KitPvP experience"
+    aliases:
+      - kp
+      - premiumpvp
+      - pvp
+  world:
+    enabled: true # This will completely enable or disable the command.
+    name: world # The name of the command. For example if the name is "world" the command would be /world
+    description: "Teleport between worlds" # The description is used for Bukkit's /help system.
+    aliases:
+      - worlds
+    permission: # The permission you need to execute this command
+      enabled: true # If you need the permission, set to "false" to make it so everyone can do this. (Not recommended for this command)
+      name: premiumpvp.command.world # The permission they would need to execute this command.
+#  coins:
 #    enabled: true
 #    name: coins
 #    description: "See how many coins you have"
@@ -123,15 +122,18 @@ participate:
 #      - bal
 #    permission:
 #      enabled: false
-#      name: premiumpvp.command.economy
-#  starters-balance: 100
-#  kill-reward: 10
-
-# The duels' system allows your players to go in private fights against each other.
-# Configure the system here to make it work how you want it.
-#duels:
-#  enabled: true
-#  command:
+#      name: premiumpvp.command.coins
+#  guild:
+#    enabled: true
+#    name: guild
+#    description: "Manage your guilds"
+#    aliases:
+#      - guilds
+#      - g
+#    permissions:
+#      enabled: false
+#      name: premiumpvp.command.guild
+#  duels:
 #    enabled: true
 #    description: "Invite your friend for a fair fight"
 #    aliases:
@@ -139,23 +141,7 @@ participate:
 #      - 1v1
 #    permission:
 #      enabled: false
-#      name: premiumpvp.duels.command
-#  inviting:
-#    permission:
-#      enabled: false
-#      name: premiumpvp.duels.invite
-#  spectating:
-#    enabled: true
-#    permission:
-#      enabled: false
-#      name: premiumpvp.duels.spectate
-#  settings:
-#    be-in-spawn: true
-#    broadcast-win: true
-#    count-stats: false
-#    allow-bids: true
-#    allow-custom-kits: true
-#    allow-abilities: false
+#      name: premiumpvp.command.duels
 
 # World settings allow you to configure settings for your worlds.
 # For example, you can lock a world to specific weather types, making it easy to add themes to your maps.

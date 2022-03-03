@@ -3,8 +3,6 @@ package dev.almostsomeone.premiumpvp.commands;
 import dev.almostsomeone.premiumpvp.Main;
 import dev.almostsomeone.premiumpvp.events.gameplayer.GamePlayerJoinEvent;
 import dev.almostsomeone.premiumpvp.events.gameplayer.GamePlayerLeaveEvent;
-import dev.almostsomeone.premiumpvp.game.Game;
-import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerManager;
 import dev.almostsomeone.premiumpvp.utilities.Config;
 import dev.almostsomeone.premiumpvp.utilities.Messages;
 import org.bukkit.Bukkit;
@@ -13,7 +11,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import java.util.HashMap;
-import java.util.UUID;
 
 import static dev.almostsomeone.premiumpvp.utilities.ChatUtil.color;
 import static dev.almostsomeone.premiumpvp.utilities.ChatUtil.format;
@@ -29,10 +26,10 @@ public class KitPvPCMD extends CommandBuilder {
     private Boolean leaveCommand = false;
 
     public KitPvPCMD(final Plugin plugin) {
-        super("main-command", "kitpvp", true);
+        super("commands.main", "kitpvp", true, false);
         this.plugin = plugin;
 
-        this.subCommands = new HashMap<String, String>() {{
+        this.subCommands = new HashMap<>() {{
             put("info", "Get information about the plugin");
             put("help", "Get a list of sub-commands");
             put("reload", "Reload the configurations");

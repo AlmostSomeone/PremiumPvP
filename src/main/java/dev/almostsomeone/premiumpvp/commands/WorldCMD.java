@@ -18,7 +18,7 @@ public class WorldCMD extends CommandBuilder {
     private final Messages messages = Main.getInstance().messages;
 
     public WorldCMD() {
-        super("world-command");
+        super("commands.world");
 
         this.subCommands = new HashMap<>();
         for(World world : Bukkit.getWorlds())

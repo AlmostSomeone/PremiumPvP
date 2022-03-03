@@ -54,14 +54,14 @@ public abstract class CommandBuilder extends Command {
         }
     }
 
-    protected CommandBuilder(String configPath, String name, Boolean forceEnabled) {
+    protected CommandBuilder(String configPath, String name, Boolean forceEnabled, Boolean allowPermissions) {
         super(name);
 
         this.setUsage("/" + this.getName());
         this.setPermissionMessage(this.messages.getMessage("global.no-permissions"));
         if(this.config.isSet(configPath + ".description"))
             this.setDescription(this.config.getString(configPath + ".description"));
-        if(this.config.isSet(configPath + ".permission.enabled") && this.config.getBoolean(configPath + ".permission.enabled") && this.config.isSet(configPath + ".permission.name"))
+        if(allowPermissions && this.config.isSet(configPath + ".permission.enabled") && this.config.getBoolean(configPath + ".permission.enabled") && this.config.isSet(configPath + ".permission.name"))
             this.setPermission(this.config.getString(configPath + ".permission.name"));
         if(this.config.isSet(configPath + ".aliases"))
             this.setAliases(this.config.getStringList(configPath + ".aliases"));
