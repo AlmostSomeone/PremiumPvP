@@ -1,14 +1,12 @@
 package dev.almostsomeone.premiumpvp.utilities;
 
 import dev.almostsomeone.premiumpvp.Main;
-import jdk.jfr.internal.LogLevel;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.*;
-import java.util.Objects;
 import java.util.logging.Level;
 
 public class Messages {
@@ -87,7 +85,7 @@ public class Messages {
 
     public String getMessage(String path){
         if(messagesFile.isSet(path)) {
-            return ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(messagesFile.getString(path)));
+            return ChatColor.translateAlternateColorCodes('&', messagesFile.getString(path));
         }
         return "&4Message not found. Please contact a server administrator.";
     }

@@ -8,8 +8,6 @@ import dev.almostsomeone.premiumpvp.common.nms.NMS;
 import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.listeners.ListenerHandler;
 import dev.almostsomeone.premiumpvp.utilities.*;
-import org.bstats.bukkit.Metrics;
-import org.bstats.charts.SimplePie;
 import org.bukkit.Bukkit;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -42,11 +40,11 @@ public class Main extends JavaPlugin {
         this.config = new Config(this);
         this.messages = new Messages(this);
 
-        // Loading bStats metrics
+        /*/ Loading bStats metrics
         this.getLogger().log(Level.INFO, "Loading bStats metrics...");
         Metrics metrics = new Metrics(this, 14487);
         String language = (this.config.get().isSet("language") ? this.config.get().getString("language") : "EN");
-        metrics.addCustomChart(new SimplePie("language", () -> language));
+        metrics.addCustomChart(new SimplePie("language", () -> language));*/
 
         // Hooking into NMS
         new NMS(this);
@@ -58,6 +56,7 @@ public class Main extends JavaPlugin {
     private void onStarted() {
         // Initialize game
         game = new Game();
+        game.getGamePlayerManager().onLoad();
 
         // Register all listeners
         new ListenerHandler(this);
