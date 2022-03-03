@@ -1,6 +1,7 @@
 package dev.almostsomeone.premiumpvp.events.gameplayer;
 
 import dev.almostsomeone.premiumpvp.Main;
+import dev.almostsomeone.premiumpvp.data.objects.UserData;
 import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerManager;
@@ -37,7 +38,9 @@ public class GamePlayerLeaveEvent extends Event {
         }
         gamePlayer.setIngame(false);
 
-        //TODO Save data
+        // Save the GamePlayers userdata
+        UserData userData = this.gamePlayer.getUserData();
+        userData.save();
     }
 
     public GamePlayer getGamePlayer() {

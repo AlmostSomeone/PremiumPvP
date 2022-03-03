@@ -3,6 +3,8 @@ package dev.almostsomeone.premiumpvp.commands;
 import dev.almostsomeone.premiumpvp.Main;
 import dev.almostsomeone.premiumpvp.events.gameplayer.GamePlayerJoinEvent;
 import dev.almostsomeone.premiumpvp.events.gameplayer.GamePlayerLeaveEvent;
+import dev.almostsomeone.premiumpvp.game.Game;
+import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerManager;
 import dev.almostsomeone.premiumpvp.utilities.Config;
 import dev.almostsomeone.premiumpvp.utilities.Messages;
 import org.bukkit.Bukkit;
@@ -90,7 +92,7 @@ public class KitPvPCMD extends CommandBuilder {
                     break;
                 case "save":
                     try {
-                        //TODO Save data
+                        Main.getInstance().getGame().getGamePlayerManager().saveAll();
                         player.sendMessage(format(player, this.messages.getMessage("commands.kitpvp.data.save-success")));
                     } catch (Exception exception) {
                         exception.printStackTrace();

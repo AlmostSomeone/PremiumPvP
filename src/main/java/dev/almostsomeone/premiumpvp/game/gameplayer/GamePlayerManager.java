@@ -29,6 +29,17 @@ public class GamePlayerManager {
         }
     }
 
+    public void onUnload() {
+        saveAll();
+    }
+
+    public void saveAll() {
+        for(Player player : Bukkit.getOnlinePlayers()) {
+            GamePlayer gamePlayer = this.getGamePlayer(player.getUniqueId());
+            gamePlayer.getUserData().save();
+        }
+    }
+
     public List<GamePlayer> getGamePlayers() {
         List<GamePlayer> copy = new ArrayList<>(this.gamePlayers);
         return copy;

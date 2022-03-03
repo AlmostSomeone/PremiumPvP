@@ -14,6 +14,10 @@ public class UserData {
         this.uuid = uuid;
     }
 
+    public void save() {
+        this.userLeveling.save();
+    }
+
     public UserLeveling getUserLeveling() {
         return this.userLeveling;
     }

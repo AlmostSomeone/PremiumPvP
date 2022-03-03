@@ -6,10 +6,13 @@ import dev.almostsomeone.premiumpvp.common.bukkit.placeholder.Placeholder;
 import dev.almostsomeone.premiumpvp.common.bukkit.world.VoidGenerator;
 import dev.almostsomeone.premiumpvp.common.nms.NMS;
 import dev.almostsomeone.premiumpvp.game.Game;
+import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
+import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerManager;
 import dev.almostsomeone.premiumpvp.listeners.ListenerHandler;
 import dev.almostsomeone.premiumpvp.storage.Storage;
 import dev.almostsomeone.premiumpvp.utilities.*;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -39,6 +42,7 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        this.game.getGamePlayerManager().onUnload();
         this.storage.closePool();
     }
 
@@ -63,10 +67,12 @@ public class Main extends JavaPlugin {
     private void onStarted() {
         // Initialize game
         this.game = new Game();
-        this.game.getGamePlayerManager().onLoad();
 
         // Load the storage
         this.storage = new Storage(this);
+
+        // Load all the game players
+        this.game.getGamePlayerManager().onLoad();
 
         // Register all listeners
         new ListenerHandler(this);
