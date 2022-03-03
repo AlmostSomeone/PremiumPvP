@@ -13,11 +13,13 @@ import java.util.UUID;
 
 public class GamePlayerManager {
 
-    public List<GamePlayer> gamePlayers;
+    private List<GamePlayer> gamePlayers;
 
     public GamePlayerManager() {
         this.gamePlayers = new ArrayList<>();
+    }
 
+    public void onLoad() {
         YamlConfiguration config = Main.getInstance().config.get();
 
         // Join all online players if join on server join is enabled
@@ -27,13 +29,13 @@ public class GamePlayerManager {
         }
     }
 
-    public List<GamePlayer> getOnlineGamePlayers() {
+    public List<GamePlayer> getGamePlayers() {
         List<GamePlayer> copy = new ArrayList<>(this.gamePlayers);
         return copy;
     }
 
     public GamePlayer getGamePlayer(UUID uuid) {
-        Optional<GamePlayer> result = this.getOnlineGamePlayers().stream()
+        Optional<GamePlayer> result = this.getGamePlayers().stream()
                 .filter(gamePlayer -> gamePlayer.getUniqueId().equals(uuid))
                 .findFirst();
         return result.orElse(null);

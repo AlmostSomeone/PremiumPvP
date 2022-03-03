@@ -29,13 +29,12 @@ public class GamePlayerLeaveEvent extends Event {
     public GamePlayerLeaveEvent(UUID uuid) {
         Game game = Main.getInstance().getGame();
         GamePlayerManager gamePlayerManager = game.getGamePlayerManager();
-        GamePlayer gamePlayer = gamePlayerManager.getGamePlayer(uuid);
 
+        this.gamePlayer = gamePlayerManager.getGamePlayer(uuid);
         if(gamePlayer == null) {
             Bukkit.getLogger().log(Level.WARNING, "Tried to trigger GamePlayerLeaveEvent, but GamePlayer can not be found.");
             return;
         }
-        this.gamePlayer = gamePlayerManager.getGamePlayer(uuid);
         gamePlayer.setIngame(false);
 
         //TODO Save data

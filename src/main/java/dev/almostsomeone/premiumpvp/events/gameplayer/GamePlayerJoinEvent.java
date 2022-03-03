@@ -26,7 +26,12 @@ public class GamePlayerJoinEvent extends Event {
 
     public GamePlayerJoinEvent(UUID uuid) {
         //TODO Load data
+
         this.gamePlayer = new GamePlayer(uuid);
+
+        GamePlayerManager gamePlayerManager = Main.getInstance().getGame().getGamePlayerManager();
+        gamePlayerManager.addGamePlayer(gamePlayer);
+
         gamePlayer.setIngame(true);
     }
 

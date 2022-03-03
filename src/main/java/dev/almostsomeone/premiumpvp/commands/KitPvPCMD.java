@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 import static dev.almostsomeone.premiumpvp.utilities.ChatUtil.color;
 import static dev.almostsomeone.premiumpvp.utilities.ChatUtil.format;
@@ -105,6 +106,7 @@ public class KitPvPCMD extends CommandBuilder {
                     if(!leaveCommand) break;
                     Bukkit.getPluginManager().callEvent(new GamePlayerLeaveEvent(player.getUniqueId())); // Trigger the GamePlayerLeaveEvent
                     player.sendMessage(format(player, this.messages.getMessage("commands.kitpvp.leave")));
+                    break;
                 default:
                     player.sendMessage(format(player, this.messages.getMessage("commands.help.use-help").replaceAll("\\{command\\}", "/" + label)));
                     break;
