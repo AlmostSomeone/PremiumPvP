@@ -7,8 +7,7 @@
 
 An advanced KitPvP plugin for your Minecraft server.
 It is free to use, and you can download it from [SpigotMC](https://www.spigotmc.org/resources/46196/).
-PremiumPvP is a plugin build on the Spigot-API 1.8.8.
-It has no dependencies
+PremiumPvP is a plugin build on the Spigot-API 1.18.2 using JDK 17. There are no required dependencies, however the resource can and will hook into ProtocolLib and PlaceholderAPI when it can.
 
 ### Plugin
 
