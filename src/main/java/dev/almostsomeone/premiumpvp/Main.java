@@ -7,6 +7,7 @@ import dev.almostsomeone.premiumpvp.common.bukkit.world.VoidGenerator;
 import dev.almostsomeone.premiumpvp.common.nms.NMS;
 import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.listeners.ListenerHandler;
+import dev.almostsomeone.premiumpvp.storage.Storage;
 import dev.almostsomeone.premiumpvp.utilities.*;
 import org.bukkit.Bukkit;
 import org.bukkit.generator.ChunkGenerator;
@@ -22,7 +23,8 @@ public class Main extends JavaPlugin {
 
     // Instances
     private Game game;
-    public Placeholder placeholder;
+    private Placeholder placeholder;
+    private Storage storage;
 
     @Override
     public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
@@ -33,6 +35,11 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         this.onStartup();
         Bukkit.getScheduler().scheduleSyncDelayedTask(this, this::onStarted);
+    }
+
+    @Override
+    public void onDisable() {
+        this.storage.closePool();
     }
 
     private void onStartup() {
@@ -50,13 +57,16 @@ public class Main extends JavaPlugin {
         new NMS(this);
 
         // Preparing placeholders
-        placeholder = new Placeholder(this);
+        this.placeholder = new Placeholder(this);
     }
 
     private void onStarted() {
         // Initialize game
-        game = new Game();
-        game.getGamePlayerManager().onLoad();
+        this.game = new Game();
+        this.game.getGamePlayerManager().onLoad();
+
+        // Load the storage
+        this.storage = new Storage(this);
 
         // Register all listeners
         new ListenerHandler(this);
@@ -78,6 +88,10 @@ public class Main extends JavaPlugin {
 
     public Game getGame() {
         return this.game;
+    }
+
+    public Placeholder getPlaceholder() {
+        return this.placeholder;
     }
 
     public static Main getInstance() {

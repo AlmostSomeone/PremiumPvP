@@ -16,14 +16,14 @@ language: EN
 # Configure this part when you wish to save data like stats, kits, guilds, cosmetics in MySQL
 # If not enabled, the data will be stored in local JSON files in the "data" folder.
 # There is a migrate command if you wish to migrate your local data to MySQL later on.
-#mysql:
-#  enabled: false
-#  host: localhost
-#  port: 3306
-#  database: kitpvp
-#  table-prefix: premiumpvp
-#  username: username
-#  password: password
+mysql:
+  enabled: false
+  host: localhost
+  port: 3306
+  database: kitpvp
+  table-prefix: premiumpvp
+  username: username
+  password: password
 
 # The main command allows you to manage the plugin
 # You can customize the command here
