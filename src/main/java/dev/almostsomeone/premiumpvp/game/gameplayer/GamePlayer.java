@@ -1,6 +1,7 @@
 package dev.almostsomeone.premiumpvp.game.gameplayer;
 
-import dev.almostsomeone.premiumpvp.data.objects.UserData;
+import dev.almostsomeone.premiumpvp.Main;
+import dev.almostsomeone.premiumpvp.data.user.User;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -11,13 +12,15 @@ public class GamePlayer {
     private final UUID uuid;
     private Boolean ingame;
 
-    private UserData userData;
+    private User user;
 
     public GamePlayer(final UUID uuid) {
         this.uuid = uuid;
         this.ingame = false;
 
-        this.userData = new UserData(uuid);
+        this.user = new User(uuid);
+
+        Main.getInstance().getGame().getGamePlayerManager().addGamePlayer(this);
     }
 
     public Player getPlayer() {
@@ -36,7 +39,7 @@ public class GamePlayer {
         return this.uuid;
     }
 
-    public UserData getUserData() {
-        return this.userData;
+    public User getUser() {
+        return this.user;
     }
 }

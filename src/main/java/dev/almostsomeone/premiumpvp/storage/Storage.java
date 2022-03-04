@@ -8,6 +8,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -36,7 +37,7 @@ public class Storage {
                 try {
                     this.plugin.getLogger().log(Level.INFO, "Creating local database...");
                     file.createNewFile();
-                } catch (Exception exception) {
+                } catch (IOException exception) {
                     exception.printStackTrace();
                 }
             }
@@ -46,10 +47,6 @@ public class Storage {
         // Set up the pool with the configured SQL
         plugin.getLogger().log(Level.INFO, "Setting up connection pool...");
         this.sql.setupPool();
-
-        // Prepare the database
-        plugin.getLogger().log(Level.INFO, "Preparing databases...");
-        this.sql.createTables();
     }
 
     public Connection getConnection() throws SQLException {

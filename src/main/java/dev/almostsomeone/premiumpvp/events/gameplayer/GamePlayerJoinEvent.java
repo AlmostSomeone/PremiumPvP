@@ -1,7 +1,9 @@
 package dev.almostsomeone.premiumpvp.events.gameplayer;
 
 import dev.almostsomeone.premiumpvp.Main;
-import dev.almostsomeone.premiumpvp.data.objects.UserData;
+import dev.almostsomeone.premiumpvp.data.user.User;
+import dev.almostsomeone.premiumpvp.data.user.groups.UserEconomy;
+import dev.almostsomeone.premiumpvp.data.user.groups.UserLeveling;
 import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerManager;
@@ -26,19 +28,27 @@ public class GamePlayerJoinEvent extends Event {
     private final GamePlayer gamePlayer;
 
     public GamePlayerJoinEvent(UUID uuid) {
-        this.gamePlayer = new GamePlayer(uuid);
+        Game game = Main.getInstance().getGame();
+        GamePlayerManager gamePlayerManager = game.getGamePlayerManager();
 
-        // Get the GamePlayer's userdata
-        UserData userData = this.gamePlayer.getUserData();
+        if(gamePlayerManager.getGamePlayer(uuid) != null)
+            this.gamePlayer = gamePlayerManager.getGamePlayer(uuid);
+        else
+            this.gamePlayer = new GamePlayer(uuid);
 
-        // Load the UserLeveling data if it is not loaded yet.
-        if(userData.getUserLeveling() == null)
-            userData.loadUserLeveling();
-
-        GamePlayerManager gamePlayerManager = Main.getInstance().getGame().getGamePlayerManager();
-        gamePlayerManager.addGamePlayer(gamePlayer);
+        if(this.gamePlayer.isIngame()) return;
 
         this.gamePlayer.setIngame(true);
+
+        User user = this.gamePlayer.getUser();
+
+        // Load the UserLeveling data
+        UserLeveling userLeveling = user.getLeveling();
+        userLeveling.load();
+
+        // Load the UserEconomy data
+        UserEconomy userEconomy = user.getEconomy();
+        userEconomy.load();
     }
 
     public GamePlayer getGamePlayer() {

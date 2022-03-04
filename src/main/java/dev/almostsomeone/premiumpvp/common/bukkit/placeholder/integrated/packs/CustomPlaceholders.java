@@ -2,7 +2,7 @@ package dev.almostsomeone.premiumpvp.common.bukkit.placeholder.integrated.packs;
 
 import dev.almostsomeone.premiumpvp.Main;
 import dev.almostsomeone.premiumpvp.common.bukkit.placeholder.integrated.PlaceholderPack;
-import dev.almostsomeone.premiumpvp.data.objects.UserData;
+import dev.almostsomeone.premiumpvp.data.user.User;
 import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerManager;
@@ -26,16 +26,21 @@ public class CustomPlaceholders extends PlaceholderPack {
         if(gamePlayer == null)
             return null;
 
-        // Make sure the user data exists
-        UserData userData = gamePlayer.getUserData();
-        if(userData == null)
+        // Make sure the user exists
+        User user = gamePlayer.getUser();
+        if(user == null)
             return null;
 
         switch (param.toLowerCase()){
+            // Player Leveling
             case "player_level":
-                return userData.getUserLeveling().getLevel().toString();
+                return user.getLeveling().getLevel().toString();
             case "player_experience":
-                return userData.getUserLeveling().getExperience().toString();
+                return user.getLeveling().getExperience().toString();
+
+            // Player Economy
+            case "player_coins":
+                return String.valueOf(user.getEconomy().getCoins());
         }
         return null;
     }

@@ -6,7 +6,6 @@ import dev.almostsomeone.premiumpvp.common.bukkit.world.WorldProfile;
 import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
 import dev.almostsomeone.premiumpvp.events.gameplayer.GamePlayerJoinEvent;
-import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerManager;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,8 +15,8 @@ public class GamePlayerJoinListener implements Listener {
 
     @EventHandler
     public void gamePlayerJoin(GamePlayerJoinEvent event) {
-        Game game = Main.getInstance().getGame();
         GamePlayer gamePlayer = event.getGamePlayer();
+        Game game = Main.getInstance().getGame();
         WorldManager worldManager = game.getWorldManager();
 
         // Teleport the player to the spawn

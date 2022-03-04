@@ -5,6 +5,7 @@ import dev.almostsomeone.premiumpvp.commands.WorldCMD;
 import dev.almostsomeone.premiumpvp.common.bukkit.placeholder.Placeholder;
 import dev.almostsomeone.premiumpvp.common.bukkit.world.VoidGenerator;
 import dev.almostsomeone.premiumpvp.common.nms.NMS;
+import dev.almostsomeone.premiumpvp.data.user.User;
 import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.listeners.ListenerHandler;
 import dev.almostsomeone.premiumpvp.storage.Storage;
@@ -13,6 +14,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.UUID;
 import java.util.logging.Level;
 
 public class Main extends JavaPlugin {
@@ -64,6 +66,9 @@ public class Main extends JavaPlugin {
 
         // Load the storage
         this.storage = new Storage(this);
+
+        // Create tables for the user
+        new User(UUID.randomUUID()).createTables();
 
         // Load all the game players
         this.game.getGamePlayerManager().onLoad();

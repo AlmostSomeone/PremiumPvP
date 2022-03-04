@@ -36,7 +36,7 @@ public class GamePlayerManager {
     public void saveAll() {
         for(Player player : Bukkit.getOnlinePlayers()) {
             GamePlayer gamePlayer = this.getGamePlayer(player.getUniqueId());
-            gamePlayer.getUserData().save();
+            gamePlayer.getUser().save();
         }
     }
 
