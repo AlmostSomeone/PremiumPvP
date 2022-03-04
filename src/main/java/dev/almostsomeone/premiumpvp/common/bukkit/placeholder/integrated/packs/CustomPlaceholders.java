@@ -40,7 +40,19 @@ public class CustomPlaceholders extends PlaceholderPack {
 
             // Player Economy
             case "player_coins":
-                return String.valueOf(user.getEconomy().getCoins());
+                return user.getEconomy().getCoins().toString();
+
+            // Player Statistics
+            case "player_kills":
+                return user.getStatistics().getKills().toString();
+            case "player_assists":
+                return user.getStatistics().getAssists().toString();
+            case "player_deaths":
+                return user.getStatistics().getDeaths().toString();
+            case "player_killstreak":
+                return user.getStatistics().getKillstreak().toString();
+            case "player_bestkillstreak":
+                return user.getStatistics().getBestKillstreak().toString();
         }
         return null;
     }

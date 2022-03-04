@@ -43,9 +43,6 @@ public record StorageTable(String tableName) {
         PreparedStatement preparedStatement = null;
         try {
             connection = Main.getInstance().getStorage().getConnection();
-
-            Main.getInstance().getLogger().log(Level.INFO, "Executing SQL Query: " + query);
-
             preparedStatement = connection.prepareStatement(query);
             return preparedStatement.executeQuery();
         } catch (SQLException exception) {
@@ -68,9 +65,6 @@ public record StorageTable(String tableName) {
         PreparedStatement preparedStatement = null;
         try {
             connection = Main.getInstance().getStorage().getConnection();
-
-            Main.getInstance().getLogger().log(Level.INFO, "Executing SQL Query: " + query);
-
             preparedStatement = connection.prepareStatement(query);
             return preparedStatement.executeUpdate();
         } catch (SQLException exception) {

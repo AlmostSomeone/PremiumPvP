@@ -4,6 +4,7 @@ import dev.almostsomeone.premiumpvp.Main;
 import dev.almostsomeone.premiumpvp.data.user.User;
 import dev.almostsomeone.premiumpvp.data.user.groups.UserEconomy;
 import dev.almostsomeone.premiumpvp.data.user.groups.UserLeveling;
+import dev.almostsomeone.premiumpvp.data.user.groups.UserStatistics;
 import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerManager;
@@ -49,6 +50,10 @@ public class GamePlayerJoinEvent extends Event {
         // Load the UserEconomy data
         UserEconomy userEconomy = user.getEconomy();
         userEconomy.load();
+
+        // Load the UserStatistics data
+        UserStatistics userStatistics = user.getStatistics();
+        userStatistics.load();
     }
 
     public GamePlayer getGamePlayer() {
