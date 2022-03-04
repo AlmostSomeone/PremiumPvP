@@ -10,7 +10,9 @@ commands:
     footer: "&e-----------------------------"
   kitpvp:
     join: "&aYou joined KitPvP."
+    already-joined: "&cYou are already in KitPvP."
     leave: "&cYou left KitPvP."
+    not-joined: "&cYou are not in KitPvP."
     config:
       reload-success: "&aYou have successfully reloaded the configuration."
       reload-failed: "&cSomething went wrong reloading the configuration."

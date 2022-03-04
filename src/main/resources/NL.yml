@@ -9,6 +9,10 @@ commands:
     item: "&6{subcommand}: &f{description}"
     footer: "&e-----------------------------"
   kitpvp:
+    join: "&Je bent de KitPvP gejoined."
+    already-joined: "&cJe bent al in de KitPvP."
+    leave: "&cJe hebt de KitPvP verlaten."
+    not-joined: "&cJe zit niet in de KitPvP."
     config:
       reload-success: "&aJe hebt de configuratie succesvol herladen."
       reload-failed: "&cEr is iets fout gegaan bij het herladen van de configuratie."
