@@ -6,13 +6,10 @@ import dev.almostsomeone.premiumpvp.common.bukkit.placeholder.Placeholder;
 import dev.almostsomeone.premiumpvp.common.bukkit.world.VoidGenerator;
 import dev.almostsomeone.premiumpvp.common.nms.NMS;
 import dev.almostsomeone.premiumpvp.game.Game;
-import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
-import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerManager;
 import dev.almostsomeone.premiumpvp.listeners.ListenerHandler;
 import dev.almostsomeone.premiumpvp.storage.Storage;
 import dev.almostsomeone.premiumpvp.utilities.*;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -59,9 +56,6 @@ public class Main extends JavaPlugin {
 
         // Hooking into NMS
         new NMS(this);
-
-        // Preparing placeholders
-        this.placeholder = new Placeholder(this);
     }
 
     private void onStarted() {
@@ -73,6 +67,9 @@ public class Main extends JavaPlugin {
 
         // Load all the game players
         this.game.getGamePlayerManager().onLoad();
+
+        // Preparing placeholders
+        this.placeholder = new Placeholder(this);
 
         // Register all listeners
         new ListenerHandler(this);
