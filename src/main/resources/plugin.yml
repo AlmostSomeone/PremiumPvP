@@ -1,7 +1,7 @@
 name: ${project.name}
 main: ${project.groupId}.premiumpvp.Main
 version: ${project.version}
-api-version: 1.8
+api-version: 1.18
 load: STARTUP
 website: ${project.url}
 description: ${project.description}
