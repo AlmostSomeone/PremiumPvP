@@ -38,7 +38,7 @@ public abstract class DataGroup {
             String value = null;
             if(dataObject.getString() != null)
                 value = "'" + dataObject.getString() + "'";
-            if(dataObject.getDefaultInteger() != null)
+            if(dataObject.getInteger() != null)
                 value = dataObject.getInteger().toString();
             query.append("`").append(columnName).append("` = ").append(value).append(", ");
         }
