@@ -8,6 +8,7 @@ import dev.almostsomeone.premiumpvp.common.nms.NMS;
 import dev.almostsomeone.premiumpvp.data.user.User;
 import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.listeners.ListenerHandler;
+import dev.almostsomeone.premiumpvp.storage.InfoFile;
 import dev.almostsomeone.premiumpvp.storage.Storage;
 import dev.almostsomeone.premiumpvp.utilities.*;
 import org.bukkit.Bukkit;
@@ -20,7 +21,7 @@ import java.util.logging.Level;
 public class Main extends JavaPlugin {
 
     // Get the configuration and messages
-    public Config config;
+    public InfoFile config;
     public Messages messages;
 
     // Instances
@@ -46,8 +47,11 @@ public class Main extends JavaPlugin {
     }
 
     private void onStartup() {
-        // Loading the configuration and messages
-        this.config = new Config(this);
+        // Loading the configuration
+        this.config = new InfoFile(this, "", "config.yml");
+        this.config.load();
+
+        // Loading messages
         this.messages = new Messages(this);
 
         /*/ Loading bStats metrics

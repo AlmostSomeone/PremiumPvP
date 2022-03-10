@@ -4,6 +4,7 @@ import dev.almostsomeone.premiumpvp.Main;
 import dev.almostsomeone.premiumpvp.storage.sql.MySQL;
 import dev.almostsomeone.premiumpvp.storage.sql.SQL;
 import dev.almostsomeone.premiumpvp.storage.sql.SQLite;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
@@ -18,10 +19,11 @@ public class Storage {
     private final Plugin plugin;
     private SQL sql;
 
-    private YamlConfiguration config = Main.getInstance().config.get();
+    private YamlConfiguration config;
 
     public Storage(final Plugin plugin) {
         this.plugin = plugin;
+        this.config = Main.getInstance().config.get();
 
         if(this.config.isSet("mysql.enabled") && this.config.getBoolean("mysql.enabled")) {
             String host = (config.isSet("mysql.host") ? config.getString("mysql.host") : "localhost");

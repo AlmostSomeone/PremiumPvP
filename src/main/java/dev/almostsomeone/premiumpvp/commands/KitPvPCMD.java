@@ -6,7 +6,7 @@ import dev.almostsomeone.premiumpvp.events.gameplayer.GamePlayerLeaveEvent;
 import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerState;
-import dev.almostsomeone.premiumpvp.utilities.Config;
+import dev.almostsomeone.premiumpvp.storage.InfoFile;
 import dev.almostsomeone.premiumpvp.utilities.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -22,7 +22,7 @@ public class KitPvPCMD extends CommandBuilder {
 
     private final Plugin plugin;
 
-    private final Config config = Main.getInstance().config;
+    private final InfoFile config;
     private final Messages messages = Main.getInstance().messages;
 
     private Boolean joinCommand = false;
@@ -31,6 +31,8 @@ public class KitPvPCMD extends CommandBuilder {
     public KitPvPCMD(final Plugin plugin) {
         super("commands.main", "kitpvp", true, false);
         this.plugin = plugin;
+
+        this.config = Main.getInstance().config;
 
         this.subCommands = new HashMap<>() {{
             put("info", "Get information about the plugin");
@@ -84,7 +86,7 @@ public class KitPvPCMD extends CommandBuilder {
                     break;
                 case "reload":
                     try {
-                        this.config.reload();
+                        this.config.load();
                         this.messages.reload();
                         player.sendMessage(format(player, this.messages.getMessage("commands.kitpvp.config.reload-success")));
                     } catch (Exception exception) {
