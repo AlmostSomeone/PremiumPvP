@@ -1,7 +1,6 @@
-package dev.almostsomeone.premiumpvp.utilities;
+package dev.almostsomeone.premiumpvp.storage;
 
 import dev.almostsomeone.premiumpvp.Main;
-import dev.almostsomeone.premiumpvp.storage.InfoFile;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;

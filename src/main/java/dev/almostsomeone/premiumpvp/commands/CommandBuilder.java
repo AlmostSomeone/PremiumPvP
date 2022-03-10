@@ -1,7 +1,7 @@
 package dev.almostsomeone.premiumpvp.commands;
 
 import dev.almostsomeone.premiumpvp.Main;
-import dev.almostsomeone.premiumpvp.utilities.Messages;
+import dev.almostsomeone.premiumpvp.storage.Messages;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;

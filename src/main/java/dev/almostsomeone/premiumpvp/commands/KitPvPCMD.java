@@ -7,7 +7,7 @@ import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerState;
 import dev.almostsomeone.premiumpvp.storage.InfoFile;
-import dev.almostsomeone.premiumpvp.utilities.Messages;
+import dev.almostsomeone.premiumpvp.storage.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
