@@ -10,16 +10,13 @@ import java.util.UUID;
 public class GamePlayer {
 
     private final UUID uuid;
-    private Boolean ingame;
-
+    private GamePlayerState gamePlayerState;
     private User user;
 
     public GamePlayer(final UUID uuid) {
         this.uuid = uuid;
-        this.ingame = false;
-
+        this.gamePlayerState = GamePlayerState.NONE;
         this.user = new User(uuid);
-
         Main.getInstance().getGame().getGamePlayerManager().addGamePlayer(this);
     }
 
@@ -27,16 +24,16 @@ public class GamePlayer {
         return Bukkit.getPlayer(this.uuid);
     }
 
-    public Boolean isIngame() {
-        return this.ingame;
-    }
-
-    public void setIngame(Boolean ingame) {
-        this.ingame = ingame;
-    }
-
     public UUID getUniqueId() {
         return this.uuid;
+    }
+
+    public GamePlayerState getGamePlayerState() {
+        return this.gamePlayerState;
+    }
+
+    public void setGamePlayerState(GamePlayerState gamePlayerState) {
+        this.gamePlayerState = gamePlayerState;
     }
 
     public User getUser() {

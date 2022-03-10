@@ -8,6 +8,7 @@ import dev.almostsomeone.premiumpvp.data.user.groups.UserStatistics;
 import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerManager;
+import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerState;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
@@ -37,9 +38,9 @@ public class GamePlayerJoinEvent extends Event {
         else
             this.gamePlayer = new GamePlayer(uuid);
 
-        if(this.gamePlayer.isIngame()) return;
+        if(!this.gamePlayer.getGamePlayerState().equals(GamePlayerState.NONE)) return;
 
-        this.gamePlayer.setIngame(true);
+        this.gamePlayer.setGamePlayerState(GamePlayerState.LOBBY);
 
         User user = this.gamePlayer.getUser();
 

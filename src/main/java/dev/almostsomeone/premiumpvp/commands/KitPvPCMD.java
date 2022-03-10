@@ -5,6 +5,7 @@ import dev.almostsomeone.premiumpvp.events.gameplayer.GamePlayerJoinEvent;
 import dev.almostsomeone.premiumpvp.events.gameplayer.GamePlayerLeaveEvent;
 import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
+import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerState;
 import dev.almostsomeone.premiumpvp.utilities.Config;
 import dev.almostsomeone.premiumpvp.utilities.Messages;
 import org.bukkit.Bukkit;
@@ -102,7 +103,7 @@ public class KitPvPCMD extends CommandBuilder {
                     break;
                 case "join":
                     if(!joinCommand) break;
-                    if(gamePlayer.isIngame()) {
+                    if(!gamePlayer.getGamePlayerState().equals(GamePlayerState.NONE)) {
                         player.sendMessage(format(player, this.messages.getMessage("commands.kitpvp.already-joined")));
                         break;
                     }
@@ -111,7 +112,7 @@ public class KitPvPCMD extends CommandBuilder {
                     break;
                 case "leave":
                     if(!leaveCommand) break;
-                    if(!gamePlayer.isIngame()) {
+                    if(gamePlayer.getGamePlayerState().equals(GamePlayerState.NONE)) {
                         player.sendMessage(format(player, this.messages.getMessage("commands.kitpvp.not-joined")));
                         break;
                     }

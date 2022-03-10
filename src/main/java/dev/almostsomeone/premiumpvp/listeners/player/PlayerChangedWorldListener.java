@@ -6,6 +6,7 @@ import dev.almostsomeone.premiumpvp.common.bukkit.world.WorldProfile;
 import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerManager;
+import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerState;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,7 +22,7 @@ public class PlayerChangedWorldListener implements Listener {
         Game game = Main.getInstance().getGame();
         GamePlayerManager gamePlayerManager = game.getGamePlayerManager();
         GamePlayer gamePlayer = gamePlayerManager.getGamePlayer(player.getUniqueId());
-        if(gamePlayer == null || !gamePlayer.isIngame()) return;
+        if(gamePlayer == null || gamePlayer.getGamePlayerState().equals(GamePlayerState.NONE)) return;
 
         // Don't do anything if the world has no profile
         WorldManager worldManager = game.getWorldManager();
