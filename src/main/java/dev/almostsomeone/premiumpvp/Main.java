@@ -43,7 +43,7 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        this.game.getGamePlayerManager().onUnload();
+        this.game.getGamePlayerManager().saveGamePlayers();
         this.storage.closePool();
     }
 
@@ -66,17 +66,15 @@ public class Main extends JavaPlugin {
     }
 
     private void onStarted() {
-        // Initialize game
-        this.game = new Game();
-
         // Load the storage
         this.storage = new Storage(this);
 
         // Create tables for the user
         new User(UUID.randomUUID()).createTables();
 
-        // Load all the game players
-        this.game.getGamePlayerManager().onLoad();
+        // Initialize game
+        this.game = new Game(this);
+        this.game.loadGame();
 
         // Preparing placeholders
         this.placeholder = new Placeholder(this);

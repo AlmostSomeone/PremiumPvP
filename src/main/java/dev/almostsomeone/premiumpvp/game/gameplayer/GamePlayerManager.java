@@ -19,7 +19,7 @@ public class GamePlayerManager {
         this.gamePlayers = new ArrayList<>();
     }
 
-    public void onLoad() {
+    public void loadGamePlayers() {
         YamlConfiguration config = Main.getInstance().config.get();
 
         // Join all online players if join on server join is enabled
@@ -29,7 +29,7 @@ public class GamePlayerManager {
         }
     }
 
-    public void onUnload() {
+    public void saveGamePlayers() {
         saveAll();
     }
 

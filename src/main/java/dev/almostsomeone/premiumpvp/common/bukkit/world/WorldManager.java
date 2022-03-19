@@ -25,7 +25,6 @@ public class WorldManager {
         this.plugin = plugin;
 
         this.worldProfiles = new ArrayList<>();
-        this.loadWorlds();
     }
 
     public void loadWorlds() {
