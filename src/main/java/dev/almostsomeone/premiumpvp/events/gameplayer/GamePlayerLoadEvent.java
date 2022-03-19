@@ -30,12 +30,19 @@ public class GamePlayerLoadEvent extends Event {
         Game game = Main.getInstance().getGame();
         GamePlayerManager gamePlayerManager = game.getGamePlayerManager();
 
+        // Create the game player if it does not exist yet
         if(gamePlayerManager.getGamePlayer(uuid) == null)
             this.gamePlayer = new GamePlayer(uuid);
+        else
+            this.gamePlayer = gamePlayerManager.getGamePlayer(uuid);
 
+        // Join the server if join on server-join is enabled
         YamlConfiguration config = Main.getInstance().config.get();
-        if(!config.isSet("participate.join.server") || config.getBoolean("participate.join.server")) // Check if the player should join the game on server join
-            Bukkit.getPluginManager().callEvent(new GamePlayerJoinEvent(this.gamePlayer.getUniqueId())); // Trigger the GamePlayerJoinEvent
+        if(!config.isSet("participate.join.server") || config.getBoolean("participate.join.server"))
+            Bukkit.getPluginManager().callEvent(new GamePlayerJoinEvent(this.gamePlayer.getUniqueId()));
+
+        // Show the player the scoreboard
+        game.getBoardManager().showBoard(this.gamePlayer);
     }
 
     public GamePlayer getGamePlayer() {
