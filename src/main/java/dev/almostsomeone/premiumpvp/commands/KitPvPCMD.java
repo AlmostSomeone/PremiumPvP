@@ -88,6 +88,7 @@ public class KitPvPCMD extends CommandBuilder {
                     try {
                         this.config.load();
                         this.messages.reload();
+                        Main.getInstance().getGame().getBoardManager().reloadBoard();
                         player.sendMessage(format(player, this.messages.getMessage("commands.kitpvp.config.reload-success")));
                     } catch (Exception exception) {
                         exception.printStackTrace();
