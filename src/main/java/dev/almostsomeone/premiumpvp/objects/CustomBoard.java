@@ -76,7 +76,11 @@ public class CustomBoard {
                 line = "&" + emptyCount;
                 emptyCount++;
             }
-            replaceScore(objective, score, format(player, line));
+            replaceScore(objective, score-1, format(player, line));
+        }
+        if(objective.getScoreboard().getEntries().size() > this.lines.size()) {
+            for(int score = objective.getScoreboard().getEntries().size(); score > this.lines.size()-2; score--)
+                replaceScore(objective, score, "");
         }
 
         // If the objective is not shown in the sidebar, set the objective's display slot to the sidebar.
