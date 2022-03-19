@@ -1,6 +1,5 @@
 package dev.almostsomeone.premiumpvp.objects;
 
-import dev.almostsomeone.premiumpvp.Main;
 import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerManager;
@@ -22,6 +21,8 @@ public class BoardManager {
     private final Game game;
     private final InfoFile scoreboardFile;
 
+    private BukkitRunnable refreshTimer;
+
     private Map<String, CustomBoard> boards;
 
     public BoardManager(final Plugin plugin, final Game game) {
@@ -33,18 +34,6 @@ public class BoardManager {
         this.scoreboardFile.load();
 
         this.boards = new HashMap<>();
-
-        // The refresh timer
-        YamlConfiguration config = this.scoreboardFile.get();
-        if(!config.isSet("settings.refresh") || config.getInt("settings.refresh") <= 0) return;
-        GamePlayerManager gamePlayerManager = this.game.getGamePlayerManager();
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                for(Player player : Bukkit.getOnlinePlayers())
-                    showBoard(gamePlayerManager.getGamePlayer(player.getUniqueId()));
-            }
-        }.runTaskTimerAsynchronously(this.plugin, 0, config.getInt("settings.refresh"));
     }
 
     public void reloadBoard() {
@@ -54,10 +43,11 @@ public class BoardManager {
     }
 
     public void loadBoard() {
-        this.boards.clear();
-
         // Get the configuration
         YamlConfiguration config = scoreboardFile.get();
+
+        // Clear the list of boards
+        this.boards.clear();
 
         // Make sure the scoreboard is enabled
         if(!config.isSet("settings.enable") || !config.getBoolean("settings.enable")) return;
@@ -72,6 +62,20 @@ public class BoardManager {
             GamePlayerState gamePlayerState = GamePlayerState.valueOf(stateName);
             this.boards.put(stateName, new CustomBoard(gamePlayerState));
         }
+
+        // Get the refresh ticks
+        Integer ticks = 0;
+        if(config.isSet("settings.refresh"))
+            ticks = config.getInt("settings.refresh");
+
+        // Prepare the timer
+        if(this.refreshTimer != null)
+            this.refreshTimer.cancel();
+
+        // Start the timer if the tick is higher than 0
+        if(ticks <= 0) return;
+        this.refreshTimer = new RefreshTimer(this.game);
+        this.refreshTimer.runTaskTimerAsynchronously(plugin, 0, ticks);
     }
 
     public void showBoard(GamePlayer gamePlayer) {
