@@ -71,8 +71,8 @@ public class CustomBoard {
         objective.setDisplayName(format(player, this.title));
         int emptyCount = 0;
         for(int score = this.lines.size(); score > 0; score--) {
-            String line = this.lines.get(this.lines.size() - score).toLowerCase();
-            if(line.trim().equals("{empty}")) {
+            String line = this.lines.get(this.lines.size() - score);
+            if(line.toLowerCase().trim().equals("{empty}")) {
                 line = "&" + emptyCount;
                 emptyCount++;
             }
