@@ -1,32 +1,50 @@
 package dev.almostsomeone.premiumpvp.objects;
 
+import dev.almostsomeone.premiumpvp.Main;
+import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
+import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerManager;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerState;
 import dev.almostsomeone.premiumpvp.storage.InfoFile;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Level;
 
 public class BoardManager {
 
     private final Plugin plugin;
+    private final Game game;
     private final InfoFile scoreboardFile;
 
     private Map<String, CustomBoard> boards;
 
-    public BoardManager(final Plugin plugin) {
+    public BoardManager(final Plugin plugin, final Game game) {
         this.plugin = plugin;
+        this.game = game;
 
         // Get and load the scoreboard file
         this.scoreboardFile = new InfoFile(plugin, "", "scoreboard.yml");
         this.scoreboardFile.load();
 
         this.boards = new HashMap<>();
+
+        // The refresh timer
+        YamlConfiguration config = this.scoreboardFile.get();
+        if(!config.isSet("settings.refresh") || config.getInt("settings.refresh") <= 0) return;
+        GamePlayerManager gamePlayerManager = this.game.getGamePlayerManager();
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                for(Player player : Bukkit.getOnlinePlayers())
+                    showBoard(gamePlayerManager.getGamePlayer(player.getUniqueId()));
+            }
+        }.runTaskTimerAsynchronously(this.plugin, 0, config.getInt("settings.refresh"));
     }
 
     public void reloadBoard() {

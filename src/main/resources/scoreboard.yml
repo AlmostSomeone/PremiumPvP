@@ -5,7 +5,7 @@
 # The scoreboard can have a maximum of 16 lines.
 settings:
   enable: true  # Enable or disable the scoreboard globally
-  refresh: 0    # The amount ticks the scoreboard will take to refresh (20 = 1 Second, 0 = When PremiumPvP stats change)
+  refresh: 0    # The amount ticks the scoreboard will take to refresh (20 = 1 Second, 0 = (best performance) When PremiumPvP stats change)
 scoreboards:
   none:
     enabled: false  # Enable or disable the scoreboard when the player is not in the pvp

@@ -21,7 +21,7 @@ public class Game {
     public Game(final Plugin plugin) {
         this.worldManager = new WorldManager(Main.getInstance());
         this.gamePlayerManager = new GamePlayerManager();
-        this.boardManager = new BoardManager(plugin);
+        this.boardManager = new BoardManager(plugin, this);
     }
 
     public void loadGame() {
