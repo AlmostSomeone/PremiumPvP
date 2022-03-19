@@ -12,7 +12,7 @@ import java.util.UUID;
 public class UserStatistics extends DataGroup {
 
     private DataObject
-            // Basic //TODO Add add methods
+            // Basic
             kills,
             assists,
             deaths,
