@@ -1,0 +1,83 @@
+# Welcome to the scoreboard configuration.
+# You can change the scoreboard for each Player State (none, lobby, ffa, duels, spectating)
+# If you have PlaceholderAPI installed on your server, you can use their placeholders.
+# Otherwise, please use the placeholders on the spigot page. You can also use "{empty}" for an empty row.
+# The scoreboard can have a maximum of 16 lines.
+settings:
+  enable: true  # Enable or disable the scoreboard globally
+  refresh: 0    # The amount ticks the scoreboard will take to refresh (20 = 1 Second, 0 = When PremiumPvP stats change)
+scoreboards:
+  none:
+    enabled: false  # Enable or disable the scoreboard when the player is not in the pvp
+    title: "&6&lKITPVP" # The title from the scoreboard
+    lines:  # All the lines the scoreboard will show
+      - "{empty}"
+      - "&7Welcome %player_displayname%"
+      - "{empty}"
+      - "&7Join KitPvP:"
+      - "&7  /kitpvp join"
+      - "{empty}"
+      - "&7  mc.kitpvp.net"
+  lobby:
+    enabled: true
+    title: "&6&lKITPVP LOBBY"
+    lines:
+      - "{empty}"
+      - "&eProgress"
+      - "&7 Level: %premiumpvp_player_level%"
+      - "&7 Experience: %premiumpvp_player_experience%"
+      - "{empty}"
+      - "&eStats"
+      - "&7 Kills: %premiumpvp_player_kills%"
+      - "&7 Assists: %premiumpvp_player_assists%"
+      - "&7 Deaths: %premiumpvp_player_deaths%"
+      - "{empty}"
+      - "&7  mc.kitpvp.net"
+  ffa:
+    enabled: true
+    title: "&6&lKITPVP FFA"
+    lines:
+      - "{empty}"
+      - "&eProgress"
+      - "&7 Level: %premiumpvp_player_level%"
+      - "&7 Experience: %premiumpvp_player_experience%"
+      - "{empty}"
+      - "&eStats"
+      - "&7 Kills: %premiumpvp_player_kills%"
+      - "&7 Assists: %premiumpvp_player_assists%"
+      - "&7 Deaths: %premiumpvp_player_deaths%"
+      - "{empty}"
+      - "&eStreak"
+      - "&7 Current: %premiumpvp_player_killstreak%"
+      - "&7 Best: %premiumpvp_player_bestkillstreak%"
+      - "{empty}"
+      - "&7  mc.kitpvp.net"
+  duels:
+    enabled: true
+    title: "&6&lKITPVP DUELS"
+    lines:
+      - "&eProgress"
+      - "&7 Level: %premiumpvp_player_level%"
+      - "&7 Experience: %premiumpvp_player_experience%"
+      - "{empty}"
+      - "&eStats"
+      - "&7 Kills: %premiumpvp_player_kills%"
+      - "&7 Assists: %premiumpvp_player_assists%"
+      - "&7 Deaths: %premiumpvp_player_deaths%"
+      - "{empty}"
+      - "&eStreak"
+      - "&7 Current: %premiumpvp_player_killstreak%"
+      - "&7 Best: %premiumpvp_player_bestkillstreak%"
+      - "{empty}"
+      - "&7  mc.kitpvp.net"
+  spectating:
+    enabled: false
+    title: "&6&lKITPVP SPEC"
+    lines:
+      - "{empty}"
+      - "&7Welcome %player_displayname%"
+      - "{empty}"
+      - "&7You are currently"
+      - "&7spectating KitPvP."
+      - "{empty}"
+      - "&7  mc.kitpvp.net"
