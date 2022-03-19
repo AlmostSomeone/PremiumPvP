@@ -2,6 +2,7 @@ package dev.almostsomeone.premiumpvp.game.gameplayer;
 
 import dev.almostsomeone.premiumpvp.Main;
 import dev.almostsomeone.premiumpvp.events.gameplayer.GamePlayerJoinEvent;
+import dev.almostsomeone.premiumpvp.events.gameplayer.GamePlayerLoadEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -20,13 +21,8 @@ public class GamePlayerManager {
     }
 
     public void loadGamePlayers() {
-        YamlConfiguration config = Main.getInstance().config.get();
-
-        // Join all online players if join on server join is enabled
-        if(!config.isSet("participate.join.server") || config.getBoolean("participate.join.server")) {
-            for(Player player : Bukkit.getOnlinePlayers())
-                Bukkit.getPluginManager().callEvent(new GamePlayerJoinEvent(player.getUniqueId()));
-        }
+        for(Player player : Bukkit.getOnlinePlayers())
+            Bukkit.getPluginManager().callEvent(new GamePlayerLoadEvent(player.getUniqueId()));
     }
 
     public void saveGamePlayers() {
