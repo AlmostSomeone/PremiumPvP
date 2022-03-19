@@ -15,12 +15,14 @@ public class GamePlayer {
 
     public GamePlayer(final UUID uuid) {
         this.uuid = uuid;
-        this.gamePlayerState = GamePlayerState.NONE;
+        setGamePlayerState(GamePlayerState.NONE);
         this.user = new User(uuid);
         Main.getInstance().getGame().getGamePlayerManager().addGamePlayer(this);
     }
 
     public Player getPlayer() {
+        if(!Bukkit.getOfflinePlayer(this.uuid).isOnline())
+            return null;
         return Bukkit.getPlayer(this.uuid);
     }
 
@@ -34,6 +36,7 @@ public class GamePlayer {
 
     public void setGamePlayerState(GamePlayerState gamePlayerState) {
         this.gamePlayerState = gamePlayerState;
+        Main.getInstance().getGame().getBoardManager().showBoard(this);
     }
 
     public User getUser() {
