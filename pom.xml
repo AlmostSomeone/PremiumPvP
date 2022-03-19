@@ -40,12 +40,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot</artifactId>
-            <version>1.18.2-R0.1-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
             <version>5.0.1</version>
@@ -59,14 +53,6 @@
             <scope>compile</scope>
             <type>jar</type>
         </dependency>
-
-
-        <!--<dependency>
-            <groupId>org.bstats</groupId>
-            <artifactId>bstats-bukkit</artifactId>
-            <version>3.0.0</version>
-            <scope>compile</scope>
-        </dependency>-->
 
         <dependency>
             <groupId>me.clip</groupId>
@@ -111,12 +97,6 @@
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.2.4</version>
                 <configuration>
-                    <!--<relocations>
-                        <relocation>
-                            <pattern>org.bstats</pattern>
-                            <shadedPattern>dev.almostsomeone.premiumpvp.common.http</shadedPattern>
-                        </relocation>
-                    </relocations>-->
                     <artifactSet>
                         <includes>
                             <include>com.zaxxer:*:*:*</include>
