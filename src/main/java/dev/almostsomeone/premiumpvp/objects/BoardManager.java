@@ -75,7 +75,7 @@ public class BoardManager {
         // Start the timer if the tick is higher than 0
         if(ticks <= 0) return;
         this.refreshTimer = new RefreshTimer(this.game);
-        this.refreshTimer.runTaskTimerAsynchronously(plugin, 0, ticks);
+        this.refreshTimer.runTaskTimerAsynchronously(plugin, 20, ticks);
     }
 
     public void showBoard(GamePlayer gamePlayer) {

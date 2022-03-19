@@ -12,22 +12,22 @@ public class Game {
 
     // Managers
     private WorldManager worldManager;
-    private GamePlayerManager gamePlayerManager;
     private BoardManager boardManager;
+    private GamePlayerManager gamePlayerManager;
 
     // Settings
     private Location spawnLocation;
 
     public Game(final Plugin plugin) {
         this.worldManager = new WorldManager(Main.getInstance());
-        this.gamePlayerManager = new GamePlayerManager();
         this.boardManager = new BoardManager(plugin, this);
+        this.gamePlayerManager = new GamePlayerManager();
     }
 
     public void loadGame() {
         this.worldManager.loadWorlds();
-        this.gamePlayerManager.loadGamePlayers();
         this.boardManager.loadBoard();
+        this.gamePlayerManager.loadGamePlayers();
     }
 
     public Location getSpawnLocation() {

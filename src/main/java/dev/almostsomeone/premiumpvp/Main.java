@@ -66,12 +66,12 @@ public class Main extends JavaPlugin {
         // Create tables for the user
         new User(UUID.randomUUID()).createTables();
 
+        // Preparing placeholders
+        this.placeholder = new Placeholder(this);
+
         // Initialize game
         this.game = new Game(this);
         this.game.loadGame();
-
-        // Preparing placeholders
-        this.placeholder = new Placeholder(this);
 
         // Register all listeners
         new ListenerHandler(this);
