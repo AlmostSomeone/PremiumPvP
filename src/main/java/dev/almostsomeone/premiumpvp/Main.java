@@ -55,12 +55,6 @@ public class Main extends JavaPlugin {
         // Loading messages
         this.messages = new Messages(this);
 
-        /*/ Loading bStats metrics
-        this.getLogger().log(Level.INFO, "Loading bStats metrics...");
-        Metrics metrics = new Metrics(this, 14487);
-        String language = (this.config.get().isSet("language") ? this.config.get().getString("language") : "EN");
-        metrics.addCustomChart(new SimplePie("language", () -> language));*/
-
         // Hooking into NMS
         new NMS(this);
     }
