@@ -6,6 +6,7 @@ import dev.almostsomeone.premiumpvp.common.bukkit.placeholder.Placeholder;
 import dev.almostsomeone.premiumpvp.common.bukkit.world.VoidGenerator;
 import dev.almostsomeone.premiumpvp.common.nms.NMS;
 import dev.almostsomeone.premiumpvp.data.user.User;
+import dev.almostsomeone.premiumpvp.events.gameplayer.GamePlayerLoadEvent;
 import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.listeners.ListenerHandler;
 import dev.almostsomeone.premiumpvp.storage.InfoFile;
@@ -13,6 +14,7 @@ import dev.almostsomeone.premiumpvp.storage.Messages;
 import dev.almostsomeone.premiumpvp.storage.Storage;
 import dev.almostsomeone.premiumpvp.utilities.*;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -75,6 +77,10 @@ public class Main extends JavaPlugin {
 
         // Register all listeners
         new ListenerHandler(this);
+
+        // Load all online players into a gameplayer
+        for(Player player : Bukkit.getOnlinePlayers())
+            Bukkit.getPluginManager().callEvent(new GamePlayerLoadEvent(player.getUniqueId()));
 
         // Initialize all commands
         new KitPvPCMD(getInstance());
