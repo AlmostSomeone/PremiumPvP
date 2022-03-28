@@ -9,13 +9,11 @@ import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerManager;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerState;
-import org.apache.log4j.lf5.LogLevel;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 import java.util.UUID;
-import java.util.logging.Level;
 
 public class GamePlayerJoinEvent extends Event {
 
