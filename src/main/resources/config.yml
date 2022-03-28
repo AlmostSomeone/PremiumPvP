@@ -143,6 +143,13 @@ commands:
 #      enabled: false
 #      name: premiumpvp.command.duels
 
+# Performance
+# The following settings are used to configure the performance of the plugin.
+# Please configure this carefully, especially when your server is already launched.
+performance:
+  caching:
+    read-on-join: false # If you set this to true, the plugin will cache the player's data when they join. Useful for Bungeecord configurations
+
 # World settings allow you to configure settings for your worlds.
 # For example, you can lock a world to specific weather types, making it easy to add themes to your maps.
 # You can also set a gamemode, which a player will switch to when visiting this world.

@@ -9,12 +9,17 @@ import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerManager;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerState;
+import org.apache.log4j.lf5.LogLevel;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 import java.util.UUID;
+import java.util.logging.Level;
 
 public class GamePlayerJoinEvent extends Event {
+
+    private final YamlConfiguration config = Main.getInstance().config.get();
 
     private static final HandlerList handlers = new HandlerList();
 
@@ -38,23 +43,24 @@ public class GamePlayerJoinEvent extends Event {
         else
             this.gamePlayer = new GamePlayer(uuid);
 
-        if(!this.gamePlayer.getGamePlayerState().equals(GamePlayerState.NONE)) return;
-
-        this.gamePlayer.setGamePlayerState(GamePlayerState.LOBBY);
-
         User user = this.gamePlayer.getUser();
 
         // Load the UserLeveling data
         UserLeveling userLeveling = user.getLeveling();
-        userLeveling.load();
+        if(userLeveling == null || (this.config.isSet("performance.caching.read-on-join") && this.config.getBoolean("performance.caching.read-on-join")))
+            userLeveling.load();
 
         // Load the UserEconomy data
         UserEconomy userEconomy = user.getEconomy();
-        userEconomy.load();
+        if(userEconomy == null || (this.config.isSet("performance.caching.read-on-join") && this.config.getBoolean("performance.caching.read-on-join")))
+            userEconomy.load();
 
         // Load the UserStatistics data
         UserStatistics userStatistics = user.getStatistics();
-        userStatistics.load();
+        if(userStatistics == null || (this.config.isSet("performance.caching.read-on-join") && this.config.getBoolean("performance.caching.read-on-join") == true))
+            userStatistics.load();
+
+        this.gamePlayer.setGamePlayerState(GamePlayerState.LOBBY);
     }
 
     public GamePlayer getGamePlayer() {
