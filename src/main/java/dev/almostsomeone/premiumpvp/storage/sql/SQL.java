@@ -12,11 +12,11 @@ public class SQL {
     private HikariDataSource hikariDataSource;
 
     public void setupPool() {
+        this.hikariConfig.setPoolName("PremiumPvP");
         this.hikariConfig.setMinimumIdle(10);
         this.hikariConfig.setMaximumPoolSize(10);
         this.hikariConfig.setConnectionTimeout(20000);
-        this.hikariConfig.setIdleTimeout(10000);
-        this.hikariConfig.setMaxLifetime(1000);
+        this.hikariConfig.setMaxLifetime(1800000);
 
         this.hikariDataSource = new HikariDataSource(this.hikariConfig);
     }
