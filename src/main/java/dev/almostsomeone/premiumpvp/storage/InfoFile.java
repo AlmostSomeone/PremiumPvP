@@ -1,6 +1,5 @@
 package dev.almostsomeone.premiumpvp.storage;
 
-import dev.almostsomeone.premiumpvp.Main;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
@@ -13,9 +12,6 @@ public class InfoFile {
     private final String path;
     private final String name;
 
-    private File dir;
-    private File file;
-
     private YamlConfiguration yamlConfiguration;
 
     public InfoFile(final Plugin plugin, final String path, final String name) {
@@ -26,9 +22,9 @@ public class InfoFile {
 
     public void load() {
         this.plugin.getLogger().log(Level.INFO, "Loading file " + this.name + "...");
-        this.dir = new File(Main.getInstance().getDataFolder() + File.separator);
+        File dir = new File(this.plugin.getDataFolder() + File.separator);
         if(this.path != null) {
-            this.dir = new File(Main.getInstance().getDataFolder() + File.separator + this.path + File.separator);
+            dir = new File(this.plugin.getDataFolder() + File.separator + this.path + File.separator);
             if(!dir.exists()){
                 try {
                     if(dir.mkdir())
@@ -40,21 +36,21 @@ public class InfoFile {
                 }
             }
         }
-        this.file = new File(this.dir, this.name);
+        File file = new File(dir, this.name);
         InputStream inputStream = null;
         OutputStream outputStream = null;
-        if (!this.file.exists()) {
+        if (!file.exists()) {
             try {
-                inputStream = Main.getInstance().getResource(this.name);
-                outputStream = new FileOutputStream(this.file);
+                inputStream = this.plugin.getResource(this.name);
+                outputStream = new FileOutputStream(file);
                 int read;
                 byte[] bytes = new byte[1024];
                 while ((read = inputStream != null ? inputStream.read(bytes) : 0) != -1)
                     outputStream.write(bytes, 0, read);
-                this.plugin.getLogger().log(Level.INFO, "Successfully generated " + this.file);
+                this.plugin.getLogger().log(Level.INFO, "Successfully generated " + file);
             } catch (IOException e) {
                 e.printStackTrace();
-                this.plugin.getLogger().log(Level.WARNING, "Could not generate " + this.file);
+                this.plugin.getLogger().log(Level.WARNING, "Could not generate " + file);
             } finally {
                 if (inputStream != null) {
                     try {
@@ -74,7 +70,7 @@ public class InfoFile {
             }
         }
 
-        this.yamlConfiguration = YamlConfiguration.loadConfiguration(this.file);
+        this.yamlConfiguration = YamlConfiguration.loadConfiguration(file);
     }
 
     public YamlConfiguration get() {
