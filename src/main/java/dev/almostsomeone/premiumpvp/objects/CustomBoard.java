@@ -3,7 +3,6 @@ package dev.almostsomeone.premiumpvp.objects;
 import dev.almostsomeone.premiumpvp.Main;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerState;
 import dev.almostsomeone.premiumpvp.storage.InfoFile;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -11,7 +10,6 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.List;
-import java.util.Locale;
 
 import static dev.almostsomeone.premiumpvp.utilities.ChatUtil.format;
 
