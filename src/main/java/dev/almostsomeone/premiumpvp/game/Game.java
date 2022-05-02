@@ -11,9 +11,9 @@ import org.bukkit.plugin.Plugin;
 public class Game {
 
     // Managers
-    private WorldManager worldManager;
-    private BoardManager boardManager;
-    private GamePlayerManager gamePlayerManager;
+    private final WorldManager worldManager;
+    private final BoardManager boardManager;
+    private final GamePlayerManager gamePlayerManager;
 
     // Settings
     private Location spawnLocation;

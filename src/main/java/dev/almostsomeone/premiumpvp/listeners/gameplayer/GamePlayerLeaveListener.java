@@ -1,10 +1,7 @@
 package dev.almostsomeone.premiumpvp.listeners.gameplayer;
 
 import dev.almostsomeone.premiumpvp.Main;
-import dev.almostsomeone.premiumpvp.common.bukkit.world.WorldManager;
 import dev.almostsomeone.premiumpvp.events.gameplayer.GamePlayerLeaveEvent;
-import dev.almostsomeone.premiumpvp.game.Game;
-import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -15,7 +12,7 @@ import java.util.Objects;
 
 public class GamePlayerLeaveListener implements Listener {
 
-    private YamlConfiguration config = Main.getInstance().config.get();
+    private final YamlConfiguration config = Main.getInstance().config.get();
 
     @EventHandler
     public void gamePlayerLeave(GamePlayerLeaveEvent event) {
@@ -23,7 +20,7 @@ public class GamePlayerLeaveListener implements Listener {
             ConsoleCommandSender consoleSender = Bukkit.getServer().getConsoleSender();
             String command = Objects.requireNonNull(
                     config.getString("participate.leave.execute-command"))
-                    .replaceAll("\\{player\\}", event.getGamePlayer().getPlayer().getName());
+                    .replaceAll("\\{player}", event.getGamePlayer().getPlayer().getName());
             Bukkit.dispatchCommand(consoleSender, command);
         }
     }

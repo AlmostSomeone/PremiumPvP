@@ -4,7 +4,6 @@ import dev.almostsomeone.premiumpvp.Main;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.sql.*;
-import java.util.logging.Level;
 
 public record StorageTable(String tableName) {
 

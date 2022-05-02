@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class UserEconomy extends DataGroup {
 
-    private DataObject coins;
+    private final DataObject coins;
 
     public UserEconomy(DataContainer dataContainer) {
         super(dataContainer);

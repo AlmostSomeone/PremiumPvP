@@ -1,10 +1,7 @@
 package dev.almostsomeone.premiumpvp.game.gameplayer;
 
-import dev.almostsomeone.premiumpvp.Main;
-import dev.almostsomeone.premiumpvp.events.gameplayer.GamePlayerJoinEvent;
 import dev.almostsomeone.premiumpvp.events.gameplayer.GamePlayerLoadEvent;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -14,7 +11,7 @@ import java.util.UUID;
 
 public class GamePlayerManager {
 
-    private List<GamePlayer> gamePlayers;
+    private final List<GamePlayer> gamePlayers;
 
     public GamePlayerManager() {
         this.gamePlayers = new ArrayList<>();
@@ -37,8 +34,7 @@ public class GamePlayerManager {
     }
 
     public List<GamePlayer> getGamePlayers() {
-        List<GamePlayer> copy = new ArrayList<>(this.gamePlayers);
-        return copy;
+        return new ArrayList<>(this.gamePlayers);
     }
 
     public GamePlayer getGamePlayer(UUID uuid) {
@@ -48,10 +44,9 @@ public class GamePlayerManager {
         return result.orElse(null);
     }
 
-    public boolean addGamePlayer(GamePlayer gamePlayer) {
+    public void addGamePlayer(GamePlayer gamePlayer) {
         if(this.getGamePlayer(gamePlayer.getUniqueId()) != null)
-            return false;
+            return;
         this.gamePlayers.add(gamePlayer);
-        return true;
     }
 }

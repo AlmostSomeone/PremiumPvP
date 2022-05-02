@@ -31,29 +31,21 @@ public class CustomPlaceholders extends PlaceholderPack {
         if(user == null)
             return null;
 
-        switch (param.toLowerCase()){
+        return switch (param.toLowerCase()) {
             // Player Leveling
-            case "player_level":
-                return user.getLeveling().getLevel().toString();
-            case "player_experience":
-                return user.getLeveling().getExperience().toString();
+            case "player_level" -> user.getLeveling().getLevel().toString();
+            case "player_experience" -> user.getLeveling().getExperience().toString();
 
             // Player Economy
-            case "player_coins":
-                return user.getEconomy().getCoins().toString();
+            case "player_coins" -> user.getEconomy().getCoins().toString();
 
             // Player Statistics
-            case "player_kills":
-                return user.getStatistics().getKills().toString();
-            case "player_assists":
-                return user.getStatistics().getAssists().toString();
-            case "player_deaths":
-                return user.getStatistics().getDeaths().toString();
-            case "player_killstreak":
-                return user.getStatistics().getKillstreak().toString();
-            case "player_bestkillstreak":
-                return user.getStatistics().getBestKillstreak().toString();
-        }
-        return null;
+            case "player_kills" -> user.getStatistics().getKills().toString();
+            case "player_assists" -> user.getStatistics().getAssists().toString();
+            case "player_deaths" -> user.getStatistics().getDeaths().toString();
+            case "player_killstreak" -> user.getStatistics().getKillstreak().toString();
+            case "player_bestkillstreak" -> user.getStatistics().getBestKillstreak().toString();
+            default -> null;
+        };
     }
 }

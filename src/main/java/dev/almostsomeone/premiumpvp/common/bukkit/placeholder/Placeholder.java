@@ -12,7 +12,7 @@ import java.util.logging.Level;
 
 public class Placeholder {
 
-    private String method;
+    private final String method;
 
     private IntegratedPlaceholders integratedPlaceholders;
 
@@ -33,14 +33,11 @@ public class Placeholder {
 
     public String setPlaceholders(OfflinePlayer player, String string) {
         if(this.method == null)
-            return this.integratedPlaceholders.setPlaceholders(player, string);;
+            return this.integratedPlaceholders.setPlaceholders(player, string);
 
-        switch(this.method) {
-            case "PlaceholderAPI":
-                return PlaceholderAPI.setPlaceholders(player, string);
-            default:
-                return this.integratedPlaceholders.setPlaceholders(player, string);
-        }
+        if ("PlaceholderAPI".equals(this.method))
+            return PlaceholderAPI.setPlaceholders(player, string);
+        return this.integratedPlaceholders.setPlaceholders(player, string);
     }
 
     public List<PlaceholderPack> getRegisteredPacks(){

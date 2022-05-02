@@ -10,9 +10,9 @@ import java.util.UUID;
 
 public class User extends DataContainer {
 
-    private UserLeveling userLeveling;
-    private UserEconomy userEconomy;
-    private UserStatistics userStatistics;
+    private final UserLeveling userLeveling;
+    private final UserEconomy userEconomy;
+    private final UserStatistics userStatistics;
 
     public User(final UUID uuid) {
         super(uuid);

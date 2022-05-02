@@ -9,10 +9,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public final class CharsReplacer implements Replacer {
-
-    @NotNull
-    private final Closure closure;
+public record CharsReplacer(
+        @NotNull Replacer.Closure closure) implements Replacer {
 
     public CharsReplacer(@NotNull Closure closure) {
         this.closure = closure;
@@ -25,14 +23,14 @@ public final class CharsReplacer implements Replacer {
         StringBuilder identifier = new StringBuilder();
         StringBuilder parameters = new StringBuilder();
 
-        for(int i = 0; i < chars.length; ++i) {
+        for (int i = 0; i < chars.length; ++i) {
             char l = chars[i];
             if (l == this.closure.head && i + 1 < chars.length) {
                 boolean identified = false;
                 boolean isCloser = false;
                 boolean hadSpace = false;
 
-                while(true) {
+                while (true) {
                     ++i;
                     if (i >= chars.length) {
                         break;
@@ -75,7 +73,7 @@ public final class CharsReplacer implements Replacer {
                     Placeholder placeholder = Main.getInstance().getPlaceholder();
                     Optional<PlaceholderPack> placeholderPack = placeholder.getRegisteredPacks().stream().filter(pack -> pack.getIdentifier().equalsIgnoreCase(identifierString)).findFirst();
                     placeholderPack.ifPresent(pack -> builder.append(pack.apply(player, parametersString)));
-                    if(placeholderPack.isEmpty())
+                    if (placeholderPack.isEmpty())
                         builder.append("%").append(identifierString).append("_").append(parametersString).append("%");
                 }
             } else {

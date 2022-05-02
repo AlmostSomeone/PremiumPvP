@@ -14,8 +14,7 @@ public class FoodLevelChangeListener implements Listener {
 
     @EventHandler
     public void foodLevelChange(FoodLevelChangeEvent event) {
-        if(!(event.getEntity() instanceof Player)) return;
-        Player player = (Player) event.getEntity();
+        if(!(event.getEntity() instanceof Player player)) return;
 
         // Don't do anything if the player is not in the game
         Game game = Main.getInstance().getGame();

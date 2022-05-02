@@ -7,6 +7,7 @@ import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 
@@ -26,12 +27,11 @@ public class WorldCMD extends CommandBuilder {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String label, String[] args) {
-        if(!(sender instanceof Player)) {
+    public boolean execute(@NotNull CommandSender sender, @NotNull String label, String[] args) {
+        if(!(sender instanceof Player player)) {
             sender.sendMessage(color(messages.getMessage("global.only-players")));
             return true;
         }
-        Player player = (Player) sender;
 
         if(this.getPermission() != null && !player.hasPermission(this.getPermission())) {
             player.sendMessage(color(this.getPermissionMessage()));

@@ -4,12 +4,15 @@ import dev.almostsomeone.premiumpvp.Main;
 import dev.almostsomeone.premiumpvp.storage.Messages;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -24,14 +27,13 @@ public abstract class CommandBuilder extends Command {
     public HashMap<String, String> subCommands;
 
     @Override
-    public boolean execute(CommandSender sender, String label, String[] args) {
+    public boolean execute(@NotNull CommandSender sender, @NotNull String label, String[] args) {
         return false;
     }
 
     protected CommandBuilder(String configPath) {
         super(Main.getInstance().config.get().getString(configPath + ".name"));
 
-        this.setUsage("/" + this.getName());
         this.setPermissionMessage(this.messages.getMessage("global.no-permissions"));
         if(this.config.isSet(configPath + ".description"))
             this.setDescription(this.config.getString(configPath + ".description"));
@@ -57,7 +59,6 @@ public abstract class CommandBuilder extends Command {
     protected CommandBuilder(String configPath, String name, Boolean forceEnabled, Boolean allowPermissions) {
         super(name);
 
-        this.setUsage("/" + this.getName());
         this.setPermissionMessage(this.messages.getMessage("global.no-permissions"));
         if(this.config.isSet(configPath + ".description"))
             this.setDescription(this.config.getString(configPath + ".description"));
@@ -80,28 +81,25 @@ public abstract class CommandBuilder extends Command {
         }
     }
 
-    @Override
-    public List<String> tabComplete(CommandSender sender, String alias, String[] args) throws IllegalArgumentException {
+    @Override @NotNull
+    public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args, @Nullable Location location) throws IllegalArgumentException {
         String lastWord = args[args.length - 1];
 
+        List<String> autoCompletes = new ArrayList<>();
         if (args.length == 1 && subCommands != null) {
-            List<String> autoCompletes = new ArrayList<>();
             for (String sub : this.subCommands.keySet().toArray(new String[0]))
                 if (StringUtil.startsWithIgnoreCase(sub, args[0]))
                     autoCompletes.add(sub);
-                autoCompletes.sort(String.CASE_INSENSITIVE_ORDER);
-                return autoCompletes;
         } else {
             Player senderPlayer = sender instanceof Player ? (Player) sender : null;
-            ArrayList<String> matchedPlayers = new ArrayList<>();
             for(Player player : sender.getServer().getOnlinePlayers()) {
                 String name = player.getName();
-                if((sender == null || senderPlayer.canSee(player)) && StringUtil.startsWithIgnoreCase(name, lastWord))
-                    matchedPlayers.add(name);
+                if((senderPlayer == null || senderPlayer.canSee(player)) && StringUtil.startsWithIgnoreCase(name, lastWord))
+                    autoCompletes.add(name);
             }
-            matchedPlayers.sort(String.CASE_INSENSITIVE_ORDER);
-            return matchedPlayers;
         }
+        autoCompletes.sort(String.CASE_INSENSITIVE_ORDER);
+        return autoCompletes;
     }
 
 

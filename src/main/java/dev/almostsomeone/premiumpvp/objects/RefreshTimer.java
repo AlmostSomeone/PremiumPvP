@@ -8,8 +8,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class RefreshTimer extends BukkitRunnable {
 
-    private Game game;
-    private GamePlayerManager gamePlayerManager;
+    private final Game game;
+    private final GamePlayerManager gamePlayerManager;
 
     public RefreshTimer(Game game) {
         this.game = game;

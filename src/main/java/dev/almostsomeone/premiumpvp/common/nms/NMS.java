@@ -7,7 +7,7 @@ import java.util.logging.Level;
 
 public class NMS {
 
-    private GlobalClassBuilder globalClassBuilder;
+    private final GlobalClassBuilder globalClassBuilder;
 
     public NMS(final Plugin plugin) {
         String version = plugin.getServer().getClass().getPackage().getName();

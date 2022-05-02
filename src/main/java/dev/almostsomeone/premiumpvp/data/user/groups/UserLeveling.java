@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class UserLeveling extends DataGroup {
 
-    private DataObject level, experience;
+    private final DataObject level, experience;
 
     public UserLeveling(DataContainer dataContainer) {
         super(dataContainer);

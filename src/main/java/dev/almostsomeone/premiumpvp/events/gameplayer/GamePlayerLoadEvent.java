@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
@@ -16,7 +17,7 @@ public class GamePlayerLoadEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
 
     @Override
-    public HandlerList getHandlers() {
+    public @NotNull HandlerList getHandlers() {
         return handlers;
     }
 
@@ -24,7 +25,7 @@ public class GamePlayerLoadEvent extends Event {
         return handlers;
     }
 
-    private GamePlayer gamePlayer;
+    private final GamePlayer gamePlayer;
 
     public GamePlayerLoadEvent(UUID uuid) {
         Game game = Main.getInstance().getGame();

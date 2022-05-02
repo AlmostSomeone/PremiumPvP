@@ -5,13 +5,11 @@ import dev.almostsomeone.premiumpvp.data.DataGroup;
 import dev.almostsomeone.premiumpvp.data.DataObject;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Date;
-import java.util.HashMap;
 import java.util.UUID;
 
 public class UserStatistics extends DataGroup {
 
-    private DataObject
+    private final DataObject
             // Basic
             kills,
             assists,
@@ -32,11 +30,6 @@ public class UserStatistics extends DataGroup {
             // Others
             bountiesClaimed;
 
-    private HashMap<UUID, Integer>
-            newKills,
-            newAssists,
-            newDeaths;
-
     public UserStatistics(@NotNull DataContainer dataContainer) {
         super(dataContainer);
 
@@ -44,9 +37,6 @@ public class UserStatistics extends DataGroup {
         this.kills = new DataObject(this, "Kills", 0);
         this.assists = new DataObject(this, "Assists", 0);
         this.deaths = new DataObject(this, "Deaths", 0);
-        this.newKills = new HashMap<>();
-        this.newAssists = new HashMap<>();
-        this.newDeaths = new HashMap<>();
 
         // Killstreak
         this.killstreak = new DataObject(this, "Killstreak", 0);
@@ -79,7 +69,6 @@ public class UserStatistics extends DataGroup {
     }
 
     public void addKill(UUID killed) {
-        this.newKills.put(killed, (int) new Date().getTime());
         this.killstreak.setInteger(this.killstreak.getInteger() + 1);
     }
 
@@ -88,7 +77,7 @@ public class UserStatistics extends DataGroup {
     }
 
     public void addAssist(UUID killed) {
-        this.newAssists.put(killed, (int) new Date().getTime());
+        this.assists.setInteger(this.assists.getInteger() + 1);
     }
 
     public Integer getDeaths() {
@@ -96,7 +85,7 @@ public class UserStatistics extends DataGroup {
     }
 
     public void addDeath(UUID died) {
-        this.newDeaths.put(died, (int) new Date().getTime());
+        this.deaths.setInteger(this.deaths.getInteger() + 1);
         this.bestKillstreak.setInteger(this.killstreak.getInteger());
         this.killstreak.setInteger(0);
     }

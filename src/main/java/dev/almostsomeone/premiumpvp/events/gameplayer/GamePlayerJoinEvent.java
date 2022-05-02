@@ -12,17 +12,16 @@ import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerState;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
 public class GamePlayerJoinEvent extends Event {
 
-    private final YamlConfiguration config = Main.getInstance().config.get();
-
     private static final HandlerList handlers = new HandlerList();
 
     @Override
-    public HandlerList getHandlers() {
+    public @NotNull HandlerList getHandlers() {
         return handlers;
     }
 
@@ -44,18 +43,19 @@ public class GamePlayerJoinEvent extends Event {
         User user = this.gamePlayer.getUser();
 
         // Load the UserLeveling data
+        YamlConfiguration config = Main.getInstance().config.get();
         UserLeveling userLeveling = user.getLeveling();
-        if(userLeveling == null || (this.config.isSet("performance.caching.read-on-join") && this.config.getBoolean("performance.caching.read-on-join")))
+        if(!userLeveling.isLoaded() || (config.isSet("performance.caching.read-on-join") && config.getBoolean("performance.caching.read-on-join")))
             userLeveling.load();
 
         // Load the UserEconomy data
         UserEconomy userEconomy = user.getEconomy();
-        if(userEconomy == null || (this.config.isSet("performance.caching.read-on-join") && this.config.getBoolean("performance.caching.read-on-join")))
+        if(!userEconomy.isLoaded() || (config.isSet("performance.caching.read-on-join") && config.getBoolean("performance.caching.read-on-join")))
             userEconomy.load();
 
         // Load the UserStatistics data
         UserStatistics userStatistics = user.getStatistics();
-        if(userStatistics == null || (this.config.isSet("performance.caching.read-on-join") && this.config.getBoolean("performance.caching.read-on-join") == true))
+        if(!userStatistics.isLoaded() || (config.isSet("performance.caching.read-on-join") && config.getBoolean("performance.caching.read-on-join")))
             userStatistics.load();
 
         this.gamePlayer.setGamePlayerState(GamePlayerState.LOBBY);

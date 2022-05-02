@@ -13,13 +13,12 @@ import java.util.regex.Pattern;
 
 public class IntegratedPlaceholders {
 
-    private List<PlaceholderPack> registeredPacks;
+    private final List<PlaceholderPack> registeredPacks;
 
-    private CharsReplacer percentReplacer = new CharsReplacer(Replacer.Closure.PERCENT);
-    private CharsReplacer bracketReplacer = new CharsReplacer(Replacer.Closure.BRACKET);
-    private Pattern percentPattern = Pattern.compile("[%]([^%]+)[%]");
-    private Pattern bracketPattern = Pattern.compile("[{]([^{}]+)[}]");
-    private Pattern relationalPattern = Pattern.compile("[%](rel_)([^%]+)[%]");
+    private final CharsReplacer percentReplacer = new CharsReplacer(Replacer.Closure.PERCENT);
+    private final CharsReplacer bracketReplacer = new CharsReplacer(Replacer.Closure.BRACKET);
+    private final Pattern percentPattern = Pattern.compile("[%]([^%]+)[%]");
+    private final Pattern bracketPattern = Pattern.compile("[{]([^{}]+)[}]");
 
     public IntegratedPlaceholders() {
         this.registeredPacks = Arrays.asList(

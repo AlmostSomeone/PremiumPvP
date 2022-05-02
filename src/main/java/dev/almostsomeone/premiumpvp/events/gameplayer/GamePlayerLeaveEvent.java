@@ -9,6 +9,7 @@ import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerState;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 import java.util.logging.Level;
@@ -18,7 +19,7 @@ public class GamePlayerLeaveEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
 
     @Override
-    public HandlerList getHandlers() {
+    public @NotNull HandlerList getHandlers() {
         return handlers;
     }
 
@@ -26,7 +27,7 @@ public class GamePlayerLeaveEvent extends Event {
         return handlers;
     }
 
-    private GamePlayer gamePlayer;
+    private final GamePlayer gamePlayer;
 
     public GamePlayerLeaveEvent(UUID uuid) {
         Game game = Main.getInstance().getGame();

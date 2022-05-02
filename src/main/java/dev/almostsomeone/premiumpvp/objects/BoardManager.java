@@ -20,7 +20,7 @@ public class BoardManager {
 
     private BukkitRunnable refreshTimer;
 
-    private Map<String, CustomBoard> boards;
+    private final Map<String, CustomBoard> boards;
 
     public BoardManager(final Plugin plugin, final Game game) {
         this.plugin = plugin;
@@ -61,7 +61,7 @@ public class BoardManager {
         }
 
         // Get the refresh ticks
-        Integer ticks = 0;
+        int ticks = 0;
         if(config.isSet("settings.refresh"))
             ticks = config.getInt("settings.refresh");
 

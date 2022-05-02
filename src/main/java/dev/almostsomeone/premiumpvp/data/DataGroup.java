@@ -10,7 +10,7 @@ import java.util.List;
 
 public abstract class DataGroup {
 
-    private DataContainer dataContainer;
+    private final DataContainer dataContainer;
     protected List<DataObject> dataObjects;
 
     protected ResultSet resultSet = null;
@@ -115,5 +115,9 @@ public abstract class DataGroup {
         }
         query.append("CONSTRAINT PK_").append(storageTable.getTableName()).append(" PRIMARY KEY (UUID))");
         storageTable.executeUpdate(query.toString());
+    }
+
+    public Boolean isLoaded() {
+        return this.resultSet != null;
     }
 }

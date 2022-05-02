@@ -12,6 +12,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 
@@ -52,17 +53,16 @@ public class KitPvPCMD extends CommandBuilder {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String label, String[] args) {
-        if(!(sender instanceof Player)) {
+    public boolean execute(@NotNull CommandSender sender, @NotNull String label, String[] args) {
+        if(!(sender instanceof Player player)) {
             sender.sendMessage(color(messages.getMessage("global.only-players")));
             return true;
         }
-        Player player = (Player) sender;
         Game game = Main.getInstance().getGame();
         GamePlayer gamePlayer = game.getGamePlayerManager().getGamePlayer(player.getUniqueId());
 
         if(args.length == 0) {
-            player.sendMessage(format(player, this.messages.getMessage("commands.help.use-help").replaceAll("\\{command\\}", "/" + label)));
+            player.sendMessage(format(player, this.messages.getMessage("commands.help.use-help").replaceAll("\\{command}", "/" + label)));
             return true;
         } else {
             switch(args[0].toLowerCase()) {
@@ -75,14 +75,14 @@ public class KitPvPCMD extends CommandBuilder {
                     break;
                 case "help":
                     sender.sendMessage(format(player, this.messages.getMessage("commands.help.header")
-                            .replaceAll("\\{command\\}", "/" + label)));
+                            .replaceAll("\\{command}", "/" + label)));
                     this.subCommands.forEach((subcommand, description) ->
                             player.sendMessage(format(player, this.messages.getMessage("commands.help.item")
-                                    .replaceAll("\\{command\\}", "/" + label)
-                                    .replaceAll("\\{subcommand\\}", subcommand.substring(0,1).toUpperCase() + subcommand.substring(1).toLowerCase())
-                                    .replaceAll("\\{description\\}", description))));
+                                    .replaceAll("\\{command}", "/" + label)
+                                    .replaceAll("\\{subcommand}", subcommand.substring(0,1).toUpperCase() + subcommand.substring(1).toLowerCase())
+                                    .replaceAll("\\{description}", description))));
                     player.sendMessage(format(player, this.messages.getMessage("commands.help.footer")
-                            .replaceAll("\\{command\\}", "/" + label)));
+                            .replaceAll("\\{command}", "/" + label)));
                     break;
                 case "reload":
                     try {
@@ -123,7 +123,7 @@ public class KitPvPCMD extends CommandBuilder {
                     player.sendMessage(format(player, this.messages.getMessage("commands.kitpvp.leave")));
                     break;
                 default:
-                    player.sendMessage(format(player, this.messages.getMessage("commands.help.use-help").replaceAll("\\{command\\}", "/" + label)));
+                    player.sendMessage(format(player, this.messages.getMessage("commands.help.use-help").replaceAll("\\{command}", "/" + label)));
                     break;
             }
         }

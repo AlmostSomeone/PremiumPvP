@@ -14,17 +14,16 @@ import java.util.List;
 
 public class ListenerHandler {
 
-    private List<Listener> listeners = Arrays.asList(
-            new PlayerJoinListener(),
-            new PlayerChangedWorldListener(),
-            new FoodLevelChangeListener(),
-            new WeatherChangeListener(),
-            new GamePlayerJoinListener(),
-            new GamePlayerLeaveListener()
-    );
-
     public ListenerHandler(final Plugin plugin) {
-        for(Listener listener : this.listeners)
+        List<Listener> listeners = Arrays.asList(
+                new PlayerJoinListener(),
+                new PlayerChangedWorldListener(),
+                new FoodLevelChangeListener(),
+                new WeatherChangeListener(),
+                new GamePlayerJoinListener(),
+                new GamePlayerLeaveListener()
+        );
+        for(Listener listener : listeners)
             plugin.getServer().getPluginManager().registerEvents(listener, plugin);
     }
 }

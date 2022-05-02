@@ -15,14 +15,11 @@ public class PlayerPlaceholders extends PlaceholderPack {
     public String apply(OfflinePlayer offlinePlayer, String param) {
         if(!offlinePlayer.isOnline())
             return null;
-        switch (param.toLowerCase()) {
-            case "name":
-                return offlinePlayer.getName();
-            case "displayname":
-                return offlinePlayer.getPlayer().getDisplayName();
-            case "health":
-                return String.valueOf(Math.round(offlinePlayer.getPlayer().getHealth()));
-        }
-        return null;
+        return switch (param.toLowerCase()) {
+            case "name" -> offlinePlayer.getName();
+            case "displayname" -> offlinePlayer.getPlayer().getDisplayName();
+            case "health" -> String.valueOf(Math.round(offlinePlayer.getPlayer().getHealth()));
+            default -> null;
+        };
     }
 }

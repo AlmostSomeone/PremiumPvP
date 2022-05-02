@@ -81,6 +81,7 @@ public class WorldManager {
         String weatherLock = (fallbackProfile == null ? "NONE" : fallbackProfile.getWeatherLock());
         if(this.config.isSet(configPath + ".weather-lock")) {
             String temp = this.config.getString(configPath + ".weather-lock");
+            if(temp == null) temp = "NONE";
             if(temp.equalsIgnoreCase("NONE")) {
                 weatherLock = "NONE";
             } else {
@@ -94,6 +95,7 @@ public class WorldManager {
         String gameMode = (fallbackProfile == null ? "NONE" : fallbackProfile.getGameMode());
         if(this.config.isSet(configPath + ".gamemode")) {
             String temp = this.config.getString(configPath + ".gamemode");
+            if(temp == null) temp = "NONE";
             if(temp.equalsIgnoreCase("NONE")) {
                 gameMode = "NONE";
             } else {
@@ -105,7 +107,7 @@ public class WorldManager {
             }
         }
 
-        WorldProfile worldProfile = new WorldProfile(
+        return new WorldProfile(
                 profileName,
                 type,
                 generateStructures,
@@ -114,8 +116,6 @@ public class WorldManager {
                 weatherLock,
                 gameMode
         );
-
-        return worldProfile;
     }
 
     public WorldProfile getWorldProfile(String name) {

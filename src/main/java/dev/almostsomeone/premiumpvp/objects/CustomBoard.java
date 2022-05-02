@@ -15,8 +15,8 @@ import static dev.almostsomeone.premiumpvp.utilities.ChatUtil.format;
 
 public class CustomBoard {
 
-    private InfoFile scoreboardFile;
-    private GamePlayerState gamePlayerState;
+    private final InfoFile scoreboardFile;
+    private final GamePlayerState gamePlayerState;
 
     private String title;
     private List<String> lines;

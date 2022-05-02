@@ -5,6 +5,7 @@ import dev.almostsomeone.premiumpvp.common.bukkit.placeholder.integrated.Placeho
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 
 public class PapiExpansion extends PlaceholderExpansion {
 
@@ -17,17 +18,17 @@ public class PapiExpansion extends PlaceholderExpansion {
     }
 
     @Override
-    public String getAuthor() {
+    public @NotNull String getAuthor() {
         return "AlmostSomeone";
     }
 
     @Override
-    public String getIdentifier() {
+    public @NotNull String getIdentifier() {
         return "PremiumPvP";
     }
 
     @Override
-    public String getVersion() {
+    public @NotNull String getVersion() {
         return "v" + this.plugin.getDescription().getVersion();
     }
 
@@ -37,7 +38,7 @@ public class PapiExpansion extends PlaceholderExpansion {
     }
 
     @Override
-    public String onRequest(OfflinePlayer player, String params) {
+    public String onRequest(OfflinePlayer player, @NotNull String params) {
         return this.placeholderPack.apply(player, params);
     }
 }

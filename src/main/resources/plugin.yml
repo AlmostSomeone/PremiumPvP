@@ -7,3 +7,7 @@ website: ${project.url}
 description: ${project.description}
 author: AlmostSomeone
 softdepend: [PlaceholderAPI]
+
+commands:
+  kitpvp:
+    description: test

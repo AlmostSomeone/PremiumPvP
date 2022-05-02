@@ -11,7 +11,7 @@ public class GamePlayer {
 
     private final UUID uuid;
     private GamePlayerState gamePlayerState;
-    private User user;
+    private final User user;
 
     public GamePlayer(final UUID uuid) {
         this.uuid = uuid;
