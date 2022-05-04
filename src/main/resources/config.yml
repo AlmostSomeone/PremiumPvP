@@ -148,7 +148,8 @@ commands:
 # Please configure this carefully, especially when your server is already launched.
 performance:
   caching:
-    read-on-join: false # If you set this to true, the plugin will cache the player's data when they join. Useful for Bungeecord configurations
+    read-on-join: false # If you set this to true, the plugin will (re)cache the player's data when they join. Useful for Bungeecord configurations
+    write-on-leave: false # If you set this to true, the plugin will write the player's data to the database when they leave. Useful for Bungeecord configurations
   auto-save:
     enabled: true # If you set this to true, the plugin will automatically save the data
     interval: 300 # The interval in seconds.
