@@ -1,6 +1,7 @@
 package dev.almostsomeone.premiumpvp.storage;
 
 import dev.almostsomeone.premiumpvp.Main;
+import dev.almostsomeone.premiumpvp.data.user.User;
 import dev.almostsomeone.premiumpvp.storage.sql.MySQL;
 import dev.almostsomeone.premiumpvp.storage.sql.SQL;
 import dev.almostsomeone.premiumpvp.storage.sql.SQLite;
@@ -12,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.UUID;
 import java.util.logging.Level;
 
 public class Storage {
@@ -49,6 +51,10 @@ public class Storage {
         // Set up the pool with the configured SQL
         plugin.getLogger().log(Level.INFO, "Setting up connection pool...");
         this.sql.setupPool();
+
+        // Create tables for the user
+        // TODO Find a better way to automatically create tables
+        new User(UUID.randomUUID()).createTables();
     }
 
     public Connection getConnection() throws SQLException {

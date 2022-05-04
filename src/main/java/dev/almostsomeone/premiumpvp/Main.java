@@ -66,9 +66,6 @@ public class Main extends JavaPlugin {
         // Load the storage
         this.storage = new Storage(this);
 
-        // Create tables for the user
-        new User(UUID.randomUUID()).createTables();
-
         // Preparing placeholders
         this.placeholder = new Placeholder(this);
 
