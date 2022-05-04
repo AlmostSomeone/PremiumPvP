@@ -149,6 +149,9 @@ commands:
 performance:
   caching:
     read-on-join: false # If you set this to true, the plugin will cache the player's data when they join. Useful for Bungeecord configurations
+  auto-save:
+    enabled: true # If you set this to true, the plugin will automatically save the data
+    interval: 300 # The interval in seconds.
 
 # World settings allow you to configure settings for your worlds.
 # For example, you can lock a world to specific weather types, making it easy to add themes to your maps.

@@ -1,7 +1,6 @@
 package dev.almostsomeone.premiumpvp.storage;
 
 import dev.almostsomeone.premiumpvp.Main;
-import dev.almostsomeone.premiumpvp.data.user.User;
 import dev.almostsomeone.premiumpvp.storage.sql.MySQL;
 import dev.almostsomeone.premiumpvp.storage.sql.SQL;
 import dev.almostsomeone.premiumpvp.storage.sql.SQLite;
@@ -13,21 +12,18 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.UUID;
 import java.util.logging.Level;
 
 public class Storage {
 
     private final Plugin plugin;
-    private SQL sql;
-
-    private YamlConfiguration config;
+    private final SQL sql;
 
     public Storage(final Plugin plugin) {
         this.plugin = plugin;
-        this.config = Main.getInstance().config.get();
+        YamlConfiguration config = Main.getInstance().config.get();
 
-        if(this.config.isSet("mysql.enabled") && this.config.getBoolean("mysql.enabled")) {
+        if(config.isSet("mysql.enabled") && config.getBoolean("mysql.enabled")) {
             String host = (config.isSet("mysql.host") ? config.getString("mysql.host") : "localhost");
             String port = (config.isSet("mysql.port") ? config.getString("mysql.port") : "3306");
             String database = (config.isSet("mysql.database") ? config.getString("mysql.database") : "kitpvp");
@@ -40,7 +36,10 @@ public class Storage {
             if(!file.exists()) {
                 try {
                     this.plugin.getLogger().log(Level.INFO, "Creating local database...");
-                    file.createNewFile();
+                    if(file.createNewFile())
+                        this.plugin.getLogger().log(Level.INFO, "Successfully generated local database");
+                    else
+                        this.plugin.getLogger().log(Level.WARNING, "Could not generate local database");
                 } catch (IOException exception) {
                     exception.printStackTrace();
                 }
@@ -52,9 +51,11 @@ public class Storage {
         plugin.getLogger().log(Level.INFO, "Setting up connection pool...");
         this.sql.setupPool();
 
-        // Create tables for the user
-        // TODO Find a better way to automatically create tables
-        new User(UUID.randomUUID()).createTables();
+        // Auto-Save the data to minimize data loss on forced shutdown
+        int autoSaveInterval = (config.isSet("performance.auto-save.interval") ? config.getInt("performance.auto-save.interval") : 300) * 20;
+        plugin.getLogger().log(Level.INFO, "Auto-saving data...");
+        Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, () -> Main.getInstance().getGame().getGamePlayerManager().saveAll(), autoSaveInterval, autoSaveInterval);
+        plugin.getLogger().log(Level.INFO, "Finished auto-saving data");
     }
 
     public Connection getConnection() throws SQLException {
