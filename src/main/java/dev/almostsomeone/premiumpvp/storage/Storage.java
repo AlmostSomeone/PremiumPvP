@@ -53,9 +53,11 @@ public class Storage {
 
         // Auto-Save the data to minimize data loss on forced shutdown
         int autoSaveInterval = (config.isSet("performance.auto-save.interval") ? config.getInt("performance.auto-save.interval") : 300) * 20;
-        plugin.getLogger().log(Level.INFO, "Auto-saving data...");
-        Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, () -> Main.getInstance().getGame().getGamePlayerManager().saveAll(), autoSaveInterval, autoSaveInterval);
-        plugin.getLogger().log(Level.INFO, "Finished auto-saving data");
+        Bukkit.getScheduler().runTaskTimer(plugin, () -> {
+            plugin.getLogger().log(Level.INFO, "Auto-saving data...");
+            Main.getInstance().getGame().getGamePlayerManager().saveAll();
+            plugin.getLogger().log(Level.INFO, "Finished auto-saving data");
+        }, autoSaveInterval, autoSaveInterval);
     }
 
     public Connection getConnection() throws SQLException {
