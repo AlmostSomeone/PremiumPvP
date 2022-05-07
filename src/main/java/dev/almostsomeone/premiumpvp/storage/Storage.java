@@ -23,15 +23,21 @@ public class Storage {
         this.plugin = plugin;
         YamlConfiguration config = Main.getInstance().config.get();
 
-        if(config.isSet("mysql.enabled") && config.getBoolean("mysql.enabled")) {
-            String host = (config.isSet("mysql.host") ? config.getString("mysql.host") : "localhost");
-            String port = (config.isSet("mysql.port") ? config.getString("mysql.port") : "3306");
-            String database = (config.isSet("mysql.database") ? config.getString("mysql.database") : "kitpvp");
-            String username = (config.isSet("mysql.username") ? config.getString("mysql.username") : "username");
-            String password = (config.isSet("mysql.password") ? config.getString("mysql.password") : "password");
+        String method = config.isSet("storage.method") ? config.getString("storage.method") : "sqlite";
+        if(method == null) method = "sqlite";
 
+        if (method.equalsIgnoreCase("mysql")) {
+            // Retrieve the MySQL credentials
+            String host = config.isSet("storage.host") ? config.getString("storage.host") : "localhost";
+            String port = config.isSet("storage.port") ? config.getString("storage.port") : "3306";
+            String database = config.isSet("storage.database") ? config.getString("storage.database") : "premiumpvp";
+            String username = config.isSet("storage.username") ? config.getString("storage.username") : "root";
+            String password = config.isSet("storage.password") ? config.getString("storage.password") : "";
+
+            // Create the MySQL database connection
             this.sql = new MySQL(host, port, database, username, password);
         } else {
+            // Create the SQLite database file
             File file = new File(this.plugin.getDataFolder(), "Database.db");
             if(!file.exists()) {
                 try {
@@ -44,6 +50,8 @@ public class Storage {
                     exception.printStackTrace();
                 }
             }
+
+            // Create the SQLite database connection
             this.sql = new SQLite(file);
         }
 

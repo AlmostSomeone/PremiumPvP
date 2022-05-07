@@ -10,5 +10,6 @@ public class SQLite extends SQL {
         this.hikariConfig = new HikariConfig();
         this.hikariConfig.setDataSourceClassName("org.sqlite.SQLiteDataSource");
         this.hikariConfig.setJdbcUrl("jdbc:sqlite:" + file);
+        this.hikariConfig.setAutoCommit(false);
     }
 }

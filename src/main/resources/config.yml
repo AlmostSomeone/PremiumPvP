@@ -23,14 +23,14 @@ language: EN
 # - SQLite: This is the default local Database.sql file and is recommended if you don't need to retrieve data from other places.
 # - MySQL: This is the recommended way of storing data if you need to retrieve data from other places like multiple servers or websites.
 storage:
-  method: mysql
-  host: localhost
-  port: 3306
-  username: root
-  password: root
-  database: premiumpvp
-  table: data
-  prefix: ppvp
+  method: sqlite
+  host: localhost # If you use SQLite, you don't need to change this.
+  port: 3306 # If you use SQLite, you don't need to change this.
+  username: root # If you use SQLite, you don't need to change this.
+  password: root # If you use SQLite, you don't need to change this.
+  database: premiumpvp # If you use SQLite, you don't need to change this.
+  table: data # If you use SQLite, you don't need to change this.
+  prefix: ppvp # If you use SQLite, you don't need to change this.
 
 # Configure how players can participate in KitPvP
 # I'd recommend leaving this as it is if you only have this gamemode on the server.

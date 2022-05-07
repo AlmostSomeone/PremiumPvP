@@ -4,12 +4,13 @@ import dev.almostsomeone.premiumpvp.Main;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.sql.*;
+import java.util.logging.Level;
 
 public record StorageTable(String tableName) {
 
     public StorageTable(String tableName) {
         YamlConfiguration config = Main.getInstance().config.get();
-        this.tableName = (config.isSet("mysql.prefix") ? config.getString("mysql.prefix").length() > 0 ? config.getString("mysql.prefix") + "_" : "" : "premiumpvp_") + tableName;
+        this.tableName = (config.isSet("storage.prefix") && config.getString("storage.prefix").length() > 0 ? config.getString("storage.prefix") : "ppvp") + "_" + tableName;
     }
 
     public Boolean doesExist() {
@@ -38,6 +39,7 @@ public record StorageTable(String tableName) {
     }
 
     public ResultSet executeQuery(String query) {
+        Main.getInstance().getLogger().log(Level.INFO, "Executing query: " + query);
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -60,12 +62,14 @@ public record StorageTable(String tableName) {
     }
 
     public Integer executeUpdate(String query) {
+        Main.getInstance().getLogger().log(Level.INFO, "Executing update: " + query);
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = Main.getInstance().getStorage().getConnection();
             preparedStatement = connection.prepareStatement(query);
-            return preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
+            connection.commit();
         } catch (SQLException exception) {
             exception.printStackTrace();
         } finally {

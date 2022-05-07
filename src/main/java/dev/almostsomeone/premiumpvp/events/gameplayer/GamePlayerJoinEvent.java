@@ -42,8 +42,9 @@ public class GamePlayerJoinEvent extends Event {
 
         User user = this.gamePlayer.getUser();
 
-        // Load the UserLeveling data
         YamlConfiguration config = Main.getInstance().config.get();
+
+        // Load the UserLeveling data
         UserLeveling userLeveling = user.getLeveling();
         if(!userLeveling.isLoaded() || (config.isSet("performance.caching.read-on-join") && config.getBoolean("performance.caching.read-on-join")))
             userLeveling.load();

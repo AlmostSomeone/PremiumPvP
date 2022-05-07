@@ -27,7 +27,6 @@ public class Game {
     public void loadGame() {
         this.worldManager.loadWorlds();
         this.boardManager.loadBoard();
-        this.gamePlayerManager.loadGamePlayers();
     }
 
     public Location getSpawnLocation() {
