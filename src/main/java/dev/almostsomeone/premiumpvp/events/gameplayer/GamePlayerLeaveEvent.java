@@ -44,11 +44,14 @@ public class GamePlayerLeaveEvent extends Event {
         this.gamePlayer.setGamePlayerState(GamePlayerState.NONE);
 
         // Save the GamePlayers user
+        User user = this.gamePlayer.getUser();
         YamlConfiguration config = Main.getInstance().config.get();
-        if(config.isSet("performance.caching.write-on-leave") && config.getBoolean("performance.caching.write-on-leave")) {
-            User user = this.gamePlayer.getUser();
+        if(config.isSet("performance.caching.write-on-leave") && config.getBoolean("performance.caching.write-on-leave"))
             user.save();
-        }
+
+        this.gamePlayer.getUser().unload();
+        if(config.isSet("performance.remove-on-leave") && config.getBoolean("performance.remove-on-leave"))
+            user.unload();
     }
 
     public GamePlayer getGamePlayer() {

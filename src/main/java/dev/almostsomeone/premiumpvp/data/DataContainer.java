@@ -47,4 +47,9 @@ public abstract class DataContainer {
             if(dataGroup.inDatabase())
                 dataGroup.createTable();
     }
+
+    public void unload() {
+        if(this.dataGroups == null) return;
+        this.dataGroups.clear();
+    }
 }
