@@ -28,41 +28,42 @@ public class WorldCMD extends CommandBuilder {
 
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String label, String[] args) {
-        if(!(sender instanceof Player player)) {
+        if (!(sender instanceof Player player)) {
             sender.sendMessage(color(messages.getMessage("global.only-players")));
             return true;
         }
 
-        if(this.getPermission() != null && !player.hasPermission(this.getPermission())) {
+        if (this.getPermission() != null && !player.hasPermission(this.getPermission())) {
             player.sendMessage(color(this.getPermissionMessage()));
             return true;
         }
-        if(args.length < 1 || args.length > 2) {
+
+        if (args.length < 1 || args.length > 2) {
             player.sendMessage(format(player, messages.getMessage("commands.world.usage")));
             return true;
+        }
+
+        if (args.length == 1) {
+            try {
+                teleport(player, Bukkit.getWorld(args[0]));
+            } catch (NullPointerException exception) {
+                player.sendMessage(format(player, messages.getMessage("commands.world.no-world")));
+                return true;
+            }
         } else {
-            if(args.length == 1) {
+            Player target;
+            try {
+                target = Bukkit.getPlayerExact(args[1]);
+            } catch (Exception exception) {
+                player.sendMessage(format(player, messages.getMessage("global.target-not-online")));
+                return true;
+            }
+            if (target != null) {
                 try {
-                    teleport(player, Bukkit.getWorld(args[0]));
+                    teleport(target, Bukkit.getWorld(args[0]));
                 } catch (NullPointerException exception) {
                     player.sendMessage(format(player, messages.getMessage("commands.world.no-world")));
                     return true;
-                }
-            } else {
-                Player target;
-                try {
-                    target = Bukkit.getPlayerExact(args[1]);
-                } catch (Exception exception) {
-                    player.sendMessage(format(player, messages.getMessage("global.target-not-online")));
-                    return true;
-                }
-                if(target != null) {
-                    try {
-                        teleport(target, Bukkit.getWorld(args[0]));
-                    } catch (NullPointerException exception) {
-                        player.sendMessage(format(player, messages.getMessage("commands.world.no-world")));
-                        return true;
-                    }
                 }
             }
         }
