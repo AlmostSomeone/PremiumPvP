@@ -9,6 +9,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Level;
 
@@ -51,9 +52,8 @@ public class BoardManager {
 
         // Load scoreboards
         for(String stateName : config.getConfigurationSection("scoreboards").getKeys(false)) {
-            stateName = stateName.toUpperCase();
             if(GamePlayerState.valueOf(stateName) == null) {
-                plugin.getLogger().log(Level.WARNING, "The GameState " + stateName + " is not valid. Skipping scoreboard configuration.");
+                plugin.getLogger().log(Level.WARNING, () -> "The GameState " + stateName.toUpperCase(Locale.ROOT) + " is not valid. Skipping scoreboard configuration.");
                 continue;
             }
             GamePlayerState gamePlayerState = GamePlayerState.valueOf(stateName);

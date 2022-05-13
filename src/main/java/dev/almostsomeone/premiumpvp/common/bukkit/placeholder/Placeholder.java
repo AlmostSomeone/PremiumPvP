@@ -21,12 +21,12 @@ public class Placeholder {
         if(placeholderAPI != null) {
             this.method = "PlaceholderAPI";
 
-            plugin.getLogger().log(Level.INFO, "Hooking into PlaceholderAPI v" + placeholderAPI.getDescription().getVersion());
+            plugin.getLogger().log(Level.INFO, () -> "Hooking into PlaceholderAPI v" + placeholderAPI.getDescription().getVersion());
             new PapiExpansion(plugin).register();
         } else {
             this.method = "PremiumPvP";
 
-            plugin.getLogger().log(Level.INFO, "No PlaceholderAPI found, hooking into PremiumPvP's integrated placeholders.");
+            plugin.getLogger().log(Level.INFO, () -> "No PlaceholderAPI found, hooking into PremiumPvP's integrated placeholders.");
             this.integratedPlaceholders = new IntegratedPlaceholders();
         }
     }

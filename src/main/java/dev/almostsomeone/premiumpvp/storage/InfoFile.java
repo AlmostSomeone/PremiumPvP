@@ -21,16 +21,16 @@ public class InfoFile {
     }
 
     public void load() {
-        this.plugin.getLogger().log(Level.INFO, "Loading file " + this.name + "...");
+        this.plugin.getLogger().log(Level.INFO, () -> "Loading file " + this.name + "...");
         File dir = new File(this.plugin.getDataFolder() + File.separator);
         if(this.path != null) {
             dir = new File(this.plugin.getDataFolder() + File.separator + this.path + File.separator);
             if(!dir.exists()){
                 try {
                     if(dir.mkdir())
-                        this.plugin.getLogger().log(Level.INFO, this.path + " directory created.");
+                        this.plugin.getLogger().log(Level.INFO, () -> this.path + " directory created.");
                     else
-                        this.plugin.getLogger().log(Level.WARNING, "Something went wrong creating directory " + this.path);
+                        this.plugin.getLogger().log(Level.WARNING, () -> "Something went wrong creating directory " + this.path);
                 } catch (Exception exception) {
                     exception.printStackTrace();
                 }
@@ -47,10 +47,10 @@ public class InfoFile {
                 byte[] bytes = new byte[1024];
                 while ((read = inputStream != null ? inputStream.read(bytes) : 0) != -1)
                     outputStream.write(bytes, 0, read);
-                this.plugin.getLogger().log(Level.INFO, "Successfully generated " + file);
+                this.plugin.getLogger().log(Level.INFO, () -> "Successfully generated " + file);
             } catch (IOException e) {
                 e.printStackTrace();
-                this.plugin.getLogger().log(Level.WARNING, "Could not generate " + file);
+                this.plugin.getLogger().log(Level.WARNING, () -> "Could not generate " + file);
             } finally {
                 if (inputStream != null) {
                     try {

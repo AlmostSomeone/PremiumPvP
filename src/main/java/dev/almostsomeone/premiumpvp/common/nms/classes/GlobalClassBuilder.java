@@ -10,7 +10,7 @@ public class GlobalClassBuilder {
         if ("v1_8_R3".equals(version))
             new ClassBuilder_v1_8_R3();
         else
-            plugin.getLogger().log(Level.WARNING, "The NMS " + version + " is not supported, features which depend NMS might not work.");
+            plugin.getLogger().log(Level.WARNING, () -> "The NMS " + version + " is not supported, features which depend NMS might not work.");
     }
 
     // Used for hover-able and clickable chat messages

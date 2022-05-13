@@ -28,7 +28,7 @@ public class WorldManager {
     }
 
     public void loadWorlds() {
-        this.plugin.getLogger().log(Level.INFO, "Loading worlds...");
+        this.plugin.getLogger().log(Level.INFO, () -> "Loading worlds...");
 
         this.globalProfile = this.generateProfile("world-settings.global", false);
         this.duelsProfile = this.generateProfile("world-settings.duels", false);
@@ -42,7 +42,7 @@ public class WorldManager {
             }
         }
 
-        this.plugin.getLogger().log(Level.INFO, "Loaded all worlds");
+        this.plugin.getLogger().log(Level.INFO, () -> "Loaded all worlds");
     }
 
     public void loadWorld(WorldProfile worldProfile) {

@@ -92,7 +92,7 @@ public class Main extends JavaPlugin {
         String version = this.getDescription().getVersion();
         if (version.contains("-")) {
             String suffix = version.split("-")[1].toLowerCase();
-            this.getLogger().log(Level.WARNING, "You are running a " + suffix + " release. Consider using our latest stable release for public servers.");
+            this.getLogger().log(Level.WARNING, () -> "You are running a " + suffix + " release. Consider using our latest stable release for public servers.");
         }
     }
 

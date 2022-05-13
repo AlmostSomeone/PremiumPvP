@@ -41,11 +41,11 @@ public class Storage {
             File file = new File(this.plugin.getDataFolder(), "Database.db");
             if(!file.exists()) {
                 try {
-                    this.plugin.getLogger().log(Level.INFO, "Creating local database...");
+                    this.plugin.getLogger().log(Level.INFO, () -> "Creating local database...");
                     if(file.createNewFile())
-                        this.plugin.getLogger().log(Level.INFO, "Successfully generated local database");
+                        this.plugin.getLogger().log(Level.INFO, () -> "Successfully generated local database");
                     else
-                        this.plugin.getLogger().log(Level.WARNING, "Could not generate local database");
+                        this.plugin.getLogger().log(Level.WARNING, () -> "Could not generate local database");
                 } catch (IOException exception) {
                     exception.printStackTrace();
                 }
@@ -56,15 +56,15 @@ public class Storage {
         }
 
         // Set up the pool with the configured SQL
-        plugin.getLogger().log(Level.INFO, "Setting up connection pool...");
+        plugin.getLogger().log(Level.INFO, () -> "Setting up connection pool...");
         this.sql.setupPool();
 
         // Auto-Save the data to minimize data loss on forced shutdown
         int autoSaveInterval = (config.isSet("performance.auto-save.interval") ? config.getInt("performance.auto-save.interval") : 300) * 20;
         Bukkit.getScheduler().runTaskTimer(plugin, () -> {
-            plugin.getLogger().log(Level.INFO, "Auto-saving data...");
+            plugin.getLogger().log(Level.INFO, () -> "Auto-saving data...");
             Main.getInstance().getGame().getGamePlayerManager().saveAll();
-            plugin.getLogger().log(Level.INFO, "Finished auto-saving data");
+            plugin.getLogger().log(Level.INFO, () -> "Finished auto-saving data");
         }, autoSaveInterval, autoSaveInterval);
     }
 
@@ -73,7 +73,7 @@ public class Storage {
     }
 
     public void closePool() {
-        plugin.getLogger().log(Level.INFO, "Closing the connection pool...");
+        plugin.getLogger().log(Level.INFO, () -> "Closing the connection pool...");
         this.sql.closePool();
     }
 }

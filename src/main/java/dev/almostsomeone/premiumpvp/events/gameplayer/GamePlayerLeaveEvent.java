@@ -6,14 +6,12 @@ import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerManager;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerState;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
-import java.util.logging.Level;
 
 public class GamePlayerLeaveEvent extends Event {
 
@@ -35,10 +33,7 @@ public class GamePlayerLeaveEvent extends Event {
         GamePlayerManager gamePlayerManager = game.getGamePlayerManager();
 
         this.gamePlayer = gamePlayerManager.getGamePlayer(uuid);
-        if(gamePlayer == null) {
-            Bukkit.getLogger().log(Level.WARNING, "Tried to trigger GamePlayerLeaveEvent, but GamePlayer can not be found.");
-            return;
-        }
+        if(gamePlayer == null) return;
         if(this.gamePlayer.getGamePlayerState().equals(GamePlayerState.NONE)) return;
 
         this.gamePlayer.setGamePlayerState(GamePlayerState.NONE);
