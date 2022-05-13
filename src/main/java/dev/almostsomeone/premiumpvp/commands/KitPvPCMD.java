@@ -15,6 +15,7 @@ import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
+import java.util.Locale;
 
 import static dev.almostsomeone.premiumpvp.utilities.ChatUtil.color;
 import static dev.almostsomeone.premiumpvp.utilities.ChatUtil.format;
@@ -65,7 +66,7 @@ public class KitPvPCMD extends CommandBuilder {
             player.sendMessage(format(player, this.messages.getMessage("commands.help.use-help").replaceAll("\\{command}", "/" + label)));
             return true;
         } else {
-            switch(args[0].toLowerCase()) {
+            switch(args[0].toLowerCase(Locale.ROOT)) {
                 case "info":
                     player.sendMessage(" ");
                     player.sendMessage("Welcome to PremiumPvP v" + this.plugin.getDescription().getVersion());
@@ -79,7 +80,7 @@ public class KitPvPCMD extends CommandBuilder {
                     this.subCommands.forEach((subcommand, description) ->
                             player.sendMessage(format(player, this.messages.getMessage("commands.help.item")
                                     .replaceAll("\\{command}", "/" + label)
-                                    .replaceAll("\\{subcommand}", subcommand.substring(0,1).toUpperCase() + subcommand.substring(1).toLowerCase())
+                                    .replaceAll("\\{subcommand}", subcommand.substring(0,1).toUpperCase(Locale.ROOT) + subcommand.substring(1).toLowerCase(Locale.ROOT))
                                     .replaceAll("\\{description}", description))));
                     player.sendMessage(format(player, this.messages.getMessage("commands.help.footer")
                             .replaceAll("\\{command}", "/" + label)));

@@ -10,6 +10,7 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.List;
+import java.util.Locale;
 
 import static dev.almostsomeone.premiumpvp.utilities.ChatUtil.format;
 
@@ -32,7 +33,7 @@ public class CustomBoard {
         YamlConfiguration config = this.scoreboardFile.get();
 
         // Make sure the scoreboard is enabled
-        String stateName = this.gamePlayerState.name().toLowerCase();
+        String stateName = this.gamePlayerState.name().toLowerCase(Locale.ROOT);
         String configPrefix = "scoreboards." + stateName;
         if(!config.isSet(configPrefix) && !config.isSet(configPrefix + ".enabled") && config.getBoolean(configPrefix + ".enabled")) return;
 
@@ -48,7 +49,7 @@ public class CustomBoard {
         YamlConfiguration config = this.scoreboardFile.get();
 
         // Get config prefix
-        String stateName = this.gamePlayerState.name().toLowerCase();
+        String stateName = this.gamePlayerState.name().toLowerCase(Locale.ROOT);
         String configPrefix = "scoreboards." + stateName;
 
         // Load the information from the config
@@ -70,7 +71,7 @@ public class CustomBoard {
         int emptyCount = 0;
         for(int score = this.lines.size(); score > 0; score--) {
             String line = this.lines.get(this.lines.size() - score);
-            if(line.toLowerCase().trim().equals("{empty}")) {
+            if(line.toLowerCase(Locale.ROOT).trim().equals("{empty}")) {
                 line = "&" + emptyCount;
                 emptyCount++;
             }

@@ -4,6 +4,8 @@ import dev.almostsomeone.premiumpvp.common.bukkit.placeholder.integrated.Placeho
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Locale;
+
 public class PlayerPlaceholders extends PlaceholderPack {
 
     @Override
@@ -15,7 +17,7 @@ public class PlayerPlaceholders extends PlaceholderPack {
     public String apply(OfflinePlayer offlinePlayer, String param) {
         if(!offlinePlayer.isOnline())
             return null;
-        return switch (param.toLowerCase()) {
+        return switch (param.toLowerCase(Locale.ROOT)) {
             case "name" -> offlinePlayer.getName();
             case "displayname" -> offlinePlayer.getPlayer().getDisplayName();
             case "health" -> String.valueOf(Math.round(offlinePlayer.getPlayer().getHealth()));

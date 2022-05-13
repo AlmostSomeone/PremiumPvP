@@ -6,6 +6,8 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.Server;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Locale;
+
 public class ServerPlaceholders extends PlaceholderPack {
 
     @Override
@@ -17,7 +19,7 @@ public class ServerPlaceholders extends PlaceholderPack {
     public String apply(OfflinePlayer offlinePlayer, String param) {
         Server server = Bukkit.getServer();
 
-        switch (param.toLowerCase()) {
+        switch (param.toLowerCase(Locale.ROOT)) {
             case "name":
                 return server.getName();
             case "online":

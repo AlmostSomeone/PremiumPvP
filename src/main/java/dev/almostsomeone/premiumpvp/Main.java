@@ -17,6 +17,7 @@ import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Locale;
 import java.util.UUID;
 import java.util.logging.Level;
 
@@ -91,7 +92,7 @@ public class Main extends JavaPlugin {
         // Inform the server administrators about possible issues with non-stable releases
         String version = this.getDescription().getVersion();
         if (version.contains("-")) {
-            String suffix = version.split("-")[1].toLowerCase();
+            String suffix = version.split("-")[1].toLowerCase(Locale.ROOT);
             this.getLogger().log(Level.WARNING, () -> "You are running a " + suffix + " release. Consider using our latest stable release for public servers.");
         }
     }

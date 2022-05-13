@@ -9,6 +9,8 @@ import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerManager;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Locale;
+
 public class CustomPlaceholders extends PlaceholderPack {
 
     @Override
@@ -31,7 +33,7 @@ public class CustomPlaceholders extends PlaceholderPack {
         if(user == null)
             return null;
 
-        return switch (param.toLowerCase()) {
+        return switch (param.toLowerCase(Locale.ROOT)) {
             // Player Leveling
             case "player_level" -> user.getLeveling().getLevel().toString();
             case "player_experience" -> user.getLeveling().getExperience().toString();
