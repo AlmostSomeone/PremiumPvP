@@ -2,7 +2,6 @@ package dev.almostsomeone.premiumpvp.storage.sql;
 
 import dev.almostsomeone.premiumpvp.Main;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.sql.*;
 import java.util.logging.Level;

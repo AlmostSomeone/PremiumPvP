@@ -6,7 +6,6 @@ import dev.almostsomeone.premiumpvp.storage.sql.SQL;
 import dev.almostsomeone.premiumpvp.storage.sql.SQLite;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
 import java.io.File;

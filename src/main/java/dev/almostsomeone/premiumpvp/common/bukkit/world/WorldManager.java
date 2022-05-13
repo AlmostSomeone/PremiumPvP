@@ -4,7 +4,6 @@ import dev.almostsomeone.premiumpvp.Main;
 
 import org.bukkit.*;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
