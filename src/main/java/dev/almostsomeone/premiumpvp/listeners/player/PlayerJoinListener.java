@@ -11,7 +11,6 @@ public class PlayerJoinListener implements Listener {
 
     @EventHandler
     public void playerJoin(PlayerJoinEvent event) {
-        Player player = event.getPlayer();
-        Bukkit.getPluginManager().callEvent(new GamePlayerLoadEvent(player.getUniqueId()));
+        Bukkit.getPluginManager().callEvent(new GamePlayerLoadEvent(event.getPlayer().getUniqueId()));
     }
 }

@@ -55,7 +55,7 @@ public class WorldManager {
         worldProfile.setWeather();
     }
 
-    private WorldProfile generateProfile(String configPath, Boolean isDuels) {
+    private WorldProfile generateProfile(String configPath, boolean isDuels) {
         String[] pathParts = configPath.split("\\.");
         String profileName = pathParts[pathParts.length-1];
 

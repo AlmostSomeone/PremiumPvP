@@ -56,7 +56,7 @@ public abstract class CommandBuilder extends Command {
         }
     }
 
-    protected CommandBuilder(String configPath, String name, Boolean forceEnabled, Boolean allowPermissions) {
+    protected CommandBuilder(String configPath, String name, boolean forceEnabled, boolean allowPermissions) {
         super(name);
 
         this.setPermissionMessage(this.messages.getMessage("global.no-permissions"));

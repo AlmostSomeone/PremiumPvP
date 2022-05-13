@@ -121,7 +121,7 @@ public abstract class DataGroup {
         storageTable.executeUpdate(query.toString());
     }
 
-    public Boolean isLoaded() {
+    public boolean isLoaded() {
         return this.resultSet != null;
     }
 }

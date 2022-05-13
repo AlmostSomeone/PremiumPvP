@@ -13,7 +13,7 @@ public record StorageTable(String tableName) {
         this.tableName = (config.isSet("storage.prefix") && config.getString("storage.prefix").length() > 0 ? config.getString("storage.prefix") : "ppvp") + "_" + tableName;
     }
 
-    public Boolean doesExist() {
+    public boolean doesExist() {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -61,7 +61,7 @@ public record StorageTable(String tableName) {
         return null;
     }
 
-    public Integer executeUpdate(String query) {
+    public void executeUpdate(String query) {
         Main.getInstance().getLogger().log(Level.INFO, "Executing update: " + query);
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -82,7 +82,6 @@ public record StorageTable(String tableName) {
             } catch (SQLException ignored) {
             }
         }
-        return null;
     }
 
     public String getTableName() {

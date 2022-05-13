@@ -6,8 +6,8 @@ import org.bukkit.World;
 import org.bukkit.WorldType;
 import org.bukkit.entity.Player;
 
-public record WorldProfile(String name, WorldType type, Boolean generateStructures,
-                           Boolean isVoid, Boolean hunger, String weatherLock,
+public record WorldProfile(String name, WorldType type, boolean generateStructures,
+                           boolean isVoid, boolean hunger, String weatherLock,
                            String gameMode) {
 
     public void setWeather() {
@@ -39,15 +39,15 @@ public record WorldProfile(String name, WorldType type, Boolean generateStructur
         return this.type;
     }
 
-    public Boolean getGenerateStructures() {
+    public boolean getGenerateStructures() {
         return this.generateStructures;
     }
 
-    public Boolean getVoid() {
+    public boolean getVoid() {
         return this.isVoid;
     }
 
-    public Boolean getHunger() {
+    public boolean getHunger() {
         return hunger;
     }
 

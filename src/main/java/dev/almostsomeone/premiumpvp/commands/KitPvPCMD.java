@@ -26,8 +26,8 @@ public class KitPvPCMD extends CommandBuilder {
     private final InfoFile config;
     private final Messages messages = Main.getInstance().messages;
 
-    private Boolean joinCommand = false;
-    private Boolean leaveCommand = false;
+    private boolean joinCommand = false;
+    private boolean leaveCommand = false;
 
     public KitPvPCMD(final Plugin plugin) {
         super("commands.main", "kitpvp", true, false);
