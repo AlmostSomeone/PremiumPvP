@@ -16,7 +16,7 @@ import static dev.almostsomeone.premiumpvp.utilities.ChatUtil.format;
 
 public class WorldCMD extends CommandBuilder {
 
-    private final Messages messages = Main.getInstance().messages;
+    private final Messages messages = Main.getInstance().getMessages();
 
     public WorldCMD() {
         super("commands.world");

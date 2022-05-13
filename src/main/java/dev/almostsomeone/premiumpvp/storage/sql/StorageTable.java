@@ -1,6 +1,7 @@
 package dev.almostsomeone.premiumpvp.storage.sql;
 
 import dev.almostsomeone.premiumpvp.Main;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.sql.*;
@@ -9,7 +10,7 @@ import java.util.logging.Level;
 public record StorageTable(String tableName) {
 
     public StorageTable(String tableName) {
-        YamlConfiguration config = Main.getInstance().config.get();
+        FileConfiguration config = Main.getInstance().getConfig();
         this.tableName = (config.isSet("storage.prefix") && config.getString("storage.prefix").length() > 0 ? config.getString("storage.prefix") : "ppvp") + "_" + tableName;
     }
 

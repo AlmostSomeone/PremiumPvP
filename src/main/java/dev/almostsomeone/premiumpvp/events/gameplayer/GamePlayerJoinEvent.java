@@ -9,6 +9,7 @@ import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerManager;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerState;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -42,7 +43,7 @@ public class GamePlayerJoinEvent extends Event {
 
         User user = this.gamePlayer.getUser();
 
-        YamlConfiguration config = Main.getInstance().config.get();
+        FileConfiguration config = Main.getInstance().getConfig();
 
         // Load the UserLeveling data
         UserLeveling userLeveling = user.getLeveling();

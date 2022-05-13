@@ -3,6 +3,7 @@ package dev.almostsomeone.premiumpvp.common.bukkit.world;
 import dev.almostsomeone.premiumpvp.Main;
 
 import org.bukkit.*;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
@@ -14,12 +15,12 @@ public class WorldManager {
 
     private final Plugin plugin;
 
-    private final YamlConfiguration config = Main.getInstance().config.get();
+    private final FileConfiguration config = Main.getInstance().getConfig();
 
     private WorldProfile globalProfile;
     private WorldProfile duelsProfile;
 
-    public List<WorldProfile> worldProfiles;
+    private List<WorldProfile> worldProfiles;
 
     public WorldManager(final Plugin plugin) {
         this.plugin = plugin;

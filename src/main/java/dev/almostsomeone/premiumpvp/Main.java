@@ -13,6 +13,7 @@ import dev.almostsomeone.premiumpvp.storage.Messages;
 import dev.almostsomeone.premiumpvp.storage.Storage;
 import dev.almostsomeone.premiumpvp.utilities.*;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -24,8 +25,8 @@ import java.util.logging.Level;
 public class Main extends JavaPlugin {
 
     // Get the configuration and messages
-    public InfoFile config;
-    public Messages messages;
+    private InfoFile config;
+    private Messages messages;
 
     // Instances
     private Game game;
@@ -95,6 +96,19 @@ public class Main extends JavaPlugin {
             String suffix = version.split("-")[1].toLowerCase(Locale.ROOT);
             this.getLogger().log(Level.WARNING, () -> "You are running a " + suffix + " release. Consider using our latest stable release for public servers.");
         }
+    }
+
+    public FileConfiguration getConfig() {
+        return config.get();
+    }
+
+    @Override
+    public void reloadConfig() {
+        config.load();
+    }
+
+    public Messages getMessages() {
+        return messages;
     }
 
     public Game getGame() {

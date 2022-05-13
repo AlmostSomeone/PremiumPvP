@@ -10,6 +10,7 @@ import dev.almostsomeone.premiumpvp.storage.InfoFile;
 import dev.almostsomeone.premiumpvp.storage.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
@@ -24,8 +25,8 @@ public class KitPvPCMD extends CommandBuilder {
 
     private final Plugin plugin;
 
-    private final InfoFile config;
-    private final Messages messages = Main.getInstance().messages;
+    private final FileConfiguration config;
+    private final Messages messages = Main.getInstance().getMessages();
 
     private boolean joinCommand = false;
     private boolean leaveCommand = false;
@@ -34,7 +35,7 @@ public class KitPvPCMD extends CommandBuilder {
         super("commands.main", "kitpvp", true, false);
         this.plugin = plugin;
 
-        this.config = Main.getInstance().config;
+        this.config = Main.getInstance().getConfig();
 
         this.subCommands = new HashMap<>() {{
             put("info", "Get information about the plugin");
@@ -43,11 +44,11 @@ public class KitPvPCMD extends CommandBuilder {
             put("save", "Force the plugin to save its data");
         }};
 
-        if(config.get().isSet("participate.join.command") && config.get().getBoolean("participate.join.command")) {
+        if(config.isSet("participate.join.command") && config.getBoolean("participate.join.command")) {
             subCommands.put("join", "Join the KitPvP");
             joinCommand = true;
         }
-        if(config.get().isSet("participate.leave.command") && config.get().getBoolean("participate.leave.command")) {
+        if(config.isSet("participate.leave.command") && config.getBoolean("participate.leave.command")) {
             subCommands.put("leave", "Leave the KitPvP");
             leaveCommand = true;
         }
@@ -87,7 +88,7 @@ public class KitPvPCMD extends CommandBuilder {
                     break;
                 case "reload":
                     try {
-                        this.config.load();
+                        Main.getInstance().reloadConfig();
                         this.messages.reload();
                         Main.getInstance().getGame().getBoardManager().reloadBoard();
                         player.sendMessage(format(player, this.messages.getMessage("commands.kitpvp.config.reload-success")));

@@ -5,6 +5,7 @@ import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerManager;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -38,7 +39,7 @@ public class GamePlayerLoadEvent extends Event {
             this.gamePlayer = gamePlayerManager.getGamePlayer(uuid);
 
         // Join the server if join on server-join is enabled
-        YamlConfiguration config = Main.getInstance().config.get();
+        FileConfiguration config = Main.getInstance().getConfig();
         if(!config.isSet("participate.join.server") || config.getBoolean("participate.join.server"))
             Bukkit.getPluginManager().callEvent(new GamePlayerJoinEvent(this.gamePlayer.getUniqueId()));
 

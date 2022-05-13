@@ -6,6 +6,7 @@ import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerManager;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerState;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -40,7 +41,7 @@ public class GamePlayerLeaveEvent extends Event {
 
         // Save the GamePlayers user
         User user = this.gamePlayer.getUser();
-        YamlConfiguration config = Main.getInstance().config.get();
+        FileConfiguration config = Main.getInstance().getConfig();
         if(config.isSet("performance.caching.write-on-leave") && config.getBoolean("performance.caching.write-on-leave"))
             user.save();
 

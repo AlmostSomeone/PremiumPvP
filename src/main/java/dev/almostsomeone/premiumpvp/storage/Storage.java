@@ -5,6 +5,7 @@ import dev.almostsomeone.premiumpvp.storage.sql.MySQL;
 import dev.almostsomeone.premiumpvp.storage.sql.SQL;
 import dev.almostsomeone.premiumpvp.storage.sql.SQLite;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
@@ -21,7 +22,7 @@ public class Storage {
 
     public Storage(final Plugin plugin) {
         this.plugin = plugin;
-        YamlConfiguration config = Main.getInstance().config.get();
+        FileConfiguration config = Main.getInstance().getConfig();
 
         String method = config.isSet("storage.method") ? config.getString("storage.method") : "sqlite";
         if(method == null) method = "sqlite";

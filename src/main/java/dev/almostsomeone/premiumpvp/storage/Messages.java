@@ -18,7 +18,7 @@ public class Messages {
     }
 
     public void loadMessages() {
-        String fileName = Main.getInstance().config.get().getString("language") + ".yml";
+        String fileName = Main.getInstance().getConfig().getString("language") + ".yml";
         this.file = new InfoFile(plugin, "messages", fileName);
         this.file.load();
         this.messagesFile = this.file.get();

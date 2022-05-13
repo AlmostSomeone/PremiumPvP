@@ -4,6 +4,7 @@ import dev.almostsomeone.premiumpvp.Main;
 import dev.almostsomeone.premiumpvp.events.gameplayer.GamePlayerLeaveEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,7 +13,7 @@ import java.util.Objects;
 
 public class GamePlayerLeaveListener implements Listener {
 
-    private final YamlConfiguration config = Main.getInstance().config.get();
+    private final FileConfiguration config = Main.getInstance().getConfig();
 
     @EventHandler
     public void gamePlayerLeave(GamePlayerLeaveEvent event) {

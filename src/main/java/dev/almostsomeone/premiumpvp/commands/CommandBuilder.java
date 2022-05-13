@@ -8,6 +8,7 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
@@ -21,8 +22,8 @@ import java.util.List;
 
 public abstract class CommandBuilder extends Command {
 
-    private final YamlConfiguration config = Main.getInstance().config.get();
-    private final Messages messages = Main.getInstance().messages;
+    private final FileConfiguration config = Main.getInstance().getConfig();
+    private final Messages messages = Main.getInstance().getMessages();
 
     public HashMap<String, String> subCommands;
 
@@ -32,7 +33,7 @@ public abstract class CommandBuilder extends Command {
     }
 
     protected CommandBuilder(String configPath) {
-        super(Main.getInstance().config.get().getString(configPath + ".name"));
+        super(Main.getInstance().getConfig().getString(configPath + ".name"));
 
         this.setPermissionMessage(this.messages.getMessage("global.no-permissions"));
         if(this.config.isSet(configPath + ".description"))

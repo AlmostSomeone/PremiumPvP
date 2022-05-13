@@ -3,6 +3,8 @@ package dev.almostsomeone.premiumpvp.utilities;
 import dev.almostsomeone.premiumpvp.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -45,7 +47,8 @@ public class Updater {
                 // The request is executed asynchronously as to not block the main thread.
                 Bukkit.getScheduler().runTaskAsynchronously(javaPlugin, () -> {
                     // Check if the update notify is disabled
-                    if(Main.getInstance().config.get().isSet("update-notify") && !Main.getInstance().config.get().getBoolean("update-notify")) {
+                    FileConfiguration config = Main.getInstance().getConfig();
+                    if(config.isSet("update-notify") && !config.getBoolean("update-notify")) {
                         cancel(); // Cancel the runnable as checking for updates is disabled.
                         return;
                     }
