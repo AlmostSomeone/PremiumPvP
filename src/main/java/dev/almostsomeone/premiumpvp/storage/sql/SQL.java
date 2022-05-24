@@ -17,6 +17,8 @@ public class SQL {
         this.hikariConfig.setMaximumPoolSize(10);
         this.hikariConfig.setConnectionTimeout(20000);
         this.hikariConfig.setMaxLifetime(1800000);
+        this.hikariConfig.setConnectionTestQuery("SELECT 1;");
+        this.hikariConfig.setAutoCommit(false);
 
         this.hikariDataSource = new HikariDataSource(this.hikariConfig);
     }
