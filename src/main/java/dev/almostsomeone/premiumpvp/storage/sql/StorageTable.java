@@ -39,7 +39,6 @@ public record StorageTable(String tableName) {
     }
 
     public ResultSet executeQuery(String query) {
-        Main.getInstance().getLogger().log(Level.INFO, () -> "Executing query: " + query);
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -62,7 +61,6 @@ public record StorageTable(String tableName) {
     }
 
     public void executeUpdate(String query) {
-        Main.getInstance().getLogger().log(Level.INFO, () -> "Executing update: " + query);
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {

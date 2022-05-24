@@ -1,7 +1,6 @@
 package dev.almostsomeone.premiumpvp.data;
 
 import dev.almostsomeone.premiumpvp.storage.sql.StorageTable;
-import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.ResultSet;
@@ -61,10 +60,7 @@ public abstract class DataGroup {
         query.append(" FROM `").append(storageTable.getTableName()).append("` WHERE `UUID` = '").append(this.dataContainer.getUniqueId().toString()).append("';");
         try {
             ResultSet resultSet = storageTable.executeQuery(query.toString());
-            if (resultSet == null || !resultSet.next() || resultSet.wasNull()) {
-                Bukkit.broadcastMessage("Could not load data for " + this.dataContainer.getUniqueId().toString() + ". Creating new data.");
-                this.createGroup();
-            }
+            if (resultSet == null || !resultSet.next() || resultSet.wasNull()) this.createGroup();
             else this.resultSet = resultSet;
         } catch (SQLException exception) {
             exception.printStackTrace();
