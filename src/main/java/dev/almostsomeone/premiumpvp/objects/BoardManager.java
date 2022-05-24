@@ -52,12 +52,12 @@ public class BoardManager {
 
         // Load scoreboards
         for(String stateName : config.getConfigurationSection("scoreboards").getKeys(false)) {
-            if(GamePlayerState.valueOf(stateName) == null) {
+            try {
+                GamePlayerState gamePlayerState = GamePlayerState.valueOf(stateName.toUpperCase(Locale.ROOT));
+                this.boards.put(stateName.toUpperCase(Locale.ROOT), new CustomBoard(gamePlayerState));
+            } catch (IllegalArgumentException exception) {
                 plugin.getLogger().log(Level.WARNING, () -> "The GameState " + stateName.toUpperCase(Locale.ROOT) + " is not valid. Skipping scoreboard configuration.");
-                continue;
             }
-            GamePlayerState gamePlayerState = GamePlayerState.valueOf(stateName);
-            this.boards.put(stateName, new CustomBoard(gamePlayerState));
         }
 
         // Get the refresh ticks
@@ -84,6 +84,7 @@ public class BoardManager {
 
         // Show the scoreboard
         CustomBoard targetBoard = this.boards.get(gamePlayer.getGamePlayerState().name());
+        if(targetBoard == null) return;
         targetBoard.updateBoard(gamePlayer.getPlayer());
     }
 
