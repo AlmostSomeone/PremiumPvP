@@ -1,7 +1,6 @@
 package dev.almostsomeone.premiumpvp.data;
 
-import org.jetbrains.annotations.NotNull;
-
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -14,42 +13,42 @@ public abstract class DataContainer {
     protected List<DataGroup> dataGroups;
 
     public DataContainer() {
-        this.uuid = UUID.randomUUID();
-        this.init();
+        uuid = UUID.randomUUID();
+        init();
     }
 
     public DataContainer(final UUID uuid) {
         this.uuid = uuid;
-        this.init();
+        init();
     }
 
     private void init(){
-        this.tablesExist = false;
-        this.dataGroups = new ArrayList<>();
+        tablesExist = false;
+        dataGroups = new ArrayList<>();
     }
 
-    @NotNull
+    @Nonnull
     public abstract String tablePrefix();
 
     public UUID getUniqueId() {
-        return this.uuid;
+        return uuid;
     }
 
     public void save() {
-        if(this.dataGroups == null) return;
-        for(DataGroup dataGroup : this.dataGroups)
+        if(dataGroups == null) return;
+        for(DataGroup dataGroup : dataGroups)
             dataGroup.saveGroup();
     }
 
     public void createTables() {
         if(tablesExist) return;
-        for(DataGroup dataGroup : this.dataGroups)
+        for(DataGroup dataGroup : dataGroups)
             if(dataGroup.inDatabase())
                 dataGroup.createTable();
     }
 
     public void unload() {
-        if(this.dataGroups == null) return;
-        this.dataGroups.clear();
+        if(dataGroups == null) return;
+        dataGroups.clear();
     }
 }

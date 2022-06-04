@@ -3,8 +3,8 @@ package dev.almostsomeone.premiumpvp.data.user.groups;
 import dev.almostsomeone.premiumpvp.data.DataContainer;
 import dev.almostsomeone.premiumpvp.data.DataGroup;
 import dev.almostsomeone.premiumpvp.data.DataObject;
-import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
 import java.sql.SQLException;
 
 public class UserLeveling extends DataGroup {
@@ -13,7 +13,6 @@ public class UserLeveling extends DataGroup {
 
     public UserLeveling(DataContainer dataContainer) {
         super(dataContainer);
-
         level = new DataObject(this, "Level", 1);
         experience = new DataObject(this, "Experience", 0);
     }
@@ -21,17 +20,17 @@ public class UserLeveling extends DataGroup {
     @Override
     public void load() {
         super.load();
-        if(this.resultSet == null) return;
+        if(resultSet == null) return;
         try {
-            this.level.setInteger(this.resultSet.getInt("Level"));
-            this.experience.setInteger(this.resultSet.getInt("Experience"));
+            level.setInteger(resultSet.getInt("Level"));
+            experience.setInteger(resultSet.getInt("Experience"));
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
     }
 
     @Override
-    public @NotNull String tableName() {
+    public @Nonnull String tableName() {
         return "leveling";
     }
 
@@ -41,10 +40,10 @@ public class UserLeveling extends DataGroup {
     }
 
     public Integer getLevel() {
-        return this.level.getInteger();
+        return level.getInteger();
     }
 
     public Integer getExperience() {
-        return this.experience.getInteger();
+        return experience.getInteger();
     }
 }

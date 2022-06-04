@@ -1,15 +1,15 @@
 package dev.almostsomeone.premiumpvp.events.gameplayer;
 
 import dev.almostsomeone.premiumpvp.Main;
+import dev.almostsomeone.premiumpvp.configuration.Settings;
 import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerManager;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
 import java.util.UUID;
 
 public class GamePlayerLoadEvent extends Event {
@@ -17,7 +17,7 @@ public class GamePlayerLoadEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
 
     @Override
-    public @NotNull HandlerList getHandlers() {
+    public @Nonnull HandlerList getHandlers() {
         return handlers;
     }
 
@@ -27,23 +27,19 @@ public class GamePlayerLoadEvent extends Event {
 
     private final GamePlayer gamePlayer;
 
-    public GamePlayerLoadEvent(UUID uuid) {
-        Game game = Main.getInstance().getGame();
+    public GamePlayerLoadEvent(Game game, UUID uuid) {
         GamePlayerManager gamePlayerManager = game.getGamePlayerManager();
 
         // Create the game player if it does not exist yet
-        if(gamePlayerManager.getGamePlayer(uuid) == null)
-            this.gamePlayer = new GamePlayer(uuid);
-        else
-            this.gamePlayer = gamePlayerManager.getGamePlayer(uuid);
+        if(gamePlayerManager.getGamePlayer(uuid) == null) gamePlayer = new GamePlayer(uuid);
+        else gamePlayer = gamePlayerManager.getGamePlayer(uuid);
 
         // Join the server if join on server-join is enabled
-        FileConfiguration config = Main.getInstance().getConfig();
-        if(!config.isSet("participate.join.server") || config.getBoolean("participate.join.server"))
-            Bukkit.getPluginManager().callEvent(new GamePlayerJoinEvent(this.gamePlayer.getUniqueId()));
+        if(Settings.getBoolean("participate.join.server", true))
+            Bukkit.getPluginManager().callEvent(new GamePlayerJoinEvent(game, gamePlayer.getUniqueId()));
 
         // Show the player the scoreboard
-        game.getBoardManager().showBoard(this.gamePlayer);
+        game.getBoardManager().showBoard(gamePlayer);
     }
 
     public GamePlayer getGamePlayer() {

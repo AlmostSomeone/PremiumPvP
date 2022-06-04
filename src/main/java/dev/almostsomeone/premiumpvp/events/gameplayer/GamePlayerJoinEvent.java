@@ -1,6 +1,6 @@
 package dev.almostsomeone.premiumpvp.events.gameplayer;
 
-import dev.almostsomeone.premiumpvp.Main;
+import dev.almostsomeone.premiumpvp.configuration.Settings;
 import dev.almostsomeone.premiumpvp.data.user.User;
 import dev.almostsomeone.premiumpvp.data.user.groups.UserEconomy;
 import dev.almostsomeone.premiumpvp.data.user.groups.UserLeveling;
@@ -9,11 +9,10 @@ import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerManager;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerState;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
 import java.util.UUID;
 
 public class GamePlayerJoinEvent extends Event {
@@ -21,7 +20,7 @@ public class GamePlayerJoinEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
 
     @Override
-    public @NotNull HandlerList getHandlers() {
+    public @Nonnull HandlerList getHandlers() {
         return handlers;
     }
 
@@ -31,35 +30,34 @@ public class GamePlayerJoinEvent extends Event {
 
     private final GamePlayer gamePlayer;
 
-    public GamePlayerJoinEvent(UUID uuid) {
-        Game game = Main.getInstance().getGame();
+    public GamePlayerJoinEvent(Game game, UUID uuid) {
         GamePlayerManager gamePlayerManager = game.getGamePlayerManager();
 
         if(gamePlayerManager.getGamePlayer(uuid) != null)
-            this.gamePlayer = gamePlayerManager.getGamePlayer(uuid);
+            gamePlayer = gamePlayerManager.getGamePlayer(uuid);
         else
-            this.gamePlayer = new GamePlayer(uuid);
+            gamePlayer = new GamePlayer(uuid);
 
-        User user = this.gamePlayer.getUser();
+        User user = gamePlayer.getUser();
 
-        FileConfiguration config = Main.getInstance().getConfig();
+        boolean readOnJoin = Settings.getBoolean("performance.caching.read-on-join", false);
 
         // Load the UserLeveling data
         UserLeveling userLeveling = user.getLeveling();
-        if(!userLeveling.isLoaded() || (config.isSet("performance.caching.read-on-join") && config.getBoolean("performance.caching.read-on-join")))
+        if(!userLeveling.isLoaded() || readOnJoin)
             userLeveling.load();
 
         // Load the UserEconomy data
         UserEconomy userEconomy = user.getEconomy();
-        if(!userEconomy.isLoaded() || (config.isSet("performance.caching.read-on-join") && config.getBoolean("performance.caching.read-on-join")))
+        if(!userEconomy.isLoaded() || readOnJoin)
             userEconomy.load();
 
         // Load the UserStatistics data
         UserStatistics userStatistics = user.getStatistics();
-        if(!userStatistics.isLoaded() || (config.isSet("performance.caching.read-on-join") && config.getBoolean("performance.caching.read-on-join")))
+        if(!userStatistics.isLoaded() || readOnJoin)
             userStatistics.load();
 
-        this.gamePlayer.setGamePlayerState(GamePlayerState.LOBBY);
+        gamePlayer.setGamePlayerState(GamePlayerState.LOBBY);
     }
 
     public GamePlayer getGamePlayer() {

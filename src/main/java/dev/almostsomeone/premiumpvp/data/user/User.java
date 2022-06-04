@@ -4,8 +4,8 @@ import dev.almostsomeone.premiumpvp.data.DataContainer;
 import dev.almostsomeone.premiumpvp.data.user.groups.UserEconomy;
 import dev.almostsomeone.premiumpvp.data.user.groups.UserLeveling;
 import dev.almostsomeone.premiumpvp.data.user.groups.UserStatistics;
-import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
 import java.util.UUID;
 
 public class User extends DataContainer {
@@ -16,25 +16,25 @@ public class User extends DataContainer {
 
     public User(final UUID uuid) {
         super(uuid);
-        this.userLeveling = new UserLeveling(this);
-        this.userEconomy = new UserEconomy(this);
-        this.userStatistics = new UserStatistics(this);
+        userLeveling = new UserLeveling(this);
+        userEconomy = new UserEconomy(this);
+        userStatistics = new UserStatistics(this);
     }
 
     @Override
-    public @NotNull String tablePrefix() {
+    public @Nonnull String tablePrefix() {
         return "player";
     }
 
     public UserLeveling getLeveling() {
-        return this.userLeveling;
+        return userLeveling;
     }
 
     public UserEconomy getEconomy() {
-        return this.userEconomy;
+        return userEconomy;
     }
 
     public UserStatistics getStatistics() {
-        return this.userStatistics;
+        return userStatistics;
     }
 }

@@ -11,8 +11,9 @@ import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
-import static dev.almostsomeone.premiumpvp.utilities.ChatUtil.format;
+import static dev.almostsomeone.premiumpvp.chat.Chat.format;
 
 public class CustomBoard {
 
@@ -26,14 +27,14 @@ public class CustomBoard {
         this.gamePlayerState = gamePlayerState;
 
         // Get the scoreboard file
-        BoardManager boardManager = Main.getInstance().getGame().getBoardManager();
-        this.scoreboardFile = boardManager.getScoreboardFile();
+        BoardManager boardManager = Main.getGame().getBoardManager();
+        scoreboardFile = boardManager.getScoreboardFile();
 
         // Get the yaml configuration
-        YamlConfiguration config = this.scoreboardFile.get();
+        YamlConfiguration config = scoreboardFile.get();
 
         // Make sure the scoreboard is enabled
-        String stateName = this.gamePlayerState.name().toLowerCase(Locale.ROOT);
+        String stateName = gamePlayerState.name().toLowerCase(Locale.ROOT);
         String configPrefix = "scoreboards." + stateName;
         if(!config.isSet(configPrefix) && !config.isSet(configPrefix + ".enabled") && config.getBoolean(configPrefix + ".enabled")) return;
 
@@ -41,44 +42,46 @@ public class CustomBoard {
         if(!config.isSet(configPrefix + ".title") && !config.isSet(configPrefix + ".lines") && config.getStringList(configPrefix + ".lines").size() <= 0) return;
 
         // Load the information from the config
-        this.load();
+        load();
     }
 
     public void load() {
         // Get the yaml configuration
-        YamlConfiguration config = this.scoreboardFile.get();
+        YamlConfiguration config = scoreboardFile.get();
 
         // Get config prefix
-        String stateName = this.gamePlayerState.name().toLowerCase(Locale.ROOT);
+        String stateName = gamePlayerState.name().toLowerCase(Locale.ROOT);
         String configPrefix = "scoreboards." + stateName;
 
         // Load the information from the config
-        this.title = config.getString(configPrefix + ".title");
-        this.lines = config.getStringList(configPrefix + ".lines");
+        title = config.getString(configPrefix + ".title");
+        lines = config.getStringList(configPrefix + ".lines");
     }
 
     public void updateBoard(Player player) {
         // Replace scoreboard if the player has the main scoreboard active
-        if (player.getScoreboard().equals(player.getServer().getScoreboardManager().getMainScoreboard()))
+        if (player.getServer().getScoreboardManager() != null &&
+                player.getScoreboard().equals(player.getServer().getScoreboardManager().getMainScoreboard()))
             player.setScoreboard(player.getServer().getScoreboardManager().getNewScoreboard());
 
         // Get the scoreboard and objective
         Scoreboard board = player.getScoreboard();
         Objective objective = board.getObjective(player.getName()) == null ? board.registerNewObjective(player.getName(), "dummy") : board.getObjective(player.getName());
+        if(objective == null) return;
 
-        // Set the title and lines
-        objective.setDisplayName(format(player, this.title));
+        // Set the title and line
+        objective.setDisplayName(format(player, title));
         int emptyCount = 0;
-        for(int score = this.lines.size(); score > 0; score--) {
-            String line = this.lines.get(this.lines.size() - score);
+        for(int score = lines.size(); score > 0; score--) {
+            String line = lines.get(lines.size() - score);
             if(line.toLowerCase(Locale.ROOT).trim().equals("{empty}")) {
                 line = "&" + emptyCount;
                 emptyCount++;
             }
             replaceScore(objective, score-1, format(player, line));
         }
-        if(objective.getScoreboard().getEntries().size() > this.lines.size()) {
-            for(int score = objective.getScoreboard().getEntries().size(); score > this.lines.size()-2; score--)
+        if(objective.getScoreboard() != null && objective.getScoreboard().getEntries().size() > lines.size()) {
+            for(int score = objective.getScoreboard().getEntries().size(); score > lines.size()-2; score--)
                 replaceScore(objective, score, "");
         }
 
@@ -88,29 +91,23 @@ public class CustomBoard {
     }
 
     private String getEntryFromScore(Objective objective, int score) {
-        if (objective == null || !hasScoreTaken(objective, score))
-            return null;
-        for (String string : objective.getScoreboard().getEntries()) {
-            if (objective.getScore(string).getScore() == score)
-                return objective.getScore(string).getEntry();
-        }
+        if (objective == null || !hasScoreTaken(objective, score)) return null;
+        for (String string : Objects.requireNonNull(objective.getScoreboard()).getEntries())
+            if (objective.getScore(string).getScore() == score) return objective.getScore(string).getEntry();
         return null;
     }
 
     private boolean hasScoreTaken(Objective objective, int score) {
-        for (String string : objective.getScoreboard().getEntries()) {
-            if (objective.getScore(string).getScore() == score)
-                return true;
-        }
+        for (String string : Objects.requireNonNull(objective.getScoreboard()).getEntries())
+            if (objective.getScore(string).getScore() == score) return true;
         return false;
     }
 
     private void replaceScore(Objective objective, int score, String name) {
         if (hasScoreTaken(objective, score)) {
-            if (getEntryFromScore(objective, score).equalsIgnoreCase(name))
-                return;
+            if (getEntryFromScore(objective, score).equalsIgnoreCase(name)) return;
             if (!getEntryFromScore(objective, score).equalsIgnoreCase(name))
-                objective.getScoreboard().resetScores(getEntryFromScore(objective, score));
+                Objects.requireNonNull(objective.getScoreboard()).resetScores(getEntryFromScore(objective, score));
         }
         objective.getScore(name).setScore(score);
     }

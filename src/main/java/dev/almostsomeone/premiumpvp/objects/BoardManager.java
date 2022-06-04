@@ -11,6 +11,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.logging.Level;
 
 public class BoardManager {
@@ -27,17 +28,13 @@ public class BoardManager {
         this.plugin = plugin;
         this.game = game;
 
-        // Get and load the scoreboard file
-        this.scoreboardFile = new InfoFile(plugin, "", "scoreboard.yml");
-        this.scoreboardFile.load();
-
-        this.boards = new HashMap<>();
+        scoreboardFile = new InfoFile(plugin, "", "scoreboard.yml");
+        boards = new HashMap<>();
     }
 
     public void reloadBoard() {
-        this.scoreboardFile.load();
-
-        this.loadBoard();
+        scoreboardFile.load();
+        loadBoard();
     }
 
     public void loadBoard() {
@@ -45,16 +42,16 @@ public class BoardManager {
         YamlConfiguration config = scoreboardFile.get();
 
         // Clear the list of boards
-        this.boards.clear();
+        boards.clear();
 
         // Make sure the scoreboard is enabled
         if(!config.isSet("settings.enable") || !config.getBoolean("settings.enable")) return;
 
         // Load scoreboards
-        for(String stateName : config.getConfigurationSection("scoreboards").getKeys(false)) {
+        for(String stateName : Objects.requireNonNull(config.getConfigurationSection("scoreboards")).getKeys(false)) {
             try {
                 GamePlayerState gamePlayerState = GamePlayerState.valueOf(stateName.toUpperCase(Locale.ROOT));
-                this.boards.put(stateName.toUpperCase(Locale.ROOT), new CustomBoard(gamePlayerState));
+                boards.put(stateName.toUpperCase(Locale.ROOT), new CustomBoard(gamePlayerState));
             } catch (IllegalArgumentException exception) {
                 plugin.getLogger().log(Level.WARNING, () -> "The GameState " + stateName.toUpperCase(Locale.ROOT) + " is not valid. Skipping scoreboard configuration.");
             }
@@ -66,29 +63,29 @@ public class BoardManager {
             ticks = config.getInt("settings.refresh");
 
         // Prepare the timer
-        if(this.refreshTimer != null)
-            this.refreshTimer.cancel();
+        if(refreshTimer != null)
+            refreshTimer.cancel();
 
         // Start the timer if the tick is higher than 0
         if(ticks <= 0) return;
-        this.refreshTimer = new RefreshTimer(this.game);
-        this.refreshTimer.runTaskTimerAsynchronously(plugin, 20, ticks);
+        refreshTimer = new RefreshTimer(game);
+        refreshTimer.runTaskTimerAsynchronously(plugin, 20, ticks);
     }
 
     public void showBoard(GamePlayer gamePlayer) {
         // Get the configuration
-        YamlConfiguration config = this.scoreboardFile.get();
+        YamlConfiguration config = scoreboardFile.get();
 
         // Make sure the scoreboard is enabled
         if(!config.isSet("settings.enable") || !config.getBoolean("settings.enable")) return;
 
         // Show the scoreboard
-        CustomBoard targetBoard = this.boards.get(gamePlayer.getGamePlayerState().name());
+        CustomBoard targetBoard = boards.get(gamePlayer.getGamePlayerState().name());
         if(targetBoard == null) return;
         targetBoard.updateBoard(gamePlayer.getPlayer());
     }
 
     public InfoFile getScoreboardFile() {
-        return this.scoreboardFile;
+        return scoreboardFile;
     }
 }

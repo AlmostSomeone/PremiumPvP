@@ -13,12 +13,12 @@ public class RefreshTimer extends BukkitRunnable {
 
     public RefreshTimer(Game game) {
         this.game = game;
-        this.gamePlayerManager = game.getGamePlayerManager();
+        gamePlayerManager = game.getGamePlayerManager();
     }
 
     @Override
     public void run() {
         for(Player player : Bukkit.getOnlinePlayers())
-            this.game.getBoardManager().showBoard(this.gamePlayerManager.getGamePlayer(player.getUniqueId()));
+            game.getBoardManager().showBoard(gamePlayerManager.getGamePlayer(player.getUniqueId()));
     }
 }

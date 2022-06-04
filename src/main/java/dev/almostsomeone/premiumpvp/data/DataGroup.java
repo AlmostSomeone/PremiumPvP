@@ -1,8 +1,8 @@
 package dev.almostsomeone.premiumpvp.data;
 
 import dev.almostsomeone.premiumpvp.storage.sql.StorageTable;
-import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,13 +15,13 @@ public abstract class DataGroup {
 
     protected ResultSet resultSet = null;
 
-    public DataGroup(@NotNull DataContainer dataContainer){
-        this.dataObjects = new ArrayList<>();
+    public DataGroup(@Nonnull DataContainer dataContainer){
+        dataObjects = new ArrayList<>();
         dataContainer.dataGroups.add(this);
         this.dataContainer = dataContainer;
     }
 
-    @NotNull
+    @Nonnull
     public abstract String tableName();
 
     public abstract boolean inDatabase();
@@ -32,7 +32,7 @@ public abstract class DataGroup {
         String table = containerPrefix + "_" + this.tableName();
         StorageTable storageTable = new StorageTable(table);
         StringBuilder query = new StringBuilder();
-        query.append("UPDATE `").append(storageTable.getTableName()).append("` SET ");
+        query.append("UPDATE `").append(storageTable.tableName()).append("` SET ");
         for(DataObject dataObject : this.dataObjects) {
             String columnName = dataObject.getColumnName();
             String value = null;
@@ -57,7 +57,7 @@ public abstract class DataGroup {
         for(DataObject dataObject : this.dataObjects)
             query.append("`").append(dataObject.getColumnName()).append("`,");
         query.deleteCharAt(query.length() - 1);
-        query.append(" FROM `").append(storageTable.getTableName()).append("` WHERE `UUID` = '").append(this.dataContainer.getUniqueId().toString()).append("';");
+        query.append(" FROM `").append(storageTable.tableName()).append("` WHERE `UUID` = '").append(this.dataContainer.getUniqueId().toString()).append("';");
         try {
             ResultSet resultSet = storageTable.executeQuery(query.toString());
             if (resultSet == null || !resultSet.next() || resultSet.wasNull()) this.createGroup();
@@ -73,7 +73,7 @@ public abstract class DataGroup {
         String table = containerPrefix + "_" + this.tableName();
         StorageTable storageTable = new StorageTable(table);
         StringBuilder query = new StringBuilder();
-        query.append("INSERT INTO `").append(storageTable.getTableName()).append("` (`UUID`,");
+        query.append("INSERT INTO `").append(storageTable.tableName()).append("` (`UUID`,");
         for(DataObject dataObject : this.dataObjects)
             query.append("`").append(dataObject.getColumnName()).append("`,");
         query.deleteCharAt(query.length() - 1);
@@ -98,7 +98,7 @@ public abstract class DataGroup {
         StorageTable storageTable = new StorageTable(table);
         if(storageTable.doesExist()) return;
         StringBuilder query = new StringBuilder();
-        query.append("CREATE TABLE IF NOT EXISTS `").append(storageTable.getTableName()).append("` (").append("UUID char(36) NOT NULL,");
+        query.append("CREATE TABLE IF NOT EXISTS `").append(storageTable.tableName()).append("` (").append("UUID char(36) NOT NULL,");
         for(DataObject dataObject : this.dataObjects) {
             String columnName = dataObject.getColumnName();
             String dataType = null;
@@ -113,7 +113,7 @@ public abstract class DataGroup {
             }
             query.append(columnName).append(" ").append(dataType).append(" DEFAULT ").append(defaultValue).append(", ");
         }
-        query.append("CONSTRAINT PK_").append(storageTable.getTableName()).append(" PRIMARY KEY (UUID))");
+        query.append("CONSTRAINT PK_").append(storageTable.tableName()).append(" PRIMARY KEY (UUID))");
         storageTable.executeUpdate(query.toString());
     }
 

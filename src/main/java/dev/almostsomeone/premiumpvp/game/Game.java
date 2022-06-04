@@ -1,7 +1,7 @@
 package dev.almostsomeone.premiumpvp.game;
 
-import dev.almostsomeone.premiumpvp.Main;
-import dev.almostsomeone.premiumpvp.common.bukkit.world.WorldManager;
+import dev.almostsomeone.premiumpvp.world.WorldManager;
+import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerManager;
 import dev.almostsomeone.premiumpvp.objects.BoardManager;
 import org.bukkit.Bukkit;
@@ -10,7 +10,6 @@ import org.bukkit.plugin.Plugin;
 
 public class Game {
 
-    // Managers
     private final WorldManager worldManager;
     private final BoardManager boardManager;
     private final GamePlayerManager gamePlayerManager;
@@ -19,20 +18,29 @@ public class Game {
     private Location spawnLocation;
 
     public Game(final Plugin plugin) {
-        this.worldManager = new WorldManager(Main.getInstance());
-        this.boardManager = new BoardManager(plugin, this);
-        this.gamePlayerManager = new GamePlayerManager();
+        worldManager = new WorldManager(plugin);
+        boardManager = new BoardManager(plugin, this);
+        gamePlayerManager = new GamePlayerManager(this);
     }
 
     public void loadGame() {
-        this.worldManager.loadWorlds();
-        this.boardManager.loadBoard();
+        worldManager.loadWorlds();
+        boardManager.loadBoard();
+        gamePlayerManager.loadGamePlayers();
+    }
+
+    public void stop() {
+        for(GamePlayer gamePlayer : gamePlayerManager.getGamePlayers()) gamePlayer.getPlayer().teleport(getSpawnLocation());
+        save();
+    }
+
+    public void save() {
+        gamePlayerManager.saveAll();
     }
 
     public Location getSpawnLocation() {
-        if(this.spawnLocation == null)
-            this.spawnLocation = Bukkit.getServer().getWorlds().get(0).getSpawnLocation();
-        return this.spawnLocation;
+        if(spawnLocation == null) spawnLocation = Bukkit.getServer().getWorlds().get(0).getSpawnLocation();
+        return spawnLocation;
     }
 
     public GamePlayerManager getGamePlayerManager() {

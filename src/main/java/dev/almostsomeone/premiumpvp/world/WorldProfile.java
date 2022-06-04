@@ -1,4 +1,4 @@
-package dev.almostsomeone.premiumpvp.common.bukkit.world;
+package dev.almostsomeone.premiumpvp.world;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -11,40 +11,40 @@ public record WorldProfile(String name, WorldType type, boolean generateStructur
                            String gameMode) {
 
     public void setWeather() {
-        if (this.weatherLock.equalsIgnoreCase("NONE"))
+        if (weatherLock.equalsIgnoreCase("NONE"))
             return;
 
-        World world = Bukkit.getWorld(this.name);
+        World world = Bukkit.getWorld(name);
         if (world == null) return;
 
-        if (this.weatherLock.equalsIgnoreCase("clear")) {
+        if (weatherLock.equalsIgnoreCase("clear")) {
             world.setStorm(false);
             world.setThundering(false);
         }
     }
 
     public void applyProfile(Player player) {
-        if (!this.gameMode.equalsIgnoreCase("none"))
-            player.setGameMode(GameMode.valueOf(this.gameMode));
+        if (!gameMode.equalsIgnoreCase("none"))
+            player.setGameMode(GameMode.valueOf(gameMode));
 
-        if (!this.hunger)
+        if (!hunger)
             player.setFoodLevel(20);
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public WorldType getType() {
-        return this.type;
+        return type;
     }
 
     public boolean getGenerateStructures() {
-        return this.generateStructures;
+        return generateStructures;
     }
 
     public boolean getVoid() {
-        return this.isVoid;
+        return isVoid;
     }
 
     public boolean getHunger() {

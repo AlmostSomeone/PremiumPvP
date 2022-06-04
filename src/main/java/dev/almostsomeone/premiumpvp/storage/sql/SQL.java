@@ -12,20 +12,19 @@ public class SQL {
     private HikariDataSource hikariDataSource;
 
     public void setupPool() {
-        this.hikariConfig.setPoolName("ppvp-pool");
-        this.hikariConfig.setMinimumIdle(10);
-        this.hikariConfig.setMaximumPoolSize(10);
-        this.hikariConfig.setConnectionTimeout(20000);
-        this.hikariConfig.setMaxLifetime(1800000);
-        this.hikariConfig.setConnectionTestQuery("SELECT 1;");
-        this.hikariConfig.setAutoCommit(false);
+        hikariConfig.setPoolName("ppvp-pool");
+        hikariConfig.setMinimumIdle(10);
+        hikariConfig.setMaximumPoolSize(10);
+        hikariConfig.setConnectionTimeout(20000);
+        hikariConfig.setMaxLifetime(1800000);
+        hikariConfig.setConnectionTestQuery("SELECT 1;");
+        hikariConfig.setAutoCommit(false);
 
-        this.hikariDataSource = new HikariDataSource(this.hikariConfig);
+        hikariDataSource = new HikariDataSource(hikariConfig);
     }
 
     public void closePool() {
-        if(this.hikariDataSource != null && !this.hikariDataSource.isClosed())
-            this.hikariDataSource.close();
+        if(hikariDataSource != null && !hikariDataSource.isClosed()) hikariDataSource.close();
     }
 
     public Connection getConnection() throws SQLException {

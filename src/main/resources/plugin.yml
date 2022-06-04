@@ -1,9 +1,9 @@
 name: ${project.name}
-main: ${project.groupId}.premiumpvp.Main
+main: ${project.groupId}.${project.artifactId}.Main
 version: ${project.version}
 api-version: 1.18
 load: STARTUP
 website: ${project.url}
 description: ${project.description}
 author: AlmostSomeone
-softdepend: [PlaceholderAPI]
+softdepend: [PlaceholderAPI, ProtocolLib]

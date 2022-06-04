@@ -3,8 +3,8 @@ package dev.almostsomeone.premiumpvp.data.user.groups;
 import dev.almostsomeone.premiumpvp.data.DataContainer;
 import dev.almostsomeone.premiumpvp.data.DataGroup;
 import dev.almostsomeone.premiumpvp.data.DataObject;
-import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
 import java.util.UUID;
 
 public class UserStatistics extends DataGroup {
@@ -30,32 +30,32 @@ public class UserStatistics extends DataGroup {
             // Others
             bountiesClaimed;
 
-    public UserStatistics(@NotNull DataContainer dataContainer) {
+    public UserStatistics(@Nonnull DataContainer dataContainer) {
         super(dataContainer);
 
         // Basic
-        this.kills = new DataObject(this, "Kills", 0);
-        this.assists = new DataObject(this, "Assists", 0);
-        this.deaths = new DataObject(this, "Deaths", 0);
+        kills = new DataObject(this, "Kills", 0);
+        assists = new DataObject(this, "Assists", 0);
+        deaths = new DataObject(this, "Deaths", 0);
 
         // Killstreak
-        this.killstreak = new DataObject(this, "Killstreak", 0);
-        this.bestKillstreak = new DataObject(this, "BestKillstreak", 0);
+        killstreak = new DataObject(this, "Killstreak", 0);
+        bestKillstreak = new DataObject(this, "BestKillstreak", 0);
 
         // Damage
-        this.damageDealt = new DataObject(this, "DamageDealt", 0);
-        this.damageReceived = new DataObject(this, "DamageReceived", 0);
+        damageDealt = new DataObject(this, "DamageDealt", 0);
+        damageReceived = new DataObject(this, "DamageReceived", 0);
 
         // Arrows
-        this.arrowsHit = new DataObject(this, "ArrowsHit", 0);
-        this.arrowsShot = new DataObject(this, "ArrowsShot", 0);
+        arrowsHit = new DataObject(this, "ArrowsHit", 0);
+        arrowsShot = new DataObject(this, "ArrowsShot", 0);
 
         // Others
-        this.bountiesClaimed = new DataObject(this, "BountiesClaimed", 0);
+        bountiesClaimed = new DataObject(this, "BountiesClaimed", 0);
     }
 
     @Override
-    public @NotNull String tableName() {
+    public @Nonnull String tableName() {
         return "statistics";
     }
 
@@ -65,37 +65,37 @@ public class UserStatistics extends DataGroup {
     }
 
     public Integer getKills() {
-        return this.kills.getInteger();
+        return kills.getInteger();
     }
 
     public void addKill(UUID killed) {
-        this.killstreak.setInteger(this.killstreak.getInteger() + 1);
+        killstreak.setInteger(killstreak.getInteger() + 1);
     }
 
     public Integer getAssists() {
-        return this.assists.getInteger();
+        return assists.getInteger();
     }
 
     public void addAssist(UUID killed) {
-        this.assists.setInteger(this.assists.getInteger() + 1);
+        assists.setInteger(assists.getInteger() + 1);
     }
 
     public Integer getDeaths() {
-        return this.deaths.getInteger();
+        return deaths.getInteger();
     }
 
     public void addDeath(UUID died) {
-        this.deaths.setInteger(this.deaths.getInteger() + 1);
-        this.bestKillstreak.setInteger(this.killstreak.getInteger());
-        this.killstreak.setInteger(0);
+        deaths.setInteger(deaths.getInteger() + 1);
+        bestKillstreak.setInteger(killstreak.getInteger());
+        killstreak.setInteger(0);
     }
 
     public Integer getKillstreak() {
-        return this.killstreak.getInteger();
+        return killstreak.getInteger();
     }
 
     public Integer getBestKillstreak() {
-        return this.bestKillstreak.getInteger();
+        return bestKillstreak.getInteger();
     }
 
     public Integer getDamageDealt() {

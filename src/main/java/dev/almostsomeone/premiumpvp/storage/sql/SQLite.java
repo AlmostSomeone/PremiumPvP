@@ -7,8 +7,8 @@ import java.io.File;
 public class SQLite extends SQL {
 
     public SQLite(File file){
-        this.hikariConfig = new HikariConfig();
-        this.hikariConfig.setDriverClassName("org.sqlite.JDBC");
-        this.hikariConfig.setJdbcUrl("jdbc:sqlite:" + file);
+        hikariConfig = new HikariConfig();
+        hikariConfig.setDriverClassName("org.sqlite.JDBC");
+        hikariConfig.setJdbcUrl("jdbc:sqlite:" + file);
     }
 }

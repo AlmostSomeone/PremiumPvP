@@ -1,11 +1,12 @@
-package dev.almostsomeone.premiumpvp.common.bukkit.placeholder.placeholderapi;
+package dev.almostsomeone.premiumpvp.chat.placeholder.placeholderapi;
 
-import dev.almostsomeone.premiumpvp.common.bukkit.placeholder.integrated.packs.CustomPlaceholders;
-import dev.almostsomeone.premiumpvp.common.bukkit.placeholder.integrated.PlaceholderPack;
+import dev.almostsomeone.premiumpvp.chat.placeholder.integrated.packs.CustomPlaceholders;
+import dev.almostsomeone.premiumpvp.chat.placeholder.integrated.PlaceholderPack;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.Plugin;
-import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
 
 public class PapiExpansion extends PlaceholderExpansion {
 
@@ -14,21 +15,21 @@ public class PapiExpansion extends PlaceholderExpansion {
 
     public PapiExpansion(final Plugin plugin) {
         this.plugin = plugin;
-        this.placeholderPack = new CustomPlaceholders();
+        placeholderPack = new CustomPlaceholders();
     }
 
     @Override
-    public @NotNull String getAuthor() {
+    public @Nonnull String getAuthor() {
         return "AlmostSomeone";
     }
 
     @Override
-    public @NotNull String getIdentifier() {
+    public @Nonnull String getIdentifier() {
         return "PremiumPvP";
     }
 
     @Override
-    public @NotNull String getVersion() {
+    public @Nonnull String getVersion() {
         return "v" + this.plugin.getDescription().getVersion();
     }
 
@@ -38,7 +39,7 @@ public class PapiExpansion extends PlaceholderExpansion {
     }
 
     @Override
-    public String onRequest(OfflinePlayer player, @NotNull String params) {
-        return this.placeholderPack.apply(player, params);
+    public String onRequest(OfflinePlayer player, @Nonnull String params) {
+        return placeholderPack.apply(player, params);
     }
 }

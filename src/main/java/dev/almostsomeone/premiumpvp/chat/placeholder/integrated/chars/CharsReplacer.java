@@ -1,23 +1,22 @@
-package dev.almostsomeone.premiumpvp.common.bukkit.placeholder.integrated.chars;
+package dev.almostsomeone.premiumpvp.chat.placeholder.integrated.chars;
 
-import dev.almostsomeone.premiumpvp.Main;
-import dev.almostsomeone.premiumpvp.common.bukkit.placeholder.Placeholder;
-import dev.almostsomeone.premiumpvp.common.bukkit.placeholder.integrated.PlaceholderPack;
+import dev.almostsomeone.premiumpvp.chat.placeholder.Placeholder;
+import dev.almostsomeone.premiumpvp.chat.placeholder.integrated.PlaceholderPack;
 import org.bukkit.OfflinePlayer;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
+import java.util.Objects;
 import java.util.Optional;
 
 public record CharsReplacer(
-        @NotNull Replacer.Closure closure) implements Replacer {
+        @Nonnull Replacer.Closure closure) implements Replacer {
 
-    public CharsReplacer(@NotNull Closure closure) {
+    public CharsReplacer(@Nonnull Closure closure) {
         this.closure = closure;
     }
 
-    @NotNull
-    public String apply(@NotNull String text, @Nullable OfflinePlayer player) {
+    @Nonnull
+    public String apply(@Nonnull String text, OfflinePlayer player) {
         char[] chars = text.toCharArray();
         StringBuilder builder = new StringBuilder(text.length());
         StringBuilder identifier = new StringBuilder();
@@ -70,8 +69,7 @@ public record CharsReplacer(
                         builder.append(' ');
                     }
                 } else {
-                    Placeholder placeholder = Main.getInstance().getPlaceholder();
-                    Optional<PlaceholderPack> placeholderPack = placeholder.getRegisteredPacks().stream().filter(pack -> pack.getIdentifier().equalsIgnoreCase(identifierString)).findFirst();
+                    Optional<PlaceholderPack> placeholderPack = Objects.requireNonNull(Placeholder.getRegisteredPacks()).stream().filter(pack -> pack.getIdentifier().equalsIgnoreCase(identifierString)).findFirst();
                     placeholderPack.ifPresent(pack -> builder.append(pack.apply(player, parametersString)));
                     if (placeholderPack.isEmpty())
                         builder.append("%").append(identifierString).append("_").append(parametersString).append("%");

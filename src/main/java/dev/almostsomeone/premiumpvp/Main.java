@@ -1,37 +1,26 @@
 package dev.almostsomeone.premiumpvp;
 
-import dev.almostsomeone.premiumpvp.commands.KitPvPCMD;
-import dev.almostsomeone.premiumpvp.commands.WorldCMD;
-import dev.almostsomeone.premiumpvp.common.bukkit.placeholder.Placeholder;
-import dev.almostsomeone.premiumpvp.common.bukkit.world.VoidGenerator;
-import dev.almostsomeone.premiumpvp.common.nms.NMS;
+import dev.almostsomeone.premiumpvp.commands.PluginTopic;
+import dev.almostsomeone.premiumpvp.commands.executors.KitPvPCMD;
+import dev.almostsomeone.premiumpvp.commands.executors.WorldCMD;
+import dev.almostsomeone.premiumpvp.chat.placeholder.Placeholder;
+import dev.almostsomeone.premiumpvp.world.VoidGenerator;
 import dev.almostsomeone.premiumpvp.data.user.User;
 import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.listeners.ListenerHandler;
-import dev.almostsomeone.premiumpvp.storage.InfoFile;
-import dev.almostsomeone.premiumpvp.storage.Messages;
+import dev.almostsomeone.premiumpvp.configuration.Settings;
 import dev.almostsomeone.premiumpvp.storage.Storage;
-import dev.almostsomeone.premiumpvp.utilities.*;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Locale;
 import java.util.UUID;
-import java.util.logging.Level;
 
 public class Main extends JavaPlugin {
 
-    // Get the configuration and messages
-    private InfoFile config;
-    private Messages messages;
-
-    // Instances
-    private Game game;
-    private Placeholder placeholder;
-    private Storage storage;
+    private static Game game;
+    private static Storage storage;
 
     @Override
     public ChunkGenerator getDefaultWorldGenerator(@NotNull String worldName, String id) {
@@ -40,90 +29,55 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        this.onStartup();
+        onStartup();
         Bukkit.getScheduler().scheduleSyncDelayedTask(this, this::onStarted);
     }
 
     @Override
     public void onDisable() {
-        this.game.getGamePlayerManager().saveGamePlayers();
-        this.storage.closePool();
+        game.stop();
+        storage.closePool();
     }
 
     private void onStartup() {
-        // Loading the configuration
-        this.config = new InfoFile(this, "", "config.yml");
-        this.config.load();
+        // Generate and load the settings and messages
+        Settings.setup(this);
 
-        // Loading messages
-        this.messages = new Messages(this);
+        // Register all commands
+        new KitPvPCMD();
+        new WorldCMD();
 
-        // Hooking into NMS
-        new NMS(this);
+        // Generate a topic in the servers HelpMap for improved usability.
+        PluginTopic.generate();
     }
 
     private void onStarted() {
-        // Load the storage
-        this.storage = new Storage(this);
+        // Initialize the storage
+        storage = new Storage(this);
 
         // Create tables for the user
         // TODO Find a better way to automatically create tables
         new User(UUID.randomUUID()).createTables();
 
-        // Preparing placeholders
-        this.placeholder = new Placeholder(this);
+        // Prepare the Placeholders
+        Placeholder.setup(this);
 
-        // Initialize game
-        this.game = new Game(this);
-        this.game.loadGame();
+        // Set up the game instance
+        game = new Game(this);
+        game.loadGame();
 
-        // Register all listeners
+        // Start listening to events
         new ListenerHandler(this);
 
-        // Load all game players
-        this.game.getGamePlayerManager().loadGamePlayers();
-
-        // Initialize all commands
-        new KitPvPCMD(getInstance());
-        new WorldCMD();
-
-        // Starting the updater
-        new Updater(getInstance());
-
-        // Inform the server administrators about possible issues with non-stable releases
-        String version = this.getDescription().getVersion();
-        if (version.contains("-")) {
-            String suffix = version.split("-")[1].toLowerCase(Locale.ROOT);
-            this.getLogger().log(Level.WARNING, () -> "You are running a " + suffix + " release. Consider using our latest stable release for public servers.");
-        }
+        // Check for updates
+        new Version(this);
     }
 
-    public FileConfiguration getConfig() {
-        return config.get();
+    public static Game getGame() {
+        return game;
     }
 
-    @Override
-    public void reloadConfig() {
-        config.load();
-    }
-
-    public Messages getMessages() {
-        return messages;
-    }
-
-    public Game getGame() {
-        return this.game;
-    }
-
-    public Placeholder getPlaceholder() {
-        return this.placeholder;
-    }
-
-    public Storage getStorage() {
-        return this.storage;
-    }
-
-    public static Main getInstance() {
-        return Main.getPlugin(Main.class);
+    public static Storage getStorage() {
+        return storage;
     }
 }

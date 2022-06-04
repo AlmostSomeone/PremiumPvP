@@ -1,48 +1,45 @@
-package dev.almostsomeone.premiumpvp.common.bukkit.world;
+package dev.almostsomeone.premiumpvp.world;
 
-import dev.almostsomeone.premiumpvp.Main;
-
+import dev.almostsomeone.premiumpvp.configuration.Settings;
 import org.bukkit.*;
-import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 
 public class WorldManager {
 
     private final Plugin plugin;
-
-    private final FileConfiguration config = Main.getInstance().getConfig();
-
     private WorldProfile globalProfile;
     private WorldProfile duelsProfile;
 
-    private List<WorldProfile> worldProfiles;
+    private final List<WorldProfile> worldProfiles;
 
     public WorldManager(final Plugin plugin) {
         this.plugin = plugin;
-
-        this.worldProfiles = new ArrayList<>();
+        worldProfiles = new ArrayList<>();
     }
 
     public void loadWorlds() {
-        this.plugin.getLogger().log(Level.INFO, () -> "Loading worlds...");
+        plugin.getLogger().log(Level.INFO, () -> "Loading worlds...");
 
-        this.globalProfile = this.generateProfile("world-settings.global", false);
-        this.duelsProfile = this.generateProfile("world-settings.duels", false);
+        globalProfile = generateProfile("world-settings.global", false);
+        duelsProfile = generateProfile("world-settings.duels", false);
 
-        if(this.config.isSet("world-settings.specifics")) {
-            for(String profileName : this.config.getConfigurationSection("world-settings.specifics").getKeys(false)) {
-                WorldProfile worldProfile = this.generateProfile("world-settings.specifics." + profileName, false);
-
+        YamlConfiguration config = Settings.getConfig();
+        
+        if(config.isSet("world-settings.specifics")) {
+            for(String profileName : Objects.requireNonNull(config.getConfigurationSection("world-settings.specifics")).getKeys(false)) {
+                WorldProfile worldProfile = generateProfile("world-settings.specifics." + profileName, false);
                 loadWorld(worldProfile);
-                this.worldProfiles.add(worldProfile);
+                worldProfiles.add(worldProfile);
             }
         }
 
-        this.plugin.getLogger().log(Level.INFO, () -> "Loaded all worlds");
+        plugin.getLogger().log(Level.INFO, () -> "Loaded all worlds");
     }
 
     public void loadWorld(WorldProfile worldProfile) {
@@ -56,31 +53,33 @@ public class WorldManager {
     }
 
     private WorldProfile generateProfile(String configPath, boolean isDuels) {
+        YamlConfiguration config = Settings.getConfig();
+        
         String[] pathParts = configPath.split("\\.");
         String profileName = pathParts[pathParts.length-1];
 
-        WorldProfile fallbackProfile = (isDuels ? this.duelsProfile : this.globalProfile);
+        WorldProfile fallbackProfile = (isDuels ? duelsProfile : globalProfile);
 
         WorldType type = (fallbackProfile == null ? WorldType.NORMAL : fallbackProfile.getType());
-        if(this.config.isSet(configPath + ".type")) {
+        if(config.isSet(configPath + ".type")) {
             try {
-                type = WorldType.valueOf(this.config.getString(configPath + ".type"));
+                type = WorldType.valueOf(config.getString(configPath + ".type"));
             } catch (IllegalArgumentException exception) {
-                this.plugin.getLogger().log(Level.WARNING, "The world type for " + profileName + " is not valid. Defaulting to " + type.toString() + ".");
+                plugin.getLogger().log(Level.WARNING, "The world type for " + profileName + " is not valid. Defaulting to " + type.toString() + ".");
             }
         }
         boolean generateStructures = (fallbackProfile == null || fallbackProfile.getGenerateStructures());
-        if(this.config.isSet(configPath + ".generate-structures"))
-            generateStructures = this.config.getBoolean(configPath + ".biome");
+        if(config.isSet(configPath + ".generate-structures"))
+            generateStructures = config.getBoolean(configPath + ".biome");
         boolean isVoid = (fallbackProfile == null || fallbackProfile.getVoid());
-        if(this.config.isSet(configPath + ".void"))
-            isVoid = this.config.getBoolean(configPath + ".void");
+        if(config.isSet(configPath + ".void"))
+            isVoid = config.getBoolean(configPath + ".void");
         boolean hunger = (fallbackProfile == null || fallbackProfile.getHunger());
-        if(this.config.isSet(configPath + ".hunger"))
-            hunger = this.config.getBoolean(configPath + ".hunger");
+        if(config.isSet(configPath + ".hunger"))
+            hunger = config.getBoolean(configPath + ".hunger");
         String weatherLock = (fallbackProfile == null ? "NONE" : fallbackProfile.getWeatherLock());
-        if(this.config.isSet(configPath + ".weather-lock")) {
-            String temp = this.config.getString(configPath + ".weather-lock");
+        if(config.isSet(configPath + ".weather-lock")) {
+            String temp = config.getString(configPath + ".weather-lock");
             if(temp == null) temp = "NONE";
             if(temp.equalsIgnoreCase("NONE")) {
                 weatherLock = "NONE";
@@ -88,13 +87,13 @@ public class WorldManager {
                 try {
                     weatherLock = WeatherType.valueOf(temp).toString();
                 } catch (IllegalArgumentException exception) {
-                    this.plugin.getLogger().log(Level.WARNING, "The weather lock for " + profileName + " is not valid. Defaulting to " + weatherLock + ".");
+                    plugin.getLogger().log(Level.WARNING, "The weather lock for " + profileName + " is not valid. Defaulting to " + weatherLock + ".");
                 }
             }
         }
         String gameMode = (fallbackProfile == null ? "NONE" : fallbackProfile.getGameMode());
-        if(this.config.isSet(configPath + ".gamemode")) {
-            String temp = this.config.getString(configPath + ".gamemode");
+        if(config.isSet(configPath + ".gamemode")) {
+            String temp = config.getString(configPath + ".gamemode");
             if(temp == null) temp = "NONE";
             if(temp.equalsIgnoreCase("NONE")) {
                 gameMode = "NONE";
@@ -102,7 +101,7 @@ public class WorldManager {
                 try {
                     gameMode = GameMode.valueOf(temp).toString();
                 } catch (IllegalArgumentException exception) {
-                    this.plugin.getLogger().log(Level.WARNING, "The gamemode for " + profileName + " is not valid. Defaulting to " + gameMode + ".");
+                    plugin.getLogger().log(Level.WARNING, "The gamemode for " + profileName + " is not valid. Defaulting to " + gameMode + ".");
                 }
             }
         }
@@ -119,7 +118,7 @@ public class WorldManager {
     }
 
     public WorldProfile getWorldProfile(String name) {
-        return this.worldProfiles.stream().filter(profile -> profile.getName().equalsIgnoreCase(name)).findFirst().get();
+        return this.worldProfiles.stream().filter(profile -> profile.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
     }
 }
 

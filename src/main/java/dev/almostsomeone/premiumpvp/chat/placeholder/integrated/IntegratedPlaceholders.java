@@ -1,10 +1,10 @@
-package dev.almostsomeone.premiumpvp.common.bukkit.placeholder.integrated;
+package dev.almostsomeone.premiumpvp.chat.placeholder.integrated;
 
-import dev.almostsomeone.premiumpvp.common.bukkit.placeholder.integrated.chars.CharsReplacer;
-import dev.almostsomeone.premiumpvp.common.bukkit.placeholder.integrated.chars.Replacer;
-import dev.almostsomeone.premiumpvp.common.bukkit.placeholder.integrated.packs.CustomPlaceholders;
-import dev.almostsomeone.premiumpvp.common.bukkit.placeholder.integrated.packs.PlayerPlaceholders;
-import dev.almostsomeone.premiumpvp.common.bukkit.placeholder.integrated.packs.ServerPlaceholders;
+import dev.almostsomeone.premiumpvp.chat.placeholder.integrated.chars.CharsReplacer;
+import dev.almostsomeone.premiumpvp.chat.placeholder.integrated.chars.Replacer;
+import dev.almostsomeone.premiumpvp.chat.placeholder.integrated.packs.CustomPlaceholders;
+import dev.almostsomeone.premiumpvp.chat.placeholder.integrated.packs.PlayerPlaceholders;
+import dev.almostsomeone.premiumpvp.chat.placeholder.integrated.packs.ServerPlaceholders;
 import org.bukkit.OfflinePlayer;
 
 import java.util.Arrays;
@@ -17,7 +17,7 @@ public class IntegratedPlaceholders {
 
     private final CharsReplacer percentReplacer = new CharsReplacer(Replacer.Closure.PERCENT);
     private final CharsReplacer bracketReplacer = new CharsReplacer(Replacer.Closure.BRACKET);
-    private final Pattern percentPattern = Pattern.compile("[%]([^%]+)[%]");
+    private final Pattern percentPattern = Pattern.compile("%([^%]+)%");
     private final Pattern bracketPattern = Pattern.compile("[{]([^{}]+)[}]");
 
     public IntegratedPlaceholders() {

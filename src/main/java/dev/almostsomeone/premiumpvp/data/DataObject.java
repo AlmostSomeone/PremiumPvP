@@ -1,6 +1,6 @@
 package dev.almostsomeone.premiumpvp.data;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 public class DataObject {
 
@@ -12,17 +12,17 @@ public class DataObject {
     private String string;
     private Integer integer;
 
-    public DataObject(@NotNull DataGroup dataGroup, @NotNull String columnName, @NotNull String defaultValue) {
+    public DataObject(@Nonnull DataGroup dataGroup, @Nonnull String columnName, @Nonnull String defaultValue) {
         init(dataGroup, columnName);
-        this.defaultString = defaultValue;
-        this.string = defaultValue;
+        defaultString = defaultValue;
+        string = defaultValue;
     }
 
-    public DataObject(@NotNull DataGroup dataGroup, @NotNull String columnName, @NotNull Integer defaultValue) {
+    public DataObject(@Nonnull DataGroup dataGroup, @Nonnull String columnName, @Nonnull Integer defaultValue) {
         init(dataGroup, columnName);
 
-        this.defaultInteger = defaultValue;
-        this.integer = defaultValue;
+        defaultInteger = defaultValue;
+        integer = defaultValue;
     }
 
     private void init(DataGroup dataGroup, String columnName) {
@@ -31,15 +31,15 @@ public class DataObject {
     }
 
     public String getColumnName() {
-        return this.columnName;
+        return columnName;
     }
 
     public String getDefaultString() {
-        return this.defaultString;
+        return defaultString;
     }
 
     public Integer getDefaultInteger() {
-        return this.defaultInteger;
+        return defaultInteger;
     }
 
     public void setString(String string) {
@@ -51,10 +51,10 @@ public class DataObject {
     }
 
     public String getString() {
-        return this.string;
+        return string;
     }
 
     public Integer getInteger() {
-        return this.integer;
+        return integer;
     }
 }

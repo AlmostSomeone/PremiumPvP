@@ -1,8 +1,8 @@
 package dev.almostsomeone.premiumpvp.listeners.gameplayer;
 
 import dev.almostsomeone.premiumpvp.Main;
-import dev.almostsomeone.premiumpvp.common.bukkit.world.WorldManager;
-import dev.almostsomeone.premiumpvp.common.bukkit.world.WorldProfile;
+import dev.almostsomeone.premiumpvp.world.WorldManager;
+import dev.almostsomeone.premiumpvp.world.WorldProfile;
 import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
 import dev.almostsomeone.premiumpvp.events.gameplayer.GamePlayerJoinEvent;
@@ -11,12 +11,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
+import java.util.Objects;
+
 public class GamePlayerJoinListener implements Listener {
 
     @EventHandler
     public void gamePlayerJoin(GamePlayerJoinEvent event) {
         GamePlayer gamePlayer = event.getGamePlayer();
-        Game game = Main.getInstance().getGame();
+        Game game = Main.getGame();
         WorldManager worldManager = game.getWorldManager();
 
         // Teleport the player to the spawn
@@ -24,7 +26,7 @@ public class GamePlayerJoinListener implements Listener {
         gamePlayer.getPlayer().teleport(spawnLocation, PlayerTeleportEvent.TeleportCause.PLUGIN);
 
         // Apply world profile
-        WorldProfile worldProfile = worldManager.getWorldProfile(spawnLocation.getWorld().getName());
+        WorldProfile worldProfile = worldManager.getWorldProfile(Objects.requireNonNull(spawnLocation.getWorld()).getName());
         if(worldProfile != null)
             worldProfile.applyProfile(gamePlayer.getPlayer());
     }

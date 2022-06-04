@@ -1,11 +1,11 @@
-package dev.almostsomeone.premiumpvp.common.bukkit.world;
+package dev.almostsomeone.premiumpvp.world;
 
 import org.bukkit.World;
 import org.bukkit.block.Biome;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
-import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -13,7 +13,7 @@ import java.util.Random;
 public class VoidGenerator extends ChunkGenerator {
 
     @Override @Deprecated
-    public @NotNull ChunkData generateChunkData(@NotNull World world, @NotNull Random random, int cx, int cz, @NotNull BiomeGrid biomeGrid) {
+    public @Nonnull ChunkData generateChunkData(@Nonnull World world, @Nonnull Random random, int cx, int cz, @Nonnull BiomeGrid biomeGrid) {
         final ChunkData chunkData = createChunkData(world);
 
         Biome biome = Biome.PLAINS;
@@ -26,12 +26,12 @@ public class VoidGenerator extends ChunkGenerator {
     }
 
     @Override
-    public boolean canSpawn(@NotNull World world, int x, int z) {
+    public boolean canSpawn(@Nonnull World world, int x, int z) {
         return true;
     }
 
     @Override
-    public @NotNull List<BlockPopulator> getDefaultPopulators(@NotNull World world) {
+    public @Nonnull List<BlockPopulator> getDefaultPopulators(@Nonnull World world) {
         return Collections.emptyList();
     }
 }

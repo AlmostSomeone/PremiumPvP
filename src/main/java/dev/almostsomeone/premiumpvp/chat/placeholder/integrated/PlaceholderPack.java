@@ -1,11 +1,12 @@
-package dev.almostsomeone.premiumpvp.common.bukkit.placeholder.integrated;
+package dev.almostsomeone.premiumpvp.chat.placeholder.integrated;
 
 import org.bukkit.OfflinePlayer;
-import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
 
 public abstract class PlaceholderPack {
 
-    @NotNull
+    @Nonnull
     public abstract String getIdentifier();
 
     public abstract String apply(OfflinePlayer offlinePlayer, String param);

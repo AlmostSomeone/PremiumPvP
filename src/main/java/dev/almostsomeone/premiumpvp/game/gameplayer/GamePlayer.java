@@ -16,30 +16,30 @@ public class GamePlayer {
     public GamePlayer(final UUID uuid) {
         this.uuid = uuid;
         setGamePlayerState(GamePlayerState.NONE);
-        this.user = new User(uuid);
-        Main.getInstance().getGame().getGamePlayerManager().addGamePlayer(this);
+        user = new User(uuid);
+        Main.getGame().getGamePlayerManager().addGamePlayer(this);
     }
 
     public Player getPlayer() {
-        if(!Bukkit.getOfflinePlayer(this.uuid).isOnline())
+        if(!Bukkit.getOfflinePlayer(uuid).isOnline())
             return null;
-        return Bukkit.getPlayer(this.uuid);
+        return Bukkit.getPlayer(uuid);
     }
 
     public UUID getUniqueId() {
-        return this.uuid;
+        return uuid;
     }
 
     public GamePlayerState getGamePlayerState() {
-        return this.gamePlayerState;
+        return gamePlayerState;
     }
 
     public void setGamePlayerState(GamePlayerState gamePlayerState) {
         this.gamePlayerState = gamePlayerState;
-        Main.getInstance().getGame().getBoardManager().showBoard(this);
+        Main.getGame().getBoardManager().showBoard(this);
     }
 
     public User getUser() {
-        return this.user;
+        return user;
     }
 }

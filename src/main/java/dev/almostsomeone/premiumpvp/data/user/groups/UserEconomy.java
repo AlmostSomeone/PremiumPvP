@@ -3,8 +3,8 @@ package dev.almostsomeone.premiumpvp.data.user.groups;
 import dev.almostsomeone.premiumpvp.data.DataContainer;
 import dev.almostsomeone.premiumpvp.data.DataGroup;
 import dev.almostsomeone.premiumpvp.data.DataObject;
-import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
 import java.sql.SQLException;
 
 public class UserEconomy extends DataGroup {
@@ -13,23 +13,22 @@ public class UserEconomy extends DataGroup {
 
     public UserEconomy(DataContainer dataContainer) {
         super(dataContainer);
-
-        this.coins = new DataObject(this, "Coins", 0);
+        coins = new DataObject(this, "Coins", 0);
     }
 
     @Override
     public void load() {
         super.load();
-        if(this.resultSet == null) return;
+        if(resultSet == null) return;
         try {
-            this.coins.setInteger(this.resultSet.getInt("Coins"));
+            coins.setInteger(resultSet.getInt("Coins"));
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
     }
 
     @Override
-    public @NotNull String tableName() {
+    public @Nonnull String tableName() {
         return "economy";
     }
 
@@ -39,6 +38,6 @@ public class UserEconomy extends DataGroup {
     }
 
     public Integer getCoins() {
-        return this.coins.getInteger();
+        return coins.getInteger();
     }
 }

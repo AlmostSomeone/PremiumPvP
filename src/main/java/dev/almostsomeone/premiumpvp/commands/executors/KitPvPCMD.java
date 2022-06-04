@@ -1,130 +1,120 @@
-package dev.almostsomeone.premiumpvp.commands;
+package dev.almostsomeone.premiumpvp.commands.executors;
 
 import dev.almostsomeone.premiumpvp.Main;
+import dev.almostsomeone.premiumpvp.commands.CommandBuilder;
 import dev.almostsomeone.premiumpvp.events.gameplayer.GamePlayerJoinEvent;
 import dev.almostsomeone.premiumpvp.events.gameplayer.GamePlayerLeaveEvent;
 import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerState;
-import dev.almostsomeone.premiumpvp.storage.Messages;
+import dev.almostsomeone.premiumpvp.configuration.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
-import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Locale;
 
-import static dev.almostsomeone.premiumpvp.utilities.ChatUtil.color;
-import static dev.almostsomeone.premiumpvp.utilities.ChatUtil.format;
+import static dev.almostsomeone.premiumpvp.chat.Chat.color;
+import static dev.almostsomeone.premiumpvp.chat.Chat.format;
 
 public class KitPvPCMD extends CommandBuilder {
-
-    private final Plugin plugin;
-
-    private final FileConfiguration config;
-    private final Messages messages = Main.getInstance().getMessages();
 
     private boolean joinCommand = false;
     private boolean leaveCommand = false;
 
-    public KitPvPCMD(final Plugin plugin) {
+    public KitPvPCMD() {
         super("commands.main", "kitpvp", true, false);
-        this.plugin = plugin;
 
-        this.config = Main.getInstance().getConfig();
-
-        this.subCommands = new HashMap<>() {{
+        subCommands = new HashMap<>() {{
             put("info", "Get information about the plugin");
             put("help", "Get a list of sub-commands");
             put("reload", "Reload the configurations");
             put("save", "Force the plugin to save its data");
         }};
 
-        if(config.isSet("participate.join.command") && config.getBoolean("participate.join.command")) {
+        if(Settings.getBoolean("participate.join.command", false)) {
             subCommands.put("join", "Join the KitPvP");
             joinCommand = true;
         }
-        if(config.isSet("participate.leave.command") && config.getBoolean("participate.leave.command")) {
+        if(Settings.getBoolean("participate.leave.command", false)) {
             subCommands.put("leave", "Leave the KitPvP");
             leaveCommand = true;
         }
     }
 
     @Override
-    public boolean execute(@NotNull CommandSender sender, @NotNull String label, String[] args) {
+    public boolean execute(@Nonnull CommandSender sender, @Nonnull String label, String[] args) {
         if(!(sender instanceof Player player)) {
-            sender.sendMessage(color(messages.getMessage("global.only-players")));
+            sender.sendMessage(color(Settings.getMessage("global.only-players")));
             return true;
         }
-        Game game = Main.getInstance().getGame();
+        Game game = Main.getGame();
         GamePlayer gamePlayer = game.getGamePlayerManager().getGamePlayer(player.getUniqueId());
 
         if(args.length == 0) {
-            player.sendMessage(format(player, this.messages.getMessage("commands.help.use-help").replaceAll("\\{command}", "/" + label)));
+            player.sendMessage(format(player, Settings.getMessage("commands.help.use-help").replaceAll("\\{command}", "/" + label)));
             return true;
         } else {
             switch(args[0].toLowerCase(Locale.ROOT)) {
                 case "info":
                     player.sendMessage(" ");
-                    player.sendMessage("Welcome to PremiumPvP v" + this.plugin.getDescription().getVersion());
+                    player.sendMessage("Welcome to PremiumPvP");
                     player.sendMessage("Made by AlmostSomeone");
                     player.sendMessage("https://github.com/AlmostSomeone/PremiumPvP");
                     player.sendMessage(" ");
                     break;
                 case "help":
-                    sender.sendMessage(format(player, this.messages.getMessage("commands.help.header")
+                    sender.sendMessage(format(player, Settings.getMessage("commands.help.header")
                             .replaceAll("\\{command}", "/" + label)));
                     this.subCommands.forEach((subcommand, description) ->
-                            player.sendMessage(format(player, this.messages.getMessage("commands.help.item")
+                            player.sendMessage(format(player, Settings.getMessage("commands.help.item")
                                     .replaceAll("\\{command}", "/" + label)
                                     .replaceAll("\\{subcommand}", subcommand.substring(0,1).toUpperCase(Locale.ROOT) + subcommand.substring(1).toLowerCase(Locale.ROOT))
                                     .replaceAll("\\{description}", description))));
-                    player.sendMessage(format(player, this.messages.getMessage("commands.help.footer")
+                    player.sendMessage(format(player, Settings.getMessage("commands.help.footer")
                             .replaceAll("\\{command}", "/" + label)));
                     break;
                 case "reload":
                     try {
-                        Main.getInstance().reloadConfig();
-                        this.messages.reload();
-                        Main.getInstance().getGame().getBoardManager().reloadBoard();
-                        player.sendMessage(format(player, this.messages.getMessage("commands.kitpvp.config.reload-success")));
+                        Settings.load();
+                        Main.getGame().getBoardManager().reloadBoard();
+                        player.sendMessage(format(player, Settings.getMessage("commands.kitpvp.config.reload-success")));
                     } catch (Exception exception) {
                         exception.printStackTrace();
-                        player.sendMessage(format(player, this.messages.getMessage("commands.kitpvp.config.reload-failed")));
+                        player.sendMessage(format(player, Settings.getMessage("commands.kitpvp.config.reload-failed")));
                     }
                     break;
                 case "save":
                     try {
                         game.getGamePlayerManager().saveAll();
-                        player.sendMessage(format(player, this.messages.getMessage("commands.kitpvp.data.save-success")));
+                        player.sendMessage(format(player, Settings.getMessage("commands.kitpvp.data.save-success")));
                     } catch (Exception exception) {
                         exception.printStackTrace();
-                        player.sendMessage(format(player, this.messages.getMessage("commands.kitpvp.data.save-failed")));
+                        player.sendMessage(format(player, Settings.getMessage("commands.kitpvp.data.save-failed")));
                     }
                     break;
                 case "join":
                     if(!joinCommand) break;
                     if(!gamePlayer.getGamePlayerState().equals(GamePlayerState.NONE)) {
-                        player.sendMessage(format(player, this.messages.getMessage("commands.kitpvp.already-joined")));
+                        player.sendMessage(format(player, Settings.getMessage("commands.kitpvp.already-joined")));
                         break;
                     }
-                    Bukkit.getPluginManager().callEvent(new GamePlayerJoinEvent(player.getUniqueId())); // Trigger the GamePlayerJoinEvent
-                    player.sendMessage(format(player, this.messages.getMessage("commands.kitpvp.join")));
+                    Bukkit.getPluginManager().callEvent(new GamePlayerJoinEvent(game, player.getUniqueId()));
+                    player.sendMessage(format(player, Settings.getMessage("commands.kitpvp.join")));
                     break;
                 case "leave":
                     if(!leaveCommand) break;
                     if(gamePlayer.getGamePlayerState().equals(GamePlayerState.NONE)) {
-                        player.sendMessage(format(player, this.messages.getMessage("commands.kitpvp.not-joined")));
+                        player.sendMessage(format(player, Settings.getMessage("commands.kitpvp.not-joined")));
                         break;
                     }
-                    Bukkit.getPluginManager().callEvent(new GamePlayerLeaveEvent(player.getUniqueId())); // Trigger the GamePlayerLeaveEvent
-                    player.sendMessage(format(player, this.messages.getMessage("commands.kitpvp.leave")));
+                    Bukkit.getPluginManager().callEvent(new GamePlayerLeaveEvent(player.getUniqueId()));
+                    player.sendMessage(format(player, Settings.getMessage("commands.kitpvp.leave")));
                     break;
                 default:
-                    player.sendMessage(format(player, this.messages.getMessage("commands.help.use-help").replaceAll("\\{command}", "/" + label)));
+                    player.sendMessage(format(player, Settings.getMessage("commands.help.use-help").replaceAll("\\{command}", "/" + label)));
                     break;
             }
         }

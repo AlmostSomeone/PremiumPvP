@@ -1,16 +1,16 @@
-package dev.almostsomeone.premiumpvp.utilities;
+package dev.almostsomeone.premiumpvp.chat;
 
-import dev.almostsomeone.premiumpvp.Main;
+import dev.almostsomeone.premiumpvp.chat.placeholder.Placeholder;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class ChatUtil {
+public class Chat {
 
     public static String color(String message) {
         return ChatColor.translateAlternateColorCodes('&', message);
     }
 
     public static String format(Player player, String message) {
-        return color(Main.getInstance().getPlaceholder().setPlaceholders(player, message));
+        return color(Placeholder.setPlaceholders(player, message));
     }
 }
