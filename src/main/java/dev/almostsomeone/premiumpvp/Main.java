@@ -3,7 +3,7 @@ package dev.almostsomeone.premiumpvp;
 import dev.almostsomeone.premiumpvp.commands.PluginTopic;
 import dev.almostsomeone.premiumpvp.commands.executors.KitPvPCMD;
 import dev.almostsomeone.premiumpvp.commands.executors.WorldCMD;
-import dev.almostsomeone.premiumpvp.chat.placeholder.Placeholder;
+import dev.almostsomeone.premiumpvp.placeholder.Placeholder;
 import dev.almostsomeone.premiumpvp.world.VoidGenerator;
 import dev.almostsomeone.premiumpvp.data.user.User;
 import dev.almostsomeone.premiumpvp.game.Game;

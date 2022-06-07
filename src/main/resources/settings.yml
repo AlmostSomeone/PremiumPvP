@@ -41,7 +41,7 @@ participate:
     command: false # Allow users to join with /kitpvp join
   leave:
     command: false # Allows users to leave with /kitpvp leave
-    execute-command: "lobby {player}" # Allows you to execute console commands when someone uses /kitpvp leave.
+    execute-command: "lobby {player}" # Allows you to execute console commands when someone uses /kitpvp leave. Set to "" to disable.
 
 # Here are the basic game settings.
 # This allows you to modify the pvp experience to your likings.

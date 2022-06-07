@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.Locale;
 import java.util.logging.Level;
 
-import static dev.almostsomeone.premiumpvp.chat.Chat.color;
+import static dev.almostsomeone.premiumpvp.utilities.Chat.color;
 
 public class Version {
 

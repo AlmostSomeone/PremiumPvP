@@ -1,4 +1,4 @@
-package dev.almostsomeone.premiumpvp.objects;
+package dev.almostsomeone.premiumpvp.scoreboard;
 
 import dev.almostsomeone.premiumpvp.Main;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerState;
@@ -7,13 +7,14 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.RenderType;
 import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-import static dev.almostsomeone.premiumpvp.chat.Chat.format;
+import static dev.almostsomeone.premiumpvp.utilities.Chat.format;
 
 public class CustomBoard {
 
@@ -59,26 +60,36 @@ public class CustomBoard {
     }
 
     public void updateBoard(Player player) {
-        // Replace scoreboard if the player has the main scoreboard active
-        if (player.getServer().getScoreboardManager() != null &&
-                player.getScoreboard().equals(player.getServer().getScoreboardManager().getMainScoreboard()))
+        // Make sure the ScoreboardManager is initialized
+        if (player.getServer().getScoreboardManager() == null) return;
+
+        // Make a personal scoreboard for the player if the player still uses the main scoreboard
+        if (player.getScoreboard().equals(player.getServer().getScoreboardManager().getMainScoreboard()))
             player.setScoreboard(player.getServer().getScoreboardManager().getNewScoreboard());
 
-        // Get the scoreboard and objective
+        // Get the scoreboard
         Scoreboard board = player.getScoreboard();
-        Objective objective = board.getObjective(player.getName()) == null ? board.registerNewObjective(player.getName(), "dummy", format(player, title)) : board.getObjective(player.getName());
-        if(objective == null) return;
 
-        // Set the title and line
+        // Get the sidebar objective
+        Objective objective = board.getObjective("ppvp_sidebar");
+        if (objective == null) objective = board.registerNewObjective("ppvp_sidebar", "dummy", format(player, title), RenderType.HEARTS);
+
         int emptyCount = 0;
+        // Go through all lines in the array
         for(int score = lines.size(); score > 0; score--) {
             String line = lines.get(lines.size() - score);
+
+            // Deal with {empty} lines
             if(line.toLowerCase(Locale.ROOT).trim().equals("{empty}")) {
                 line = "&" + emptyCount;
                 emptyCount++;
             }
+
+            // Replace the entry with the targeted score
             replaceScore(objective, score-1, format(player, line));
         }
+
+        // If the scoreboard is initialized and the scoreboard has more entries than the lines array, remove the extra entries
         if(objective.getScoreboard() != null && objective.getScoreboard().getEntries().size() > lines.size()) {
             for(int score = objective.getScoreboard().getEntries().size(); score > lines.size()-2; score--)
                 replaceScore(objective, score, "");
@@ -105,8 +116,7 @@ public class CustomBoard {
     private void replaceScore(Objective objective, int score, String name) {
         if (hasScoreTaken(objective, score)) {
             if (getEntryFromScore(objective, score).equalsIgnoreCase(name)) return;
-            if (!getEntryFromScore(objective, score).equalsIgnoreCase(name))
-                Objects.requireNonNull(objective.getScoreboard()).resetScores(getEntryFromScore(objective, score));
+            Objects.requireNonNull(objective.getScoreboard()).resetScores(getEntryFromScore(objective, score));
         }
         objective.getScore(name).setScore(score);
     }

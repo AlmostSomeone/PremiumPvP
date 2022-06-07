@@ -1,4 +1,4 @@
-package dev.almostsomeone.premiumpvp.objects;
+package dev.almostsomeone.premiumpvp.scoreboard;
 
 import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
@@ -45,7 +45,7 @@ public class BoardManager {
         boards.clear();
 
         // Make sure the scoreboard is enabled
-        if(!config.isSet("settings.enable") || !config.getBoolean("settings.enable")) return;
+        if(!config.getBoolean("settings.enable", true)) return;
 
         // Load scoreboards
         for(String stateName : Objects.requireNonNull(config.getConfigurationSection("scoreboards")).getKeys(false)) {
@@ -58,9 +58,7 @@ public class BoardManager {
         }
 
         // Get the refresh ticks
-        int ticks = 0;
-        if(config.isSet("settings.refresh"))
-            ticks = config.getInt("settings.refresh");
+        int ticks = config.getInt("settings.refresh", 20);
 
         // Prepare the timer
         if(refreshTimer != null)
@@ -77,7 +75,7 @@ public class BoardManager {
         YamlConfiguration config = scoreboardFile.get();
 
         // Make sure the scoreboard is enabled
-        if(!config.isSet("settings.enable") || !config.getBoolean("settings.enable")) return;
+        if(!config.getBoolean("settings.enable", true)) return;
 
         // Show the scoreboard
         CustomBoard targetBoard = boards.get(gamePlayer.getGamePlayerState().name());

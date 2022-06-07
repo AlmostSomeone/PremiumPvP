@@ -16,8 +16,8 @@ import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Locale;
 
-import static dev.almostsomeone.premiumpvp.chat.Chat.color;
-import static dev.almostsomeone.premiumpvp.chat.Chat.format;
+import static dev.almostsomeone.premiumpvp.utilities.Chat.color;
+import static dev.almostsomeone.premiumpvp.utilities.Chat.format;
 
 public class KitPvPCMD extends CommandBuilder {
 

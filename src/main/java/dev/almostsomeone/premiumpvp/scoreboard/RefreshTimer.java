@@ -1,4 +1,4 @@
-package dev.almostsomeone.premiumpvp.objects;
+package dev.almostsomeone.premiumpvp.scoreboard;
 
 import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerManager;

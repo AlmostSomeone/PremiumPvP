@@ -1,6 +1,6 @@
-package dev.almostsomeone.premiumpvp.chat;
+package dev.almostsomeone.premiumpvp.utilities;
 
-import dev.almostsomeone.premiumpvp.chat.placeholder.Placeholder;
+import dev.almostsomeone.premiumpvp.placeholder.Placeholder;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 

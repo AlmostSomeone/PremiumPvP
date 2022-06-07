@@ -1,10 +1,10 @@
-package dev.almostsomeone.premiumpvp.chat.placeholder.integrated;
+package dev.almostsomeone.premiumpvp.placeholder.integrated;
 
-import dev.almostsomeone.premiumpvp.chat.placeholder.integrated.chars.CharsReplacer;
-import dev.almostsomeone.premiumpvp.chat.placeholder.integrated.chars.Replacer;
-import dev.almostsomeone.premiumpvp.chat.placeholder.integrated.packs.CustomPlaceholders;
-import dev.almostsomeone.premiumpvp.chat.placeholder.integrated.packs.PlayerPlaceholders;
-import dev.almostsomeone.premiumpvp.chat.placeholder.integrated.packs.ServerPlaceholders;
+import dev.almostsomeone.premiumpvp.placeholder.integrated.chars.CharsReplacer;
+import dev.almostsomeone.premiumpvp.placeholder.integrated.chars.Replacer;
+import dev.almostsomeone.premiumpvp.placeholder.integrated.packs.CustomPlaceholders;
+import dev.almostsomeone.premiumpvp.placeholder.integrated.packs.PlayerPlaceholders;
+import dev.almostsomeone.premiumpvp.placeholder.integrated.packs.ServerPlaceholders;
 import org.bukkit.OfflinePlayer;
 
 import java.util.Arrays;

@@ -3,7 +3,7 @@ package dev.almostsomeone.premiumpvp.game;
 import dev.almostsomeone.premiumpvp.world.WorldManager;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerManager;
-import dev.almostsomeone.premiumpvp.objects.BoardManager;
+import dev.almostsomeone.premiumpvp.scoreboard.BoardManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.plugin.Plugin;

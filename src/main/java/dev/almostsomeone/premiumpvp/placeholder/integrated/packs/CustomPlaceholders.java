@@ -1,7 +1,7 @@
-package dev.almostsomeone.premiumpvp.chat.placeholder.integrated.packs;
+package dev.almostsomeone.premiumpvp.placeholder.integrated.packs;
 
 import dev.almostsomeone.premiumpvp.Main;
-import dev.almostsomeone.premiumpvp.chat.placeholder.integrated.PlaceholderPack;
+import dev.almostsomeone.premiumpvp.placeholder.integrated.PlaceholderPack;
 import dev.almostsomeone.premiumpvp.data.user.User;
 import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;

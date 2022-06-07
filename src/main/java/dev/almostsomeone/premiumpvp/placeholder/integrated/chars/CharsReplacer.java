@@ -1,7 +1,7 @@
-package dev.almostsomeone.premiumpvp.chat.placeholder.integrated.chars;
+package dev.almostsomeone.premiumpvp.placeholder.integrated.chars;
 
-import dev.almostsomeone.premiumpvp.chat.placeholder.Placeholder;
-import dev.almostsomeone.premiumpvp.chat.placeholder.integrated.PlaceholderPack;
+import dev.almostsomeone.premiumpvp.placeholder.Placeholder;
+import dev.almostsomeone.premiumpvp.placeholder.integrated.PlaceholderPack;
 import org.bukkit.OfflinePlayer;
 
 import javax.annotation.Nonnull;

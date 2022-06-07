@@ -1,4 +1,4 @@
-package dev.almostsomeone.premiumpvp.chat.placeholder.integrated.chars;
+package dev.almostsomeone.premiumpvp.placeholder.integrated.chars;
 
 import org.bukkit.OfflinePlayer;
 

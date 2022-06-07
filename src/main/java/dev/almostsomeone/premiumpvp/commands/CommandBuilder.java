@@ -81,6 +81,7 @@ public abstract class CommandBuilder extends Command {
                     return;
 
                 commandMap.register(name, this);
+                PluginTopic.registerCommand(this);
             } catch (Exception e) {
                 e.printStackTrace();
             }

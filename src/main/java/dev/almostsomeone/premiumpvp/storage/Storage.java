@@ -27,17 +27,21 @@ public class Storage {
         if (method.equalsIgnoreCase("mysql")) sql = setMySQL();
         else sql = setSQLite();
 
-        // Set up the pool with the configured SQL
-        plugin.getLogger().log(Level.INFO, () -> "Setting up connection pool...");
-        sql.setupPool();
+        openPool();
 
-        // Auto-Save the data to minimize data loss on forced shutdown
-        int autoSaveInterval = Settings.getInt("performance.auto-save.interval", 300) * 20;
-        Bukkit.getScheduler().runTaskTimer(plugin, () -> Main.getGame().save(), autoSaveInterval, autoSaveInterval);
+        // Auto-Save the data
+        long interval = Settings.getInt("performance.auto-save.interval", 300) * 20L;
+        Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, () -> Main.getGame().save(), interval, interval);
     }
 
     public Connection getConnection() throws SQLException {
         return sql.getConnection();
+    }
+
+    public void openPool() {
+        // Set up the pool with the configured SQL
+        plugin.getLogger().log(Level.INFO, () -> "Setting up connection pool...");
+        sql.setupPool();
     }
 
     public void closePool() {
