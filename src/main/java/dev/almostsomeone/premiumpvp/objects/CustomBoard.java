@@ -66,11 +66,10 @@ public class CustomBoard {
 
         // Get the scoreboard and objective
         Scoreboard board = player.getScoreboard();
-        Objective objective = board.getObjective(player.getName()) == null ? board.registerNewObjective(player.getName(), "dummy") : board.getObjective(player.getName());
+        Objective objective = board.getObjective(player.getName()) == null ? board.registerNewObjective(player.getName(), "dummy", format(player, title)) : board.getObjective(player.getName());
         if(objective == null) return;
 
         // Set the title and line
-        objective.setDisplayName(format(player, title));
         int emptyCount = 0;
         for(int score = lines.size(); score > 0; score--) {
             String line = lines.get(lines.size() - score);
