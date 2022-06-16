@@ -15,10 +15,6 @@ update-notify: true
 # Things like scoreboards, signs and other things are customizable through their own configurations.
 language: EN
 
-# Configure this part when you wish to save data like stats, kits, guilds, cosmetics in MySQL
-# If not enabled, the data will be stored in local JSON files in the "data" folder.
-# There is a migrate command if you wish to migrate your local data to MySQL later on.
-
 # We support different methods of storing data. DO NOT TOUCH THIS UNLESS YOU KNOW WHAT YOU ARE DOING.
 # - SQLite: This is the default local Database.sql file and is recommended if you don't need to retrieve data from other places.
 # - MySQL: This is the recommended way of storing data if you need to retrieve data from other places like multiple servers or websites.
