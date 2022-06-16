@@ -12,6 +12,13 @@
     <url>https://www.spigotmc.org/members/270797/</url>
     <description>Just an awesome KitPvP plugin</description>
 
+    <pluginRepositories>
+        <pluginRepository>
+            <id>maven-snapshots</id>
+            <url>https://repository.apache.org/content/repositories/snapshots/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -33,6 +40,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.10.1</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
             <version>1.19-R0.1-SNAPSHOT</version>
@@ -51,7 +64,13 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>2.0.0-alpha7</version>
             <scope>compile</scope>
-            <type>jar</type>
+        </dependency>
+
+        <dependency>
+            <groupId>org.bstats</groupId>
+            <artifactId>bstats-bukkit</artifactId>
+            <version>3.0.0</version>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
@@ -85,7 +104,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.10.0</version>
+                <version>3.10.1</version>
                 <configuration>
                     <source>17</source>
                     <target>17</target>
@@ -95,12 +114,19 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.4</version>
+                <version>3.3.1-SNAPSHOT</version>
                 <configuration>
+                    <relocations>
+                        <relocate>
+                            <pattern>org.bstats</pattern>
+                            <shadedPattern>dev.almostsomeone</shadedPattern>
+                        </relocate>
+                    </relocations>
                     <artifactSet>
                         <includes>
                             <include>com.zaxxer:*:*:*</include>
                             <include>org.slf4j:*:*:*</include>
+                            <include>org.bstats:*:*:*</include>
                         </includes>
                     </artifactSet>
                 </configuration>

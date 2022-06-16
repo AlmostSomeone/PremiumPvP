@@ -10,6 +10,7 @@ import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.listeners.ListenerHandler;
 import dev.almostsomeone.premiumpvp.configuration.Settings;
 import dev.almostsomeone.premiumpvp.storage.Storage;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -52,6 +53,8 @@ public class Main extends JavaPlugin {
     }
 
     private void onStarted() {
+        new Metrics(this, 14487);
+
         // Initialize the storage
         storage = new Storage(this);
 
