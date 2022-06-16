@@ -4,6 +4,10 @@ import dev.almostsomeone.premiumpvp.Main;
 import dev.almostsomeone.premiumpvp.configuration.Settings;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public record StorageTable(String tableName) {
 
@@ -14,7 +18,6 @@ public record StorageTable(String tableName) {
 
     public boolean doesExist() {
         Connection connection = null;
-        PreparedStatement preparedStatement = null;
         try {
             connection = Main.getStorage().getConnection();
             DatabaseMetaData metaData = connection.getMetaData();
@@ -28,21 +31,33 @@ public record StorageTable(String tableName) {
                 connection.close();
             } catch (SQLException ignored) {
             }
-            if (preparedStatement != null) try {
-                preparedStatement.close();
-            } catch (SQLException ignored) {
-            }
         }
         return false;
     }
 
-    public ResultSet executeQuery(String query) {
+    public List<Map<String, Object>> executeQuery(String query) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = Main.getStorage().getConnection();
             preparedStatement = connection.prepareStatement(query);
-            return preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            List<Map<String, Object>> result = new ArrayList<>();
+            Map<String, Object> row;
+
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int columnCount = metaData.getColumnCount();
+
+            while (resultSet.next()) {
+                row = new HashMap<>();
+                for (int i = 1; i <= columnCount; i++) {
+                    row.put(metaData.getColumnName(i), resultSet.getObject(i));
+                }
+                result.add(row);
+            }
+
+            return result;
         } catch (SQLException exception) {
             exception.printStackTrace();
         } finally {

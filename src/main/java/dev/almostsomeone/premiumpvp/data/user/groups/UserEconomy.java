@@ -5,7 +5,6 @@ import dev.almostsomeone.premiumpvp.data.DataGroup;
 import dev.almostsomeone.premiumpvp.data.DataObject;
 
 import javax.annotation.Nonnull;
-import java.sql.SQLException;
 
 public class UserEconomy extends DataGroup {
 
@@ -14,17 +13,6 @@ public class UserEconomy extends DataGroup {
     public UserEconomy(DataContainer dataContainer) {
         super(dataContainer);
         coins = new DataObject(this, "Coins", 0);
-    }
-
-    @Override
-    public void load() {
-        super.load();
-        if(resultSet == null) return;
-        try {
-            coins.setInteger(resultSet.getInt("Coins"));
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
     }
 
     @Override

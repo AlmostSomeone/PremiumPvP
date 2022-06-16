@@ -5,7 +5,6 @@ import dev.almostsomeone.premiumpvp.data.DataGroup;
 import dev.almostsomeone.premiumpvp.data.DataObject;
 
 import javax.annotation.Nonnull;
-import java.sql.SQLException;
 
 public class UserLeveling extends DataGroup {
 
@@ -15,18 +14,6 @@ public class UserLeveling extends DataGroup {
         super(dataContainer);
         level = new DataObject(this, "Level", 1);
         experience = new DataObject(this, "Experience", 0);
-    }
-
-    @Override
-    public void load() {
-        super.load();
-        if(resultSet == null) return;
-        try {
-            level.setInteger(resultSet.getInt("Level"));
-            experience.setInteger(resultSet.getInt("Experience"));
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
     }
 
     @Override

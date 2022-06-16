@@ -68,26 +68,12 @@ public class UserStatistics extends DataGroup {
         return kills.getInteger();
     }
 
-    public void addKill(UUID killed) {
-        killstreak.setInteger(killstreak.getInteger() + 1);
-    }
-
     public Integer getAssists() {
         return assists.getInteger();
     }
 
-    public void addAssist(UUID killed) {
-        assists.setInteger(assists.getInteger() + 1);
-    }
-
     public Integer getDeaths() {
         return deaths.getInteger();
-    }
-
-    public void addDeath(UUID died) {
-        deaths.setInteger(deaths.getInteger() + 1);
-        bestKillstreak.setInteger(killstreak.getInteger());
-        killstreak.setInteger(0);
     }
 
     public Integer getKillstreak() {
@@ -102,39 +88,19 @@ public class UserStatistics extends DataGroup {
         return damageDealt.getInteger();
     }
 
-    public void setDamageDealt(Integer damageDealt) {
-        this.damageDealt.setInteger(damageDealt);
-    }
-
     public Integer getDamageReceived() {
         return damageReceived.getInteger();
-    }
-
-    public void setDamageReceived(Integer damageReceived) {
-        this.damageReceived.setInteger(damageReceived);
     }
 
     public Integer getArrowsHit() {
         return arrowsHit.getInteger();
     }
 
-    public void setArrowsHit(Integer arrowsHit) {
-        this.arrowsHit.setInteger(arrowsHit);
-    }
-
     public Integer getArrowsShot() {
         return arrowsShot.getInteger();
     }
 
-    public void setArrowsShot(Integer arrowsShot) {
-        this.arrowsShot.setInteger(arrowsShot);
-    }
-
     public Integer getBountiesClaimed() {
         return bountiesClaimed.getInteger();
-    }
-
-    public void setBountiesClaimed(Integer bountiesClaimed) {
-        this.bountiesClaimed.setInteger(bountiesClaimed);
     }
 }

@@ -1,19 +1,21 @@
 package dev.almostsomeone.premiumpvp.data;
 
 import dev.almostsomeone.premiumpvp.storage.sql.StorageTable;
+import org.bukkit.Bukkit;
 
 import javax.annotation.Nonnull;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public abstract class DataGroup {
 
     private final DataContainer dataContainer;
     protected List<DataObject> dataObjects;
 
-    protected ResultSet resultSet = null;
+    protected Map<String, Object> result = null;
 
     public DataGroup(@Nonnull DataContainer dataContainer){
         dataObjects = new ArrayList<>();
@@ -48,7 +50,7 @@ public abstract class DataGroup {
     }
 
     public void load() {
-        if(!inDatabase() || this.dataObjects == null || this.resultSet != null) return;
+        if(!inDatabase() || this.dataObjects == null || this.result != null) return;
         String containerPrefix = this.dataContainer.tablePrefix();
         String table = containerPrefix + "_" + this.tableName();
         StorageTable storageTable = new StorageTable(table);
@@ -58,12 +60,17 @@ public abstract class DataGroup {
             query.append("`").append(dataObject.getColumnName()).append("`,");
         query.deleteCharAt(query.length() - 1);
         query.append(" FROM `").append(storageTable.tableName()).append("` WHERE `UUID` = '").append(this.dataContainer.getUniqueId().toString()).append("';");
-        try {
-            ResultSet resultSet = storageTable.executeQuery(query.toString());
-            if (resultSet == null || !resultSet.next() || resultSet.wasNull()) this.createGroup();
-            else this.resultSet = resultSet;
-        } catch (SQLException exception) {
-            exception.printStackTrace();
+        List<Map<String, Object>> result = storageTable.executeQuery(query.toString());
+        if (result == null || result.isEmpty()) this.createGroup();
+        else {
+            this.result = result.get(0);
+
+            dataObjects.forEach(dataObject -> {
+                if (dataObject.getString() != null)
+                    dataObject.setString((String) result.get(0).get(dataObject.getColumnName()));
+                if (dataObject.getInteger() != null)
+                    dataObject.setInteger((Integer) result.get(0).get(dataObject.getColumnName()));
+            });
         }
     }
 
@@ -118,6 +125,6 @@ public abstract class DataGroup {
     }
 
     public boolean isLoaded() {
-        return this.resultSet != null;
+        return this.result != null;
     }
 }
