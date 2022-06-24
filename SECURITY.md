@@ -11,7 +11,7 @@ In this list, you can see if you are running the newest version for your spigot 
 
 |  Spigot Version  |  Resource Version  |                  Supported                |
 | ---------------- | ------------------ | ----------------------------------------- |
-|    1.8 - 1.18    |       0.1-dev      |             :white_check_mark:            |
+|    1.8 - 1.19    |       0.1-dev      |             :white_check_mark:            |
 |       < 1.8      |         :x:        |                     :x:                   |
 
 ## Reporting a Vulnerability
