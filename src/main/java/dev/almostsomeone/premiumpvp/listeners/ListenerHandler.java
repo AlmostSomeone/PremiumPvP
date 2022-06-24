@@ -2,6 +2,7 @@ package dev.almostsomeone.premiumpvp.listeners;
 
 import dev.almostsomeone.premiumpvp.listeners.gameplayer.GamePlayerJoinListener;
 import dev.almostsomeone.premiumpvp.listeners.gameplayer.GamePlayerLeaveListener;
+import dev.almostsomeone.premiumpvp.listeners.player.FallDamageListener;
 import dev.almostsomeone.premiumpvp.listeners.player.FoodLevelChangeListener;
 import dev.almostsomeone.premiumpvp.listeners.player.PlayerChangedWorldListener;
 import dev.almostsomeone.premiumpvp.listeners.player.PlayerJoinListener;
@@ -19,6 +20,7 @@ public class ListenerHandler {
                 new PlayerJoinListener(),
                 new PlayerChangedWorldListener(),
                 new FoodLevelChangeListener(),
+                new FallDamageListener(),
                 new WeatherChangeListener(),
                 new GamePlayerJoinListener(),
                 new GamePlayerLeaveListener()

@@ -169,6 +169,7 @@ world-settings:
     gamemode: ADVENTURE # Players visiting this world will be forced to this gamemode, disable this by setting it to NONE
     weather-lock: CLEAR # You can lock the weather to CLEAR. Disable this by setting it to NONE
     hunger: false # If you enable this, players will be able to get hungry in this world
+    fall-damage: true # If set this one to false the plugin will prevent player from taking fall damage.
   duels: # These settings count for all Duels maps, overriding "global"
     void: true
     type: FLAT
@@ -176,6 +177,7 @@ world-settings:
     gamemode: ADVENTURE
     weather-lock: CLEAR
     hunger: false
+    fall-damage: true
   specifics:  # These are settings for specific worlds. Exceptions on duels worlds can also be added here. Adding a non-existent world will make PremiumPvP generate this world.
     world:
       # If your server's default world is "world", we can not change: void, type or generate-structures.
@@ -184,6 +186,7 @@ world-settings:
       gamemode: ADVENTURE
       weather-lock: CLEAR
       hunger: false
+      fall-damage: true
     ffa: # This will generate a new world called "FFA", and will load this world every time the plugin (re)starts.
       void: true
       type: FLAT
@@ -191,3 +194,4 @@ world-settings:
       gamemode: ADVENTURE
       weather-lock: CLEAR
       hunger: false
+      fall-damage: true
