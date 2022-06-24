@@ -68,25 +68,15 @@ public class WorldManager {
                 plugin.getLogger().log(Level.WARNING, "The world type for " + profileName + " is not valid. Defaulting to " + type.toString() + ".");
             }
         }
-        boolean generateStructures = (fallbackProfile == null || fallbackProfile.getGenerateStructures());
-        if(config.isSet(configPath + ".generate-structures"))
-            generateStructures = config.getBoolean(configPath + ".biome");
-        boolean isVoid = (fallbackProfile == null || fallbackProfile.getVoid());
-        if(config.isSet(configPath + ".void"))
-            isVoid = config.getBoolean(configPath + ".void");
-        boolean hunger = (fallbackProfile == null || fallbackProfile.getHunger());
-        if(config.isSet(configPath + ".hunger"))
-            hunger = config.getBoolean(configPath + ".hunger");
-        boolean fallDamae = (fallbackProfile == null || fallbackProfile.getFallDamage());
-        if(config.isSet(configPath + ".fall-damage"))
-            fallDamae = config.getBoolean(configPath + ".fall-damage");
+        boolean generateStructures = config.getBoolean(configPath + ".biome", (fallbackProfile == null || fallbackProfile.getGenerateStructures()));
+        boolean isVoid = config.getBoolean(configPath + ".void", (fallbackProfile == null || fallbackProfile.getVoid()));
+        boolean hunger = config.getBoolean(configPath + ".hunger", (fallbackProfile == null || fallbackProfile.getHunger()));
+        boolean fallDamage = config.getBoolean(configPath + ".fall-damage", (fallbackProfile == null || fallbackProfile.getFallDamage()));
         String weatherLock = (fallbackProfile == null ? "NONE" : fallbackProfile.getWeatherLock());
         if(config.isSet(configPath + ".weather-lock")) {
             String temp = config.getString(configPath + ".weather-lock");
-            if(temp == null) temp = "NONE";
-            if(temp.equalsIgnoreCase("NONE")) {
-                weatherLock = "NONE";
-            } else {
+            if(temp == null) weatherLock = "NONE";
+            else {
                 try {
                     weatherLock = WeatherType.valueOf(temp).toString();
                 } catch (IllegalArgumentException exception) {
@@ -97,10 +87,8 @@ public class WorldManager {
         String gameMode = (fallbackProfile == null ? "NONE" : fallbackProfile.getGameMode());
         if(config.isSet(configPath + ".gamemode")) {
             String temp = config.getString(configPath + ".gamemode");
-            if(temp == null) temp = "NONE";
-            if(temp.equalsIgnoreCase("NONE")) {
-                gameMode = "NONE";
-            } else {
+            if(temp == null) gameMode = "NONE";
+            else {
                 try {
                     gameMode = GameMode.valueOf(temp).toString();
                 } catch (IllegalArgumentException exception) {
@@ -115,7 +103,7 @@ public class WorldManager {
                 generateStructures,
                 isVoid,
                 hunger,
-                fallDamae,
+                fallDamage,
                 weatherLock,
                 gameMode
         );
