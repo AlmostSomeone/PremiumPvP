@@ -27,7 +27,7 @@ public class WorldManager {
         plugin.getLogger().log(Level.INFO, () -> "Loading worlds...");
 
         globalProfile = generateProfile("world-settings.global", false);
-        duelsProfile = generateProfile("world-settings.duels", false);
+        duelsProfile = generateProfile("world-settings.duels", true);
 
         YamlConfiguration config = Settings.getConfig();
         
@@ -77,6 +77,9 @@ public class WorldManager {
         boolean hunger = (fallbackProfile == null || fallbackProfile.getHunger());
         if(config.isSet(configPath + ".hunger"))
             hunger = config.getBoolean(configPath + ".hunger");
+        boolean fallDamae = (fallbackProfile == null || fallbackProfile.getFallDamage());
+        if(config.isSet(configPath + ".fall-damage"))
+            fallDamae = config.getBoolean(configPath + ".fall-damage");
         String weatherLock = (fallbackProfile == null ? "NONE" : fallbackProfile.getWeatherLock());
         if(config.isSet(configPath + ".weather-lock")) {
             String temp = config.getString(configPath + ".weather-lock");
@@ -112,6 +115,7 @@ public class WorldManager {
                 generateStructures,
                 isVoid,
                 hunger,
+                fallDamae,
                 weatherLock,
                 gameMode
         );

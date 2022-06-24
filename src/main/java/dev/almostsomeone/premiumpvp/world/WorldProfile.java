@@ -7,7 +7,7 @@ import org.bukkit.WorldType;
 import org.bukkit.entity.Player;
 
 public record WorldProfile(String name, WorldType type, boolean generateStructures,
-                           boolean isVoid, boolean hunger, String weatherLock,
+                           boolean isVoid, boolean hunger, boolean fallDamage, String weatherLock,
                            String gameMode) {
 
     public void setWeather() {
@@ -49,6 +49,10 @@ public record WorldProfile(String name, WorldType type, boolean generateStructur
 
     public boolean getHunger() {
         return hunger;
+    }
+
+    public boolean getFallDamage() {
+        return fallDamage;
     }
 
     public String getWeatherLock() {
