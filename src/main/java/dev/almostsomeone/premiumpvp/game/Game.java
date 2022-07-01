@@ -30,7 +30,8 @@ public class Game {
     }
 
     public void stop() {
-        for(GamePlayer gamePlayer : gamePlayerManager.getGamePlayers()) gamePlayer.getPlayer().teleport(getSpawnLocation());
+        for(GamePlayer gamePlayer : gamePlayerManager.getGamePlayers())
+            if(gamePlayer.getPlayer() != null) gamePlayer.getPlayer().teleport(getSpawnLocation());
         save();
     }
 
