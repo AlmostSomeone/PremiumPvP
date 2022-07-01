@@ -4,9 +4,11 @@ import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerState;
 import dev.almostsomeone.premiumpvp.storage.InfoFile;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scoreboard.ScoreboardManager;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -79,7 +81,12 @@ public class BoardManager {
 
         // Show the scoreboard
         CustomBoard targetBoard = boards.get(gamePlayer.getGamePlayerState().name());
-        if(targetBoard == null) return;
+        if(targetBoard == null || !targetBoard.isEnabled()) {
+            ScoreboardManager scoreboardManager = Bukkit.getScoreboardManager();
+            if(scoreboardManager == null) return;
+            gamePlayer.getPlayer().setScoreboard(scoreboardManager.getMainScoreboard());
+            return;
+        }
         targetBoard.updateBoard(gamePlayer.getPlayer());
     }
 

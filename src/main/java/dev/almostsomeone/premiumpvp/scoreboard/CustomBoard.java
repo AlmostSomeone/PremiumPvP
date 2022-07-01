@@ -37,7 +37,7 @@ public class CustomBoard {
         // Make sure the scoreboard is enabled
         String stateName = gamePlayerState.name().toLowerCase(Locale.ROOT);
         String configPrefix = "scoreboards." + stateName;
-        if(!config.isSet(configPrefix) && !config.isSet(configPrefix + ".enabled") && config.getBoolean(configPrefix + ".enabled")) return;
+        if(!config.getBoolean(configPrefix + ".enabled", true)) return;
 
         // Make sure the title and at least 1 line is configured
         if(!config.isSet(configPrefix + ".title") && !config.isSet(configPrefix + ".lines") && config.getStringList(configPrefix + ".lines").size() <= 0) return;
@@ -98,6 +98,10 @@ public class CustomBoard {
         // If the objective is not shown in the sidebar, set the objective's display slot to the sidebar.
         if (objective.getDisplaySlot() != DisplaySlot.SIDEBAR)
             objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+    }
+
+    public boolean isEnabled() {
+        return lines != null && lines.size() > 0;
     }
 
     private String getEntryFromScore(Objective objective, int score) {
