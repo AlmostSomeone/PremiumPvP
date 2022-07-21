@@ -158,6 +158,56 @@ performance:
     enabled: true # If you set this to true, the plugin will automatically save the data
     interval: 300 # The interval in seconds.
 
+# Lobby Settings
+# You can customize the inventory, how you use the items and how the inventory should behave.
+lobby:
+  settings:
+    item-move: false # If you set this to true, the plugin will allow you to move items in the lobby.
+    item-pickup: false # Should players be able to pick up items?
+    item-drop: false # Should players be able to drop items?
+    mouse: right # Which mouse button should be used to interact with items? Use "left", "right" or "both".
+  slots: # Please only use slot 1-9, you can use placeholders in names and lores.
+    2:
+      material: COMPASS
+      amount: 1 # You can define the amount of items in the slot, default is set to 1.
+      enchanted: false # Should the item have the enchantment effect? (Not all materials support enchantments)
+      name: "&6Kit Selector"
+      lore:
+        - "&7Pick your kit and get"
+        - "&7ready to fight your enemies!"
+        - ""
+        - "&7Use &6RMB &7to open."
+      menu: kit-selector # Which PremiumPvP menu should be opened when you click on the item? Use "kit-selector", "kit-shop", "bounty" or "duels".
+      #command: heal %player% # The command that should be executed when you click on the item. Use %player% to use the player's name.
+    4:
+      material: EMERALD
+      name: "&aKit Shop"
+      lore:
+        - "&7Browse and buy the kits"
+        - "&7that fit your style."
+        - ""
+        - "&7Use &aRMB &7to open."
+      menu: kit-shop
+    6:
+        material: GOLD_INGOT
+        name: "&eBounty"
+        lore:
+            - "&7See the bounties"
+            - "&7that are available."
+            - ""
+            - "&7Use &eRMB &7to open."
+        menu: bounty
+    8:
+      material: DIAMOND_SWORD
+      enchanted: true
+      name: "&bDuels"
+      lore:
+        - "&7Invite your friends"
+        - "&7to a fair fight."
+        - ""
+        - "&7Use &bRMB &7to open."
+      menu: duels
+
 # World settings allow you to configure settings for your worlds.
 # For example, you can lock a world to specific weather types, making it easy to add themes to your maps.
 # You can also set a gamemode, which a player will switch to when visiting this world.
