@@ -35,7 +35,7 @@ public class GamePlayerLoadEvent extends Event {
         else gamePlayer = gamePlayerManager.getGamePlayer(uuid);
 
         // Join the server if join on server-join is enabled
-        if(Settings.getBoolean("participate.join.server", true))
+        if(Settings.getConfig().getBoolean("participate.join.server", true))
             Bukkit.getPluginManager().callEvent(new GamePlayerJoinEvent(game, gamePlayer.getUniqueId()));
 
         // Show the player the scoreboard

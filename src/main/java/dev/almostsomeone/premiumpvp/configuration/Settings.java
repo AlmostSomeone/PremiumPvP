@@ -12,24 +12,12 @@ public class Settings {
 
     public static void setup(final Plugin plugin) {
         infoFile = new InfoFile(plugin, "", "settings.yml");
-        messages = new Messages(plugin, getString("language", "EN"));
+        messages = new Messages(plugin, getConfig().getString("language", "EN"));
     }
 
     public static void load() {
         infoFile.load();
         messages.load();
-    }
-
-    public static String getString(String path, String fallback) {
-        return infoFile.get().getString(path, fallback);
-    }
-
-    public static boolean getBoolean(String path, boolean fallback) {
-        return infoFile.get().getBoolean(path, fallback);
-    }
-
-    public static int getInt(String path, int fallback) {
-        return infoFile.get().getInt(path, fallback);
     }
 
     public static YamlConfiguration getConfig() {

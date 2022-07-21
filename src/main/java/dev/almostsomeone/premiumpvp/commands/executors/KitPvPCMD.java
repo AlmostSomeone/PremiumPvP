@@ -10,6 +10,7 @@ import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerState;
 import dev.almostsomeone.premiumpvp.configuration.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
@@ -26,6 +27,7 @@ public class KitPvPCMD extends CommandBuilder {
 
     public KitPvPCMD() {
         super("commands.main", "kitpvp", true, false);
+        YamlConfiguration config = Settings.getConfig();
 
         subCommands = new HashMap<>() {{
             put("info", "Get information about the plugin");
@@ -34,11 +36,11 @@ public class KitPvPCMD extends CommandBuilder {
             put("save", "Force the plugin to save its data");
         }};
 
-        if(Settings.getBoolean("participate.join.command", false)) {
+        if(config.getBoolean("participate.join.command", false)) {
             subCommands.put("join", "Join the KitPvP");
             joinCommand = true;
         }
-        if(Settings.getBoolean("participate.leave.command", false)) {
+        if(config.getBoolean("participate.leave.command", false)) {
             subCommands.put("leave", "Leave the KitPvP");
             leaveCommand = true;
         }

@@ -40,7 +40,7 @@ public class GamePlayerJoinEvent extends Event {
 
         User user = gamePlayer.getUser();
 
-        boolean readOnJoin = Settings.getBoolean("performance.caching.read-on-join", false);
+        boolean readOnJoin = Settings.getConfig().getBoolean("performance.caching.read-on-join", false);
 
         // Load the UserLeveling data
         UserLeveling userLeveling = user.getLeveling();

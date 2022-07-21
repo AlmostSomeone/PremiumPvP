@@ -12,7 +12,7 @@ import java.util.Map;
 public record StorageTable(String tableName) {
 
     public StorageTable(String tableName) {
-        String prefix = Settings.getString("storage.prefix", "ppvp");
+        String prefix = Settings.getConfig().getString("storage.prefix", "ppvp");
         this.tableName = (prefix.length() > 0 ? prefix : "ppvp") + "_" + tableName;
     }
 

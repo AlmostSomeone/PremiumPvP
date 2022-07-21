@@ -6,6 +6,7 @@ import dev.almostsomeone.premiumpvp.storage.sql.MySQL;
 import dev.almostsomeone.premiumpvp.storage.sql.SQL;
 import dev.almostsomeone.premiumpvp.storage.sql.SQLite;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
 import java.io.File;
@@ -21,16 +22,17 @@ public class Storage {
 
     public Storage(final Plugin plugin) {
         this.plugin = plugin;
+        YamlConfiguration config = Settings.getConfig();
 
         // Set the SQL method
-        String method = Settings.getString("storage.method", "sqlite");
+        String method = config.getString("storage.method", "sqlite");
         if (method.equalsIgnoreCase("mysql")) sql = setMySQL();
         else sql = setSQLite();
 
         openPool();
 
         // Auto-Save the data
-        long interval = Settings.getInt("performance.auto-save.interval", 300) * 20L;
+        long interval = config.getInt("performance.auto-save.interval", 300) * 20L;
         Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, () -> Main.getGame().save(), interval, interval);
     }
 
@@ -50,11 +52,12 @@ public class Storage {
     }
 
     private SQL setMySQL() {
-        String host = Settings.getString("storage.host", "localhost");
-        String port = Settings.getString("storage.port", "3306");
-        String database = Settings.getString("storage.database", "premiumpvp");
-        String username = Settings.getString("storage.username", "root");
-        String password = Settings.getString("storage.password", "");
+        YamlConfiguration config = Settings.getConfig();
+        String host = config.getString("storage.host", "localhost");
+        String port = config.getString("storage.port", "3306");
+        String database = config.getString("storage.database", "premiumpvp");
+        String username = config.getString("storage.username", "root");
+        String password = config.getString("storage.password", "");
         return new MySQL(host, port, database, username, password);
     }
 

@@ -1,11 +1,9 @@
 package dev.almostsomeone.premiumpvp.listeners;
 
+import dev.almostsomeone.premiumpvp.listeners.entity.EntityPickupItemListener;
 import dev.almostsomeone.premiumpvp.listeners.gameplayer.GamePlayerJoinListener;
 import dev.almostsomeone.premiumpvp.listeners.gameplayer.GamePlayerLeaveListener;
-import dev.almostsomeone.premiumpvp.listeners.player.FallDamageListener;
-import dev.almostsomeone.premiumpvp.listeners.player.FoodLevelChangeListener;
-import dev.almostsomeone.premiumpvp.listeners.player.PlayerChangedWorldListener;
-import dev.almostsomeone.premiumpvp.listeners.player.PlayerJoinListener;
+import dev.almostsomeone.premiumpvp.listeners.player.*;
 import dev.almostsomeone.premiumpvp.listeners.world.WeatherChangeListener;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
@@ -17,13 +15,23 @@ public class ListenerHandler {
 
     public ListenerHandler(final Plugin plugin) {
         List<Listener> listeners = Arrays.asList(
+                // Entity
+                new EntityPickupItemListener(),
+
+                // GamePlayer
+                new GamePlayerJoinListener(),
+                new GamePlayerLeaveListener(),
+
+                // Player
                 new PlayerJoinListener(),
                 new PlayerChangedWorldListener(),
                 new FoodLevelChangeListener(),
                 new FallDamageListener(),
-                new WeatherChangeListener(),
-                new GamePlayerJoinListener(),
-                new GamePlayerLeaveListener()
+                new PlayerDropItemListener(),
+                new InventoryClickListener(),
+
+                // World
+                new WeatherChangeListener()
         );
         for(Listener listener : listeners)
             plugin.getServer().getPluginManager().registerEvents(listener, plugin);
