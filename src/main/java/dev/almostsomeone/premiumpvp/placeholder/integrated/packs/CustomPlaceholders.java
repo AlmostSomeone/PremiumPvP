@@ -46,6 +46,11 @@ public class CustomPlaceholders extends PlaceholderPack {
             case "player_deaths" -> user.getStatistics().getDeaths().toString();
             case "player_killstreak" -> user.getStatistics().getKillstreak().toString();
             case "player_bestkillstreak" -> user.getStatistics().getBestKillstreak().toString();
+            case "player_damagedealt" -> user.getStatistics().getDamageDealt().toString();
+            case "player_damagereceived" -> user.getStatistics().getDamageReceived().toString();
+            case "player_arrowshit" -> user.getStatistics().getArrowsHit().toString();
+            case "player_arrowsshot" -> user.getStatistics().getArrowsShot().toString();
+            case "player_bountiesclaimed" -> user.getStatistics().getBountiesClaimed().toString();
             default -> null;
         };
     }
