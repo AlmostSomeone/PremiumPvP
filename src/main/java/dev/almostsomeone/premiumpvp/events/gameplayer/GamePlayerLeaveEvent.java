@@ -7,11 +7,14 @@ import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerManager;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerState;
 import dev.almostsomeone.premiumpvp.configuration.Settings;
+import org.bukkit.Bukkit;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 import javax.annotation.Nonnull;
+import java.util.Objects;
 import java.util.UUID;
 
 public class GamePlayerLeaveEvent extends Event {
@@ -44,6 +47,15 @@ public class GamePlayerLeaveEvent extends Event {
         YamlConfiguration config = Settings.getConfig();
         if(config.getBoolean("performance.caching.write-on-leave", false)) user.save();
         if(Settings.getConfig().getBoolean("performance.remove-on-leave", false)) user.unload();
+
+        // Execute the leave command
+        if(config.isSet("participate.leave.execute-command")) {
+            ConsoleCommandSender consoleSender = Bukkit.getServer().getConsoleSender();
+            String command = Objects.requireNonNull(
+                            config.getString("participate.leave.execute-command"))
+                    .replaceAll("\\{player}", gamePlayer.getPlayer().getName());
+            Bukkit.dispatchCommand(consoleSender, command);
+        }
     }
 
     public GamePlayer getGamePlayer() {

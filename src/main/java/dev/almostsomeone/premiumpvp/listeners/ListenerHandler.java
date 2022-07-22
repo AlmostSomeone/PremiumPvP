@@ -1,7 +1,6 @@
 package dev.almostsomeone.premiumpvp.listeners;
 
 import dev.almostsomeone.premiumpvp.listeners.entity.*;
-import dev.almostsomeone.premiumpvp.listeners.gameplayer.*;
 import dev.almostsomeone.premiumpvp.listeners.player.*;
 import dev.almostsomeone.premiumpvp.listeners.world.*;
 import org.bukkit.event.Listener;
@@ -17,9 +16,6 @@ public class ListenerHandler {
                 // Entity
                 new EntityPickupItemListener(),
 
-                // GamePlayer
-                new GamePlayerLeaveListener(),
-
                 // Player
                 new PlayerJoinListener(),
                 new PlayerChangedWorldListener(),
@@ -29,8 +25,7 @@ public class ListenerHandler {
                 new InventoryClickListener(),
 
                 // World
-                new WeatherChangeListener(),
-                new GamePlayerLeaveListener()
+                new WeatherChangeListener()
         );
         for(Listener listener : listeners)
             plugin.getServer().getPluginManager().registerEvents(listener, plugin);
