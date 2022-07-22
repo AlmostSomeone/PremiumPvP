@@ -9,7 +9,6 @@ import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerManager;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerState;
-import dev.almostsomeone.premiumpvp.world.WorldProfile;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
@@ -54,10 +53,6 @@ public class GamePlayerJoinEvent extends Event {
 
         // Teleport the player to the lobby
         game.getLobby().teleport(gamePlayer);
-
-        // Apply world profile
-        WorldProfile worldProfile = game.getWorldManager().getWorldProfile(gamePlayer.getPlayer().getWorld().getName());
-        if(worldProfile != null) worldProfile.applyProfile(gamePlayer.getPlayer());
 
         // Set the GamePlayer to the lobby
         gamePlayer.setGamePlayerState(GamePlayerState.LOBBY);

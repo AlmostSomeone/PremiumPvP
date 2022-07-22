@@ -33,12 +33,12 @@ public class GamePlayerLoadEvent extends Event {
         if(gamePlayerManager.getGamePlayer(uuid) == null) gamePlayer = new GamePlayer(uuid);
         else gamePlayer = gamePlayerManager.getGamePlayer(uuid);
 
+        // Show the player the scoreboard
+        game.getBoardManager().showBoard(gamePlayer);
+
         // Join the server if join on server-join is enabled
         if(Settings.getConfig().getBoolean("participate.join.server", true))
             Bukkit.getPluginManager().callEvent(new GamePlayerJoinEvent(game, gamePlayer.getUniqueId()));
-
-        // Show the player the scoreboard
-        game.getBoardManager().showBoard(gamePlayer);
     }
 
     public GamePlayer getGamePlayer() {

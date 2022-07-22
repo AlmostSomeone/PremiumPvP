@@ -36,7 +36,7 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        game.stop();
+        game.save();
         storage.closePool();
     }
 
@@ -71,6 +71,8 @@ public class Main extends JavaPlugin {
 
         // Start listening to events
         new ListenerHandler(this);
+
+        game.loadPlayers();
 
         // Check for updates
         new Version(this);
