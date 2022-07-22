@@ -9,6 +9,7 @@ import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerManager;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerState;
+import dev.almostsomeone.premiumpvp.world.WorldProfile;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
@@ -33,30 +34,32 @@ public class GamePlayerJoinEvent extends Event {
     public GamePlayerJoinEvent(Game game, UUID uuid) {
         GamePlayerManager gamePlayerManager = game.getGamePlayerManager();
 
-        if(gamePlayerManager.getGamePlayer(uuid) != null)
-            gamePlayer = gamePlayerManager.getGamePlayer(uuid);
-        else
-            gamePlayer = new GamePlayer(uuid);
-
-        User user = gamePlayer.getUser();
+        // Get the GamePlayer object
+        if(gamePlayerManager.getGamePlayer(uuid) != null) gamePlayer = gamePlayerManager.getGamePlayer(uuid);
+        else gamePlayer = new GamePlayer(uuid);
 
         boolean readOnJoin = Settings.getConfig().getBoolean("performance.caching.read-on-join", false);
 
-        // Load the UserLeveling data
+        // Load the user data if the plugin should read the player's data on join
+        User user = gamePlayer.getUser();
+        // UserLeveling
         UserLeveling userLeveling = user.getLeveling();
-        if(!userLeveling.isLoaded() || readOnJoin)
-            userLeveling.load();
-
-        // Load the UserEconomy data
+        if(!userLeveling.isLoaded() || readOnJoin) userLeveling.load();
+        // UserEconomy
         UserEconomy userEconomy = user.getEconomy();
-        if(!userEconomy.isLoaded() || readOnJoin)
-            userEconomy.load();
-
-        // Load the UserStatistics data
+        if(!userEconomy.isLoaded() || readOnJoin) userEconomy.load();
+        // UserStatistics
         UserStatistics userStatistics = user.getStatistics();
-        if(!userStatistics.isLoaded() || readOnJoin)
-            userStatistics.load();
+        if(!userStatistics.isLoaded() || readOnJoin) userStatistics.load();
 
+        // Teleport the player to the lobby
+        game.getLobby().teleport(gamePlayer);
+
+        // Apply world profile
+        WorldProfile worldProfile = game.getWorldManager().getWorldProfile(gamePlayer.getPlayer().getWorld().getName());
+        if(worldProfile != null) worldProfile.applyProfile(gamePlayer.getPlayer());
+
+        // Set the GamePlayer to the lobby
         gamePlayer.setGamePlayerState(GamePlayerState.LOBBY);
     }
 
