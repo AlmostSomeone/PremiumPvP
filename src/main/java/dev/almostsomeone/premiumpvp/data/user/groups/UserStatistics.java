@@ -5,7 +5,6 @@ import dev.almostsomeone.premiumpvp.data.DataGroup;
 import dev.almostsomeone.premiumpvp.data.DataObject;
 
 import javax.annotation.Nonnull;
-import java.util.UUID;
 
 public class UserStatistics extends DataGroup {
 

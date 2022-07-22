@@ -1,6 +1,5 @@
 package dev.almostsomeone.premiumpvp.events.gameplayer;
 
-import dev.almostsomeone.premiumpvp.Main;
 import dev.almostsomeone.premiumpvp.configuration.Settings;
 import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;

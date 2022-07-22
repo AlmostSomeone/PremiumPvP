@@ -1,11 +1,8 @@
 package dev.almostsomeone.premiumpvp.data;
 
 import dev.almostsomeone.premiumpvp.storage.sql.StorageTable;
-import org.bukkit.Bukkit;
 
 import javax.annotation.Nonnull;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
