@@ -115,6 +115,15 @@ commands:
     permission: # The permission you need to execute this command
       enabled: true # If you need the permission, set to "false" to make it so everyone can do this. (Not recommended for this command)
       name: premiumpvp.command.world # The permission they would need to execute this command.
+  kit:
+    enabled: true
+    name: kit
+    description: "Manage the kits"
+    aliases:
+      - kits
+    permission:
+      enabled: true
+      name: premiumpvp.command.kit
 #  coins:
 #    enabled: true
 #    name: coins
