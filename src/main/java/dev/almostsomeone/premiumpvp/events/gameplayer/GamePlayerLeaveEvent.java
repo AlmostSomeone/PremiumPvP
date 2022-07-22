@@ -54,7 +54,7 @@ public class GamePlayerLeaveEvent extends Event {
             String command = Objects.requireNonNull(
                             config.getString("participate.leave.execute-command"))
                     .replaceAll("\\{player}", gamePlayer.getPlayer().getName());
-            Bukkit.dispatchCommand(consoleSender, command);
+            if(command.length() > 0) Bukkit.dispatchCommand(consoleSender, command);
         }
     }
 
