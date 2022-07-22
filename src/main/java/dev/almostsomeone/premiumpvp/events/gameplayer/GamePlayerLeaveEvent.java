@@ -49,13 +49,9 @@ public class GamePlayerLeaveEvent extends Event {
         if(Settings.getConfig().getBoolean("performance.remove-on-leave", false)) user.unload();
 
         // Execute the leave command
-        if(config.isSet("participate.leave.execute-command")) {
-            ConsoleCommandSender consoleSender = Bukkit.getServer().getConsoleSender();
-            String command = Objects.requireNonNull(
-                            config.getString("participate.leave.execute-command"))
-                    .replaceAll("\\{player}", gamePlayer.getPlayer().getName());
-            if(command.length() > 0) Bukkit.dispatchCommand(consoleSender, command);
-        }
+        String command = config.getString("participate.leave.execute-command", "")
+                .replaceAll("\\{player}", gamePlayer.getPlayer().getName());
+        if(command.length() > 0) Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(), command);
     }
 
     public GamePlayer getGamePlayer() {
