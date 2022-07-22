@@ -1,5 +1,6 @@
 package dev.almostsomeone.premiumpvp.commands;
 
+import dev.almostsomeone.premiumpvp.Main;
 import dev.almostsomeone.premiumpvp.configuration.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -49,7 +50,7 @@ public abstract class CommandBuilder extends Command {
                 if(command != null && command.isRegistered())
                     return;
 
-                commandMap.register(getName(), this);
+                commandMap.register(Main.getPlugin(Main.class).getDescription().getName(), this);
                 PluginTopic.registerCommand(this);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -80,7 +81,7 @@ public abstract class CommandBuilder extends Command {
                 if(command != null && command.isRegistered())
                     return;
 
-                commandMap.register(name, this);
+                commandMap.register(Main.getPlugin(Main.class).getDescription().getName(), this);
                 PluginTopic.registerCommand(this);
             } catch (Exception e) {
                 e.printStackTrace();
