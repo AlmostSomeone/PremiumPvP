@@ -23,3 +23,5 @@ commands:
     usage: "&cGebruik /world (wereld) [speler] om te teleporteren."
     no-world: "&cDe opgegeven wereld bestaat niet."
     teleported: "&aJe bent naar de wereld geteleporteerd."
+  coins:
+    balance: "&aJe hebt &e %premiumpvp_player_coins% &amunten."
