@@ -1,7 +1,6 @@
 package dev.almostsomeone.premiumpvp.game;
 
 import dev.almostsomeone.premiumpvp.world.WorldManager;
-import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerManager;
 import dev.almostsomeone.premiumpvp.scoreboard.BoardManager;
 import org.bukkit.plugin.Plugin;
@@ -25,13 +24,10 @@ public class Game {
     public void loadGame() {
         worldManager.loadWorlds();
         boardManager.loadBoard();
-        gamePlayerManager.loadGamePlayers();
     }
 
-    public void stop() {
-        for(GamePlayer gamePlayer : gamePlayerManager.getGamePlayers())
-            if(gamePlayer.getPlayer() != null) lobby.teleport(gamePlayer);
-        save();
+    public void loadPlayers() {
+        gamePlayerManager.loadGamePlayers();
     }
 
     public void save() {
