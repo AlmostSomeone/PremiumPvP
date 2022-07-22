@@ -4,7 +4,7 @@ global:
   target-not-online: "&cThe player you provided is not online"
 commands:
   help:
-    use-help: "&cPlease use {command} for help."
+    use-help: "&cPlease use&4 {command} help &cfor help."
     header: "&e---------&f Help: {command} &e---------"
     item: "&6{subcommand}: &f{description}"
     footer: "&e-----------------------------"

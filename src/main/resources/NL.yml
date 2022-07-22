@@ -4,7 +4,7 @@ global:
   target-not-online: "&cDe opgegeven speler is niet online."
 commands:
   help:
-    use-help: "&cGebruik {command} voor hulp."
+    use-help: "&cGebruik&4 {command} help &cvoor hulp."
     header: "&e---------&f Hulp: {command} &e---------"
     item: "&6{subcommand}: &f{description}"
     footer: "&e-----------------------------"
