@@ -8,13 +8,11 @@ import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerManager;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerState;
 import dev.almostsomeone.premiumpvp.configuration.Settings;
 import org.bukkit.Bukkit;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 import javax.annotation.Nonnull;
-import java.util.Objects;
 import java.util.UUID;
 
 public class GamePlayerLeaveEvent extends Event {
