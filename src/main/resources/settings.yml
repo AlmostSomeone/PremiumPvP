@@ -70,6 +70,36 @@ participate:
 #    health: 5
 #  drop-items: false
 
+# Customize the way kits work on your server.
+kits:
+  allow-custom-layouts: true # Allow players to make and use a custom inventory layout
+  armor-locked: true # Lock the armor in armor slots, this makes it impossible to take off your armor or switch it.
+  default-settings:
+    item: IRON_SWORD # The GUI item that will be used for new kits.
+    description: 'There is no description set yet.'
+    timeout: 0 # The amount of seconds it takes before you can use the kit again. Use 0 to disable.
+    permissions:
+      # The permission will end with .name, for example 'kitpvp.kit.buy' will result in kitpvp.kit.buy.swordsman
+      # Please remember if someone has permissions to own a kit, they don't have to buy it anymore since its already unlocked.
+      # Use the buy permissions to limit who can buy it, the own permissions will instantly unlock/give the kit to the player.
+      # You can not sell a kit if you have the own permissions, but if you bought the kit before getting these permissions, you can still sell it and get some money back.
+      buy:
+        enabled: false # Set this to true if you want people to need a permission to buy the kit.
+        no-permission: true # If you set this to false, people that bought the kit but don't have the permissions can't use it.
+        permission: kitpvp.kit.buy
+      own:
+        enabled: false
+        included: false
+        permission: kitpvp.kit.own
+    disable-bypass: # You can use this to allow people to use disabled kits. This might come in useful when testing a kit in a public server.
+      enabled: true
+      permission: kitpvp.kit.bypassdisabled
+    selector:
+      preview: true # Toggle the possibility to preview a kit in the selector.
+    shop:
+      display-no-permissions: true # Show the kit/level if you don't have the required permissions to buy it.
+      preview: true # Toggle the possibility to preview a kit in the shop.
+
 # Configure the basics of the guild system.
 # The permissions within a guild can be configured by the guild leader or by those with the correct guild permissions.
 #guilds:
