@@ -29,7 +29,7 @@ public class KitPvPCMD extends CommandBuilder {
         super("commands.main", "kitpvp", true, false);
         YamlConfiguration config = Settings.getConfig();
 
-        subCommands.get("").putAll(new HashMap<>() {{
+        subCommands.put("", new HashMap<>() {{
             put("help", "Get help with this command.");
             put("info", "Get information about the plugin");
             put("reload", "Reload the configurations");

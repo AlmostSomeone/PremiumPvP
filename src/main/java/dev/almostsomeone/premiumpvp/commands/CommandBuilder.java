@@ -38,8 +38,6 @@ public abstract class CommandBuilder extends Command {
         if(config.isSet(configPath + ".aliases"))
             setAliases(config.getStringList(configPath + ".aliases"));
 
-        subCommands.put("", new HashMap<>());
-
         if(!config.isSet(configPath + ".enabled") || config.getBoolean(configPath + ".enabled")) {
             try {
                 final Field bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
@@ -71,8 +69,6 @@ public abstract class CommandBuilder extends Command {
         if(config.isSet(configPath + ".aliases"))
             setAliases(config.getStringList(configPath + ".aliases"));
 
-        subCommands.put("", new HashMap<>());
-
         if(forceEnabled || !config.isSet(configPath + ".enabled") || config.getBoolean(configPath + ".enabled")) {
             try {
                 final Field bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
@@ -94,22 +90,43 @@ public abstract class CommandBuilder extends Command {
 
     @Override
     public @Nonnull List<String> tabComplete(@Nonnull CommandSender sender, @Nonnull String alias, @Nonnull String[] args, Location location) throws IllegalArgumentException {
+        // We will be saving all possibilities here
         final List<String> autoCompletes = new ArrayList<>();
+
+        // The last word typed
         String lastWord = args[args.length-1];
 
-        StringBuilder stringBuilder = new StringBuilder();
-        Arrays.stream(args).forEach(string -> stringBuilder.append(string).append(" "));
-        String arguments = stringBuilder.toString().trim();
+        // Get the arguments (without the last word)
+        StringBuilder builder = new StringBuilder();
+        for(int i = 0; i < args.length-1; i++) builder.append(args[i]).append(" ");
 
-        if(subCommands.containsKey(arguments) && subCommands.get(arguments).size() > 0)
-            subCommands.get(arguments).keySet().stream().filter(argument -> StringUtil.startsWithIgnoreCase(argument, lastWord)).forEach(autoCompletes::add);
+        // Make variables for easy access
+        String arguments = builder.toString().trim();
+        String totalArguments = arguments + " " + lastWord;
+
+        // If the argument has subcommands
+        if(subCommands.containsKey(totalArguments))
+            subCommands.get(totalArguments).keySet().stream()
+                    .filter(a -> StringUtil.startsWithIgnoreCase(a, lastWord))
+                    .forEach(autoCompletes::add);
+
+        // If the second to last argument has subcommands but the last doesn't
+        else if(subCommands.containsKey(arguments) && !subCommands.containsKey(totalArguments))
+                subCommands.get(arguments).keySet().stream()
+                        .filter(a -> StringUtil.startsWithIgnoreCase(a, lastWord))
+                        .forEach(autoCompletes::add);
+
+        // Else, show the player list like default
         else {
             Player senderPlayer = sender instanceof Player ? (Player) sender : null;
             if(senderPlayer == null) return new ArrayList<>();
-            for(Player player : sender.getServer().getOnlinePlayers().stream().filter(senderPlayer::canSee).filter(player -> StringUtil.startsWithIgnoreCase(player.getName(), lastWord)).toList())
-                autoCompletes.add(player.getName());
+            sender.getServer().getOnlinePlayers().stream()
+                    .filter(senderPlayer::canSee)
+                    .filter(player -> StringUtil.startsWithIgnoreCase(player.getName(), lastWord))
+                    .forEach(player -> autoCompletes.add(player.getName()));
         }
 
+        // Sort the list and return it
         autoCompletes.sort(String.CASE_INSENSITIVE_ORDER);
         return autoCompletes;
     }
