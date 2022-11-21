@@ -13,14 +13,13 @@ import org.bukkit.util.StringUtil;
 
 import javax.annotation.Nonnull;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+
+import static dev.almostsomeone.premiumpvp.utilities.Chat.color;
 
 public abstract class CommandBuilder extends Command {
 
-    public HashMap<String, String> subCommands;
+    public HashMap<String, HashMap<String, String>> subCommands = new HashMap<>();
 
     @Override
     public boolean execute(@Nonnull CommandSender sender, @Nonnull String label, String[] args) {
@@ -38,6 +37,8 @@ public abstract class CommandBuilder extends Command {
             setPermission(config.getString(configPath + ".permission.name"));
         if(config.isSet(configPath + ".aliases"))
             setAliases(config.getStringList(configPath + ".aliases"));
+
+        subCommands.put("", new HashMap<>());
 
         if(!config.isSet(configPath + ".enabled") || config.getBoolean(configPath + ".enabled")) {
             try {
@@ -70,6 +71,8 @@ public abstract class CommandBuilder extends Command {
         if(config.isSet(configPath + ".aliases"))
             setAliases(config.getStringList(configPath + ".aliases"));
 
+        subCommands.put("", new HashMap<>());
+
         if(forceEnabled || !config.isSet(configPath + ".enabled") || config.getBoolean(configPath + ".enabled")) {
             try {
                 final Field bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
@@ -91,24 +94,49 @@ public abstract class CommandBuilder extends Command {
 
     @Override
     public @Nonnull List<String> tabComplete(@Nonnull CommandSender sender, @Nonnull String alias, @Nonnull String[] args, Location location) throws IllegalArgumentException {
-        String lastWord = args[args.length - 1];
+        final List<String> autoCompletes = new ArrayList<>();
+        String lastWord = args[args.length-1];
 
-        List<String> autoCompletes = new ArrayList<>();
-        if (args.length == 1 && subCommands != null) {
-            for (String sub : subCommands.keySet().toArray(new String[0]))
-                if (StringUtil.startsWithIgnoreCase(sub, args[0]))
-                    autoCompletes.add(sub);
-        } else {
+        StringBuilder stringBuilder = new StringBuilder();
+        Arrays.stream(args).forEach(string -> stringBuilder.append(string).append(" "));
+        String arguments = stringBuilder.toString().trim();
+
+        if(subCommands.containsKey(arguments) && subCommands.get(arguments).size() > 0)
+            subCommands.get(arguments).keySet().stream().filter(argument -> StringUtil.startsWithIgnoreCase(argument, lastWord)).forEach(autoCompletes::add);
+        else {
             Player senderPlayer = sender instanceof Player ? (Player) sender : null;
-            for(Player player : sender.getServer().getOnlinePlayers()) {
-                String name = player.getName();
-                if((senderPlayer == null || senderPlayer.canSee(player)) && StringUtil.startsWithIgnoreCase(name, lastWord))
-                    autoCompletes.add(name);
-            }
+            if(senderPlayer == null) return new ArrayList<>();
+            for(Player player : sender.getServer().getOnlinePlayers().stream().filter(senderPlayer::canSee).filter(player -> StringUtil.startsWithIgnoreCase(player.getName(), lastWord)).toList())
+                autoCompletes.add(player.getName());
         }
+
         autoCompletes.sort(String.CASE_INSENSITIVE_ORDER);
         return autoCompletes;
     }
 
+    public void sendHelp(@Nonnull CommandSender sender, @Nonnull String alias, @Nonnull String[] args) {
+        StringBuilder gArg = new StringBuilder();
+        for(int i = 0; i < args.length-1; i++) gArg.append(args[i]).append(" ");
+        String arg = gArg.toString().trim();
+        String command = "/" + alias + (arg.equals("") ? "" : " " + arg);
 
+        // Send header
+        sender.sendMessage(color(Settings.getMessage("commands.help.header").replaceAll("\\{command}", command)));
+
+        // Send error message if there are no subcommands
+        if(!this.subCommands.containsKey(arg) || this.subCommands.get(arg).size() < 2) {
+            sender.sendMessage(color(Settings.getMessage("commands.help.no-help")));
+            return;
+        }
+
+        // Send sub commands
+        this.subCommands.get(arg).forEach((subcommand, description) ->
+                sender.sendMessage(color(Settings.getMessage("commands.help.item")
+                        .replaceAll("\\{command}", command)
+                        .replaceAll("\\{subcommand}", subcommand)
+                        .replaceAll("\\{description}", description))));
+
+        // Send footer
+        sender.sendMessage(color(Settings.getMessage("commands.help.footer").replaceAll("\\{command}", command)));
+    }
 }

@@ -29,19 +29,19 @@ public class KitPvPCMD extends CommandBuilder {
         super("commands.main", "kitpvp", true, false);
         YamlConfiguration config = Settings.getConfig();
 
-        subCommands = new HashMap<>() {{
+        subCommands.get("").putAll(new HashMap<>() {{
+            put("help", "Get help with this command.");
             put("info", "Get information about the plugin");
-            put("help", "Get a list of sub-commands");
             put("reload", "Reload the configurations");
             put("save", "Force the plugin to save its data");
-        }};
+        }});
 
         if(config.getBoolean("participate.join.command", false)) {
-            subCommands.put("join", "Join the KitPvP");
+            subCommands.get("").put("join", "Join the KitPvP");
             joinCommand = true;
         }
         if(config.getBoolean("participate.leave.command", false)) {
-            subCommands.put("leave", "Leave the KitPvP");
+            subCommands.get("").put("leave", "Leave the KitPvP");
             leaveCommand = true;
         }
     }
@@ -61,6 +61,10 @@ public class KitPvPCMD extends CommandBuilder {
         } else {
             switch(args[0].toLowerCase(Locale.ROOT)) {
                 case "info":
+                    if(args.length == 2) {
+                        sendHelp(sender, label, args);
+                        break;
+                    }
                     player.sendMessage(" ");
                     player.sendMessage("Welcome to PremiumPvP");
                     player.sendMessage("Made by AlmostSomeone");
@@ -68,15 +72,7 @@ public class KitPvPCMD extends CommandBuilder {
                     player.sendMessage(" ");
                     break;
                 case "help":
-                    sender.sendMessage(format(player, Settings.getMessage("commands.help.header")
-                            .replaceAll("\\{command}", "/" + label)));
-                    this.subCommands.forEach((subcommand, description) ->
-                            player.sendMessage(format(player, Settings.getMessage("commands.help.item")
-                                    .replaceAll("\\{command}", "/" + label)
-                                    .replaceAll("\\{subcommand}", subcommand.substring(0,1).toUpperCase(Locale.ROOT) + subcommand.substring(1).toLowerCase(Locale.ROOT))
-                                    .replaceAll("\\{description}", description))));
-                    player.sendMessage(format(player, Settings.getMessage("commands.help.footer")
-                            .replaceAll("\\{command}", "/" + label)));
+                    sendHelp(sender, label, args);
                     break;
                 case "reload":
                     try {

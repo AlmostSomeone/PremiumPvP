@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 import javax.annotation.Nonnull;
-import java.util.HashMap;
 import java.util.Objects;
 
 import static dev.almostsomeone.premiumpvp.utilities.Chat.color;
@@ -20,8 +19,7 @@ public class WorldCMD extends CommandBuilder {
     public WorldCMD() {
         super("commands.world");
 
-        subCommands = new HashMap<>();
-        for(World world : Bukkit.getWorlds()) subCommands.put(world.getName(), "");
+        for(World world : Bukkit.getWorlds()) subCommands.get("").put(world.getName(), "");
     }
 
     @Override
