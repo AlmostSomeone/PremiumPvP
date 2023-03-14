@@ -20,11 +20,11 @@ import java.util.logging.Level;
 
 import static dev.almostsomeone.premiumpvp.utilities.Chat.color;
 
-public class Version {
+class Version {
 
     private final Plugin plugin;
 
-    public Version(Plugin plugin) {
+    Version(Plugin plugin) {
         this.plugin = plugin;
 
         // Inform the server administrators about possible issues with non-stable releases
@@ -36,7 +36,7 @@ public class Version {
         checkForUpdate();
     }
 
-    public String getVersion() {
+    private String getVersion() {
         return plugin.getDescription().getVersion();
     }
 
@@ -73,7 +73,7 @@ public class Version {
                     // Check if the requested version is the same as the one from this plugin
                     if (getVersion().equals(newestVersion)) return;
 
-                    plugin.getLogger().log(Level.INFO, () -> "A new version of PremiumPvP is available: " + newestVersion + ". You can download it here: https://www.spigotmc.org/resources/46196/updates");
+                    plugin.getLogger().log(Level.INFO, () -> "There is a new update available, " + newestVersion + ". You are currently running " + getVersion() + ". You can download the update here: https://www.spigotmc.org/resources/46196/updates");
 
                     // Register the PlayerJoinEvent
                     Bukkit.getScheduler().runTask(plugin, () -> Bukkit.getPluginManager().registerEvents(new Listener() {
@@ -81,7 +81,7 @@ public class Version {
                         public void onPlayerJoin(final PlayerJoinEvent event) {
                             final Player player = event.getPlayer();
                             if (!player.hasPermission("premiumpvp.update")) return;
-                            player.sendMessage(color("&cA new version of PremiumPvP is available: &4" + newestVersion + "&c. You can download it here: &4&nhttps://www.spigotmc.org/resources/46196/updates"));
+                            player.sendMessage(color("&cPremiumPvP has a new update available, &4" + newestVersion + "&c. You are currently running &4" + getVersion() + "&c. You can download the update here: &4&nhttps://www.spigotmc.org/resources/46196/updates"));
                         }
                     }, plugin));
 
