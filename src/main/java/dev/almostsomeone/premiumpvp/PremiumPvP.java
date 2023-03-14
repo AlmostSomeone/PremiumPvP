@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
-public class Main extends JavaPlugin {
+public class PremiumPvP extends JavaPlugin {
 
     private static Game game;
     private static Storage storage;

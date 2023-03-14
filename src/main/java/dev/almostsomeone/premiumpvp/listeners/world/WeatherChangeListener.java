@@ -1,6 +1,6 @@
 package dev.almostsomeone.premiumpvp.listeners.world;
 
-import dev.almostsomeone.premiumpvp.Main;
+import dev.almostsomeone.premiumpvp.PremiumPvP;
 import dev.almostsomeone.premiumpvp.world.WorldManager;
 import dev.almostsomeone.premiumpvp.world.WorldProfile;
 import org.bukkit.World;
@@ -15,7 +15,7 @@ public class WeatherChangeListener implements Listener {
         World world = event.getWorld();
 
         // Get world information
-        WorldManager worldManager = Main.getGame().getWorldManager();
+        WorldManager worldManager = PremiumPvP.getGame().getWorldManager();
         WorldProfile worldProfile = worldManager.getWorldProfile(world.getName());
 
         // Cancel the event if the world has a profile, and the profile has its weather locked.

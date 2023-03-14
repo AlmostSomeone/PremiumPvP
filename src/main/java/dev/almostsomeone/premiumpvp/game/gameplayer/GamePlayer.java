@@ -1,6 +1,6 @@
 package dev.almostsomeone.premiumpvp.game.gameplayer;
 
-import dev.almostsomeone.premiumpvp.Main;
+import dev.almostsomeone.premiumpvp.PremiumPvP;
 import dev.almostsomeone.premiumpvp.data.user.User;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -17,7 +17,7 @@ public class GamePlayer {
         this.uuid = uuid;
         setGamePlayerState(GamePlayerState.NONE);
         user = new User(uuid);
-        Main.getGame().getGamePlayerManager().addGamePlayer(this);
+        PremiumPvP.getGame().getGamePlayerManager().addGamePlayer(this);
     }
 
     public Player getPlayer() {
@@ -36,7 +36,7 @@ public class GamePlayer {
 
     public void setGamePlayerState(GamePlayerState gamePlayerState) {
         this.gamePlayerState = gamePlayerState;
-        Main.getGame().getBoardManager().showBoard(this);
+        PremiumPvP.getGame().getBoardManager().showBoard(this);
     }
 
     public User getUser() {

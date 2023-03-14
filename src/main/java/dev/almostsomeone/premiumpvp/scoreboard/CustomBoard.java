@@ -1,6 +1,6 @@
 package dev.almostsomeone.premiumpvp.scoreboard;
 
-import dev.almostsomeone.premiumpvp.Main;
+import dev.almostsomeone.premiumpvp.PremiumPvP;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerState;
 import dev.almostsomeone.premiumpvp.storage.InfoFile;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -28,7 +28,7 @@ public class CustomBoard {
         this.gamePlayerState = gamePlayerState;
 
         // Get the scoreboard file
-        BoardManager boardManager = Main.getGame().getBoardManager();
+        BoardManager boardManager = PremiumPvP.getGame().getBoardManager();
         scoreboardFile = boardManager.getScoreboardFile();
 
         // Get the yaml configuration

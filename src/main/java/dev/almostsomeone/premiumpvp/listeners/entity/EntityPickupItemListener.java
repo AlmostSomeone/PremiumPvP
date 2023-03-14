@@ -1,6 +1,6 @@
 package dev.almostsomeone.premiumpvp.listeners.entity;
 
-import dev.almostsomeone.premiumpvp.Main;
+import dev.almostsomeone.premiumpvp.PremiumPvP;
 import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerState;
@@ -15,7 +15,7 @@ public class EntityPickupItemListener implements Listener {
     public void onEntityPickupItem(EntityPickupItemEvent event) {
         if(!(event.getEntity() instanceof Player player)) return;
 
-        Game game = Main.getGame();
+        Game game = PremiumPvP.getGame();
         GamePlayer gamePlayer = game.getGamePlayerManager().getGamePlayer(player.getUniqueId());
 
         if(gamePlayer.getGamePlayerState() == GamePlayerState.LOBBY)

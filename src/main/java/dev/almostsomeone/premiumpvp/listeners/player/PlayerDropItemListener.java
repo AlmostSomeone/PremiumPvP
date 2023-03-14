@@ -1,6 +1,6 @@
 package dev.almostsomeone.premiumpvp.listeners.player;
 
-import dev.almostsomeone.premiumpvp.Main;
+import dev.almostsomeone.premiumpvp.PremiumPvP;
 import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerState;
@@ -14,7 +14,7 @@ public class PlayerDropItemListener implements Listener {
     @EventHandler
     public void onPlayerDropItem(PlayerDropItemEvent event) {
         Player player = event.getPlayer();
-        Game game = Main.getGame();
+        Game game = PremiumPvP.getGame();
         GamePlayer gamePlayer = game.getGamePlayerManager().getGamePlayer(player.getUniqueId());
 
         if(gamePlayer.getGamePlayerState().equals(GamePlayerState.LOBBY))

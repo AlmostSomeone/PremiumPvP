@@ -1,6 +1,6 @@
 package dev.almostsomeone.premiumpvp.storage;
 
-import dev.almostsomeone.premiumpvp.Main;
+import dev.almostsomeone.premiumpvp.PremiumPvP;
 import dev.almostsomeone.premiumpvp.configuration.Settings;
 import dev.almostsomeone.premiumpvp.storage.sql.MySQL;
 import dev.almostsomeone.premiumpvp.storage.sql.SQL;
@@ -33,7 +33,7 @@ public class Storage {
 
         // Auto-Save the data
         long interval = config.getInt("performance.auto-save.interval", 300) * 20L;
-        Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, () -> Main.getGame().save(), interval, interval);
+        Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, () -> PremiumPvP.getGame().save(), interval, interval);
     }
 
     public Connection getConnection() throws SQLException {

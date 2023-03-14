@@ -1,6 +1,6 @@
 package dev.almostsomeone.premiumpvp.listeners.player;
 
-import dev.almostsomeone.premiumpvp.Main;
+import dev.almostsomeone.premiumpvp.PremiumPvP;
 import dev.almostsomeone.premiumpvp.events.gameplayer.GamePlayerLoadEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -11,6 +11,6 @@ public class PlayerJoinListener implements Listener {
 
     @EventHandler
     public void playerJoin(PlayerJoinEvent event) {
-        Bukkit.getPluginManager().callEvent(new GamePlayerLoadEvent(Main.getGame(), event.getPlayer().getUniqueId()));
+        Bukkit.getPluginManager().callEvent(new GamePlayerLoadEvent(PremiumPvP.getGame(), event.getPlayer().getUniqueId()));
     }
 }

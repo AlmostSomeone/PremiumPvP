@@ -1,6 +1,6 @@
 package dev.almostsomeone.premiumpvp.events.gameplayer;
 
-import dev.almostsomeone.premiumpvp.Main;
+import dev.almostsomeone.premiumpvp.PremiumPvP;
 import dev.almostsomeone.premiumpvp.data.user.User;
 import dev.almostsomeone.premiumpvp.game.Game;
 import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
@@ -31,7 +31,7 @@ public class GamePlayerLeaveEvent extends Event {
     private final GamePlayer gamePlayer;
 
     public GamePlayerLeaveEvent(UUID uuid) {
-        Game game = Main.getGame();
+        Game game = PremiumPvP.getGame();
         GamePlayerManager gamePlayerManager = game.getGamePlayerManager();
 
         gamePlayer = gamePlayerManager.getGamePlayer(uuid);

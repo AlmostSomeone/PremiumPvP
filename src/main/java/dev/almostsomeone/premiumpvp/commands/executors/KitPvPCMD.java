@@ -1,6 +1,6 @@
 package dev.almostsomeone.premiumpvp.commands.executors;
 
-import dev.almostsomeone.premiumpvp.Main;
+import dev.almostsomeone.premiumpvp.PremiumPvP;
 import dev.almostsomeone.premiumpvp.commands.CommandBuilder;
 import dev.almostsomeone.premiumpvp.events.gameplayer.GamePlayerJoinEvent;
 import dev.almostsomeone.premiumpvp.events.gameplayer.GamePlayerLeaveEvent;
@@ -52,7 +52,7 @@ public class KitPvPCMD extends CommandBuilder {
             sender.sendMessage(color(Settings.getMessage("global.only-players")));
             return true;
         }
-        Game game = Main.getGame();
+        Game game = PremiumPvP.getGame();
         GamePlayer gamePlayer = game.getGamePlayerManager().getGamePlayer(player.getUniqueId());
 
         if(args.length == 0) {
@@ -77,7 +77,7 @@ public class KitPvPCMD extends CommandBuilder {
                 case "reload":
                     try {
                         Settings.load();
-                        Main.getGame().getBoardManager().reloadBoard();
+                        PremiumPvP.getGame().getBoardManager().reloadBoard();
                         player.sendMessage(format(player, Settings.getMessage("commands.kitpvp.config.reload-success")));
                     } catch (Exception exception) {
                         exception.printStackTrace();

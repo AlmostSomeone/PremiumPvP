@@ -1,6 +1,6 @@
 package dev.almostsomeone.premiumpvp.placeholder.integrated.packs;
 
-import dev.almostsomeone.premiumpvp.Main;
+import dev.almostsomeone.premiumpvp.PremiumPvP;
 import dev.almostsomeone.premiumpvp.placeholder.integrated.PlaceholderPack;
 import dev.almostsomeone.premiumpvp.data.user.User;
 import dev.almostsomeone.premiumpvp.game.Game;
@@ -20,7 +20,7 @@ public class CustomPlaceholders extends PlaceholderPack {
 
     @Override
     public String apply(OfflinePlayer offlinePlayer, String param) {
-        Game game = Main.getGame();
+        Game game = PremiumPvP.getGame();
         GamePlayerManager gamePlayerManager = game.getGamePlayerManager();
 
         // Make sure the game player exists

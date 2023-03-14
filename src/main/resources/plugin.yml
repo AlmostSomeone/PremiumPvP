@@ -1,5 +1,5 @@
 name: ${project.name}
-main: ${project.groupId}.${project.artifactId}.Main
+main: ${project.groupId}.${project.artifactId}.PremiumPvP
 version: ${project.version}
 api-version: 1.19
 load: STARTUP

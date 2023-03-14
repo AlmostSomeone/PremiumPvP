@@ -1,6 +1,6 @@
 package dev.almostsomeone.premiumpvp.storage.sql;
 
-import dev.almostsomeone.premiumpvp.Main;
+import dev.almostsomeone.premiumpvp.PremiumPvP;
 import dev.almostsomeone.premiumpvp.configuration.Settings;
 
 import java.sql.*;
@@ -19,7 +19,7 @@ public record StorageTable(String tableName) {
     public boolean doesExist() {
         Connection connection = null;
         try {
-            connection = Main.getStorage().getConnection();
+            connection = PremiumPvP.getStorage().getConnection();
             DatabaseMetaData metaData = connection.getMetaData();
 
             ResultSet tables = metaData.getTables(null, null, tableName, null);
@@ -39,7 +39,7 @@ public record StorageTable(String tableName) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
-            connection = Main.getStorage().getConnection();
+            connection = PremiumPvP.getStorage().getConnection();
             preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -77,7 +77,7 @@ public record StorageTable(String tableName) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
-            connection = Main.getStorage().getConnection();
+            connection = PremiumPvP.getStorage().getConnection();
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.executeUpdate();
             connection.commit();
