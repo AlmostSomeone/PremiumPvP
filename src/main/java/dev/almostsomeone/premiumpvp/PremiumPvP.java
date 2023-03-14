@@ -23,6 +23,7 @@ public class PremiumPvP extends JavaPlugin {
 
     private static Game game;
     private static Storage storage;
+    private static Configuration configuration;
 
     @Override
     public ChunkGenerator getDefaultWorldGenerator(@NotNull String worldName, String id) {
@@ -42,6 +43,9 @@ public class PremiumPvP extends JavaPlugin {
     }
 
     private void onStartup() {
+        // Let's initialize and load our configuration first
+        configuration = new Configuration(this);
+
         // Generate and load the settings and messages
         Settings.setup(this);
 
@@ -77,7 +81,7 @@ public class PremiumPvP extends JavaPlugin {
         game.loadPlayers();
 
         // Check for updates
-        new Version(this);
+        new Version(this, configuration);
     }
 
     public static Game getGame() {

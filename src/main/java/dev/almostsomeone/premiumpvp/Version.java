@@ -1,6 +1,5 @@
 package dev.almostsomeone.premiumpvp;
 
-import dev.almostsomeone.premiumpvp.configuration.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -23,9 +22,11 @@ import static dev.almostsomeone.premiumpvp.utilities.Chat.color;
 class Version {
 
     private final Plugin plugin;
+    private final Configuration configuration;
 
-    Version(Plugin plugin) {
+    Version(Plugin plugin, Configuration configuration) {
         this.plugin = plugin;
+        this.configuration = configuration;
 
         // Inform the server administrators about possible issues with non-stable releases
         if (getVersion().contains("-")) {
@@ -47,7 +48,7 @@ class Version {
                 // The request is executed asynchronously as to not block the main thread.
                 Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
                     // Check if the update notify is disabled
-                    if(!Settings.getConfig().getBoolean("update-notify", true)) {
+                    if(!configuration.getSettings().getBoolean("update-notify", true)) {
                         cancel(); // Cancel the runnable as checking for updates is disabled.
                         return;
                     }

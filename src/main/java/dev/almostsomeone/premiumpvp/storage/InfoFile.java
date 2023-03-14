@@ -22,6 +22,10 @@ public class InfoFile {
         load();
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void load() {
         plugin.getLogger().log(Level.INFO, () -> "Loading file " + name + "...");
         File dir = new File(plugin.getDataFolder() + File.separator);
