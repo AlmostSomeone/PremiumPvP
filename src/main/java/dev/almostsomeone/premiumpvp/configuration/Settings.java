@@ -4,6 +4,7 @@ import dev.almostsomeone.premiumpvp.storage.InfoFile;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
+@Deprecated
 public class Settings {
 
     private static InfoFile infoFile;
@@ -25,6 +26,6 @@ public class Settings {
     }
 
     public static String getMessage(String path) {
-        return messages.getMessage(path);
+        return messages.get(path);
     }
 }
