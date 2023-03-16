@@ -42,59 +42,17 @@ participate:
 # Here are the basic game settings.
 # This allows you to modify the pvp experience to your likings.
 #settings:
-#  kit-customization:
-#    enabled: true
-#    permission:
-#      enabled: true
-#      name: premiumpvp.kit.customize
-#  healthbar:
-#    enabled: true
-#    message: "&f%player_health% &c%symbol_heart%"
-#  tablist:
-#    enabled: true
-#    header: "\n &5&lExampleServer \n &71.8.9 is recommended \n"
-#    footer: "\n &7Players: &5%server_online% &7- TPS: &5%server_tps% &7- Ping &5%player_ping% ms \n\n &7play.exampleserver.com \n"
 #  combattimer:
 #    enabled: true
 #    seconds: 10
 #    kill-on-leave: true
-#  banknotes:
-#    enabled: false
-#    lose-on-death: true
-#    lose-on-spawn: false
-#    lose-on-leave: false
-#  soups:
-#    enabled: true
-#    instant: true
-#    keep-bowl: false
-#    health: 5
 #  drop-items: false
-
-# Configure the basics of the guild system.
-# The permissions within a guild can be configured by the guild leader or by those with the correct guild permissions.
-#guilds:
-#  tags:
-#    enabled: true
-#    max-length: 4
-#    default-color: 7
 
 # The server's economy settings.
 # Please configure this carefully, especially when your server is already launched.
 #economy:
 #  starters-balance: 100
 #  kill-reward: 10
-
-# The duels' system allows your players to go in private fights against each other.
-# Configure the system here to make it work how you want it.
-#duels:
-#  settings:
-#    be-in-spawn: true
-#    broadcast-win: true
-#    count-stats: false
-#    allow-bids: true
-#    allow-custom-kits: true
-#    allow-abilities: false
-#    allow-spectating: true
 
 # Configure the commands to your likings.
 # You can toggle commands, change their names, add aliases, set their descriptions and also set permissions.
@@ -126,25 +84,6 @@ commands:
     permission:
       enabled: false
       name: premiumpvp.command.coins
-#  guild:
-#    enabled: true
-#    name: guild
-#    description: "Manage your guilds"
-#    aliases:
-#      - guilds
-#      - g
-#    permissions:
-#      enabled: false
-#      name: premiumpvp.command.guild
-#  duels:
-#    enabled: true
-#    description: "Invite your friend for a fair fight"
-#    aliases:
-#      - duels
-#      - 1v1
-#    permission:
-#      enabled: false
-#      name: premiumpvp.command.duels
 
 # Performance
 # The following settings are used to configure the performance of the plugin.

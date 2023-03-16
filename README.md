@@ -9,13 +9,15 @@ An advanced KitPvP plugin for your Minecraft server.
 It is free to use, and you can download it from [SpigotMC](https://www.spigotmc.org/resources/46196/).
 PremiumPvP is a plugin build on the Spigot-API 1.19 using JDK 17. There are no required dependencies, however the resource can and will hook into ProtocolLib and PlaceholderAPI when it can.
 
-### Plugin
+### Plugin Features
+
+This list of features is specific to this branch. The expected list of features on the full release can be found on the master branch.
 
 - Multi-Language support
+- Combat System
 - Kits
-  - Automatically expanding selector
-  - Personalized Layouts
-- Cosmetics
+  - Create unlimited kits
+  - Add effects to your kits
   - Automatically expanding selector
 - Damage Profiling
   - Kill/Assist reward based on damage calculations
@@ -24,51 +26,9 @@ PremiumPvP is a plugin build on the Spigot-API 1.19 using JDK 17. There are no r
   - Coins and Tokens
 - Scoreboard
   - Customizable with placeholders
-- Tablist
-  - Prefixes
-  - Suffixes
-  - Header and Footer
-  - Customizable with placeholders
 - Leveling System
   - Titles
   - Colors
-- Killstreaks
-  - Killstreak rewards
-  - Killstreak broadcasts
-- Bounties
-  - Actually rewarding a skull, which you can sell.
-  - A NPC or Sign to get a list of bounties
-  - A NPC or Sign to sell a skull
-  - Automatic bounties based on killstreaks
-- Duels
-  - Duels specific kits or global kits
-  - Unlimited Maps
-  - Spectating
-- Guilds
-  - Tags
-  - Guild Chat
-  - Leveling
-- Boosters
-  - Personal Boosters
-  - Network Boosters
-  - Coin, Experience, Guild Experience and Token boosters
-- Advanced Chat
-  - Customizable format
-  - Prefixes
-  - Suffixes
-  - Level Prefix
-  - Hover over player name to see statistics between you.
-- Leaderboards
-  - Clickable top Signs with heads on top
-  - Holographical leaderboards
-- Ingame Shops
-  - Customizable Items
-  - Interact by NPC or Sign
-- Special Items
-  - Player Tracker
-  - Soup
-  - Switcher Balls
-  - Create your own
 
 ## Installation
 To install PremiumPvP in your server, simply download the latest version [here](https://www.spigotmc.org/resources/46196/) and place the JAR-file in your `plugins` folder.
