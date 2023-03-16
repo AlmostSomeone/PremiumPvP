@@ -50,9 +50,9 @@ public class PremiumPvP extends JavaPlugin {
         Settings.setup(this);
 
         // Register all commands
-        new KitPvPCMD();
-        new WorldCMD();
-        new CoinsCMD();
+        new KitPvPCMD(configuration);
+        new WorldCMD(configuration);
+        new CoinsCMD(configuration);
 
         // Generate a topic in the servers HelpMap for improved usability.
         PluginTopic.generate();

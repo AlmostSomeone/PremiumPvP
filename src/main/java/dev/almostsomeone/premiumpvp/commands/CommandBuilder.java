@@ -1,7 +1,7 @@
 package dev.almostsomeone.premiumpvp.commands;
 
+import dev.almostsomeone.premiumpvp.Configuration;
 import dev.almostsomeone.premiumpvp.PremiumPvP;
-import dev.almostsomeone.premiumpvp.configuration.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -19,18 +19,20 @@ import static dev.almostsomeone.premiumpvp.utilities.Chat.color;
 
 public abstract class CommandBuilder extends Command {
 
-    public HashMap<String, HashMap<String, String>> subCommands = new HashMap<>();
+    protected HashMap<String, HashMap<String, String>> subCommands = new HashMap<>();
+    protected final Configuration configuration;
 
     @Override
     public boolean execute(@Nonnull CommandSender sender, @Nonnull String label, String[] args) {
         return false;
     }
 
-    protected CommandBuilder(String configPath) {
-        super(Objects.requireNonNull(Settings.getConfig().getString(configPath + ".name")));
+    protected CommandBuilder(@Nonnull Configuration configuration, String configPath) {
+        super(Objects.requireNonNull(configuration.getSettings().getString(configPath + ".name")));
+        this.configuration = configuration;
 
-        YamlConfiguration config = Settings.getConfig();
-        setPermissionMessage(Settings.getMessage("global.no-permissions"));
+        YamlConfiguration config = configuration.getSettings();
+        setPermissionMessage(configuration.getMessages().get("global.no-permissions"));
         if(config.isSet(configPath + ".description"))
             setDescription(Objects.requireNonNull(config.getString(configPath + ".description")));
         if(config.isSet(configPath + ".permission.enabled") && config.getBoolean(configPath + ".permission.enabled") && config.isSet(configPath + ".permission.name"))
@@ -57,11 +59,12 @@ public abstract class CommandBuilder extends Command {
         }
     }
 
-    protected CommandBuilder(String configPath, String name, boolean forceEnabled, boolean allowPermissions) {
+    protected CommandBuilder(@Nonnull Configuration configuration, String configPath, String name, boolean forceEnabled, boolean allowPermissions) {
         super(name);
+        this.configuration = configuration;
 
-        YamlConfiguration config = Settings.getConfig();
-        this.setPermissionMessage(Settings.getMessage("global.no-permissions"));
+        YamlConfiguration config = configuration.getSettings();
+        this.setPermissionMessage(configuration.getMessages().get("global.no-permissions"));
         if(config.isSet(configPath + ".description"))
             setDescription(Objects.requireNonNull(config.getString(configPath + ".description")));
         if(allowPermissions && config.isSet(configPath + ".permission.enabled") && config.getBoolean(configPath + ".permission.enabled") && config.isSet(configPath + ".permission.name"))
@@ -138,22 +141,22 @@ public abstract class CommandBuilder extends Command {
         String command = "/" + alias + (arg.equals("") ? "" : " " + arg);
 
         // Send header
-        sender.sendMessage(color(Settings.getMessage("commands.help.header").replaceAll("\\{command}", command)));
+        sender.sendMessage(color(configuration.getMessages().get("commands.help.header").replaceAll("\\{command}", command)));
 
         // Send error message if there are no subcommands
         if(!this.subCommands.containsKey(arg) || this.subCommands.get(arg).size() < 2) {
-            sender.sendMessage(color(Settings.getMessage("commands.help.no-help")));
+            sender.sendMessage(color(configuration.getMessages().get("commands.help.no-help")));
             return;
         }
 
         // Send sub commands
         this.subCommands.get(arg).forEach((subcommand, description) ->
-                sender.sendMessage(color(Settings.getMessage("commands.help.item")
+                sender.sendMessage(color(configuration.getMessages().get("commands.help.item")
                         .replaceAll("\\{command}", command)
                         .replaceAll("\\{subcommand}", subcommand)
                         .replaceAll("\\{description}", description))));
 
         // Send footer
-        sender.sendMessage(color(Settings.getMessage("commands.help.footer").replaceAll("\\{command}", command)));
+        sender.sendMessage(color(configuration.getMessages().get("commands.help.footer").replaceAll("\\{command}", command)));
     }
 }
