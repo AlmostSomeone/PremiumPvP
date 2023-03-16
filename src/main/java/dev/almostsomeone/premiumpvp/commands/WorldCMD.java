@@ -1,27 +1,28 @@
-package dev.almostsomeone.premiumpvp.commands.executors;
+package dev.almostsomeone.premiumpvp.commands;
 
 import dev.almostsomeone.premiumpvp.Configuration;
-import dev.almostsomeone.premiumpvp.commands.CommandBuilder;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.plugin.Plugin;
 
 import javax.annotation.Nonnull;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 import static dev.almostsomeone.premiumpvp.utilities.Chat.color;
 import static dev.almostsomeone.premiumpvp.utilities.Chat.format;
 
-public class WorldCMD extends CommandBuilder {
+class WorldCMD extends CommandBuilder {
 
-    public WorldCMD(@Nonnull Configuration configuration) {
-        super(configuration, "commands.world");
+    WorldCMD(@Nonnull Plugin plugin, @Nonnull Configuration configuration) {
+        super(plugin, configuration, "commands.world");
 
         subCommands.put("", new HashMap<>());
-        for(World world : Bukkit.getWorlds()) subCommands.get("").put(world.getName(), "");
     }
 
     @Override
@@ -66,6 +67,12 @@ public class WorldCMD extends CommandBuilder {
             }
         }
         return true;
+    }
+
+    @Override
+    public @Nonnull List<String> tabComplete(@Nonnull CommandSender sender, @Nonnull String alias, @Nonnull String[] args, Location location) throws IllegalArgumentException {
+        Bukkit.getWorlds().forEach(world -> subCommands.get("").put(world.getName(), ""));
+        return super.tabComplete(sender, alias, args, location);
     }
 
     private void teleport(Player player, World world) throws NullPointerException {

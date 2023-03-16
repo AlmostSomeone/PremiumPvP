@@ -1,7 +1,6 @@
 package dev.almostsomeone.premiumpvp.commands;
 
 import dev.almostsomeone.premiumpvp.Configuration;
-import dev.almostsomeone.premiumpvp.PremiumPvP;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -9,6 +8,7 @@ import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.util.StringUtil;
 
 import javax.annotation.Nonnull;
@@ -17,77 +17,74 @@ import java.util.*;
 
 import static dev.almostsomeone.premiumpvp.utilities.Chat.color;
 
-public abstract class CommandBuilder extends Command {
+abstract class CommandBuilder extends Command {
 
-    protected HashMap<String, HashMap<String, String>> subCommands = new HashMap<>();
+    private final Plugin plugin;
     protected final Configuration configuration;
+
+    private final String configPath;
+    private final boolean forceEnabled, allowPermissions;
+    protected HashMap<String, HashMap<String, String>> subCommands = new HashMap<>();
 
     @Override
     public boolean execute(@Nonnull CommandSender sender, @Nonnull String label, String[] args) {
         return false;
     }
 
-    protected CommandBuilder(@Nonnull Configuration configuration, String configPath) {
+    protected CommandBuilder(@Nonnull Plugin plugin, @Nonnull Configuration configuration, String configPath) {
         super(Objects.requireNonNull(configuration.getSettings().getString(configPath + ".name")));
+        this.plugin = plugin;
         this.configuration = configuration;
+        this.configPath = configPath;
+        this.forceEnabled = false;
+        this.allowPermissions = true;
 
-        YamlConfiguration config = configuration.getSettings();
-        setPermissionMessage(configuration.getMessages().get("global.no-permissions"));
-        if(config.isSet(configPath + ".description"))
-            setDescription(Objects.requireNonNull(config.getString(configPath + ".description")));
-        if(config.isSet(configPath + ".permission.enabled") && config.getBoolean(configPath + ".permission.enabled") && config.isSet(configPath + ".permission.name"))
-            setPermission(config.getString(configPath + ".permission.name"));
-        if(config.isSet(configPath + ".aliases"))
-            setAliases(config.getStringList(configPath + ".aliases"));
-
-        if(!config.isSet(configPath + ".enabled") || config.getBoolean(configPath + ".enabled")) {
-            try {
-                final Field bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
-
-                bukkitCommandMap.setAccessible(true);
-                CommandMap commandMap = (CommandMap) bukkitCommandMap.get(Bukkit.getServer());
-
-                Command command = commandMap.getCommand(getName());
-                if(command != null && command.isRegistered())
-                    return;
-
-                commandMap.register(PremiumPvP.getPlugin(PremiumPvP.class).getDescription().getName(), this);
-                PluginTopic.registerCommand(this);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        setProperties();
+        register();
     }
 
-    protected CommandBuilder(@Nonnull Configuration configuration, String configPath, String name, boolean forceEnabled, boolean allowPermissions) {
+    protected CommandBuilder(@Nonnull Plugin plugin, @Nonnull Configuration configuration, String configPath, String name, boolean forceEnabled, boolean allowPermissions) {
         super(name);
+        this.plugin = plugin;
         this.configuration = configuration;
+        this.configPath = configPath;
+        this.forceEnabled = forceEnabled;
+        this.allowPermissions = allowPermissions;
 
+        setProperties();
+        register();
+    }
+
+    private void setProperties() {
         YamlConfiguration config = configuration.getSettings();
-        this.setPermissionMessage(configuration.getMessages().get("global.no-permissions"));
+        if(!forceEnabled && !config.getBoolean(configPath + ".enabled", true)) return;
+        setPermissionMessage(configuration.getMessages().get("global.no-permissions"));
         if(config.isSet(configPath + ".description"))
             setDescription(Objects.requireNonNull(config.getString(configPath + ".description")));
         if(allowPermissions && config.isSet(configPath + ".permission.enabled") && config.getBoolean(configPath + ".permission.enabled") && config.isSet(configPath + ".permission.name"))
             setPermission(config.getString(configPath + ".permission.name"));
         if(config.isSet(configPath + ".aliases"))
             setAliases(config.getStringList(configPath + ".aliases"));
+    }
 
-        if(forceEnabled || !config.isSet(configPath + ".enabled") || config.getBoolean(configPath + ".enabled")) {
-            try {
-                final Field bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
+    protected void reload() {
+    }
 
-                bukkitCommandMap.setAccessible(true);
-                CommandMap commandMap = (CommandMap) bukkitCommandMap.get(Bukkit.getServer());
+    private void register() {
+        try {
+            final Field bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
 
-                Command command = commandMap.getCommand(name);
-                if(command != null && command.isRegistered())
-                    return;
+            bukkitCommandMap.setAccessible(true);
+            CommandMap commandMap = (CommandMap) bukkitCommandMap.get(Bukkit.getServer());
 
-                commandMap.register(PremiumPvP.getPlugin(PremiumPvP.class).getDescription().getName(), this);
-                PluginTopic.registerCommand(this);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            Command command = commandMap.getCommand(getName());
+            if(command != null && command.isRegistered())
+                return;
+
+            commandMap.register(plugin.getDescription().getName(), this);
+            CommandManager.addCommand(getName(), this);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -134,7 +131,7 @@ public abstract class CommandBuilder extends Command {
         return autoCompletes;
     }
 
-    public void sendHelp(@Nonnull CommandSender sender, @Nonnull String alias, @Nonnull String[] args) {
+    protected void sendHelp(@Nonnull CommandSender sender, @Nonnull String alias, @Nonnull String[] args) {
         StringBuilder gArg = new StringBuilder();
         for(int i = 0; i < args.length-1; i++) gArg.append(args[i]).append(" ");
         String arg = gArg.toString().trim();

@@ -1,9 +1,6 @@
 package dev.almostsomeone.premiumpvp;
 
-import dev.almostsomeone.premiumpvp.commands.PluginTopic;
-import dev.almostsomeone.premiumpvp.commands.executors.CoinsCMD;
-import dev.almostsomeone.premiumpvp.commands.executors.KitPvPCMD;
-import dev.almostsomeone.premiumpvp.commands.executors.WorldCMD;
+import dev.almostsomeone.premiumpvp.commands.*;
 import dev.almostsomeone.premiumpvp.placeholder.Placeholder;
 import dev.almostsomeone.premiumpvp.world.VoidGenerator;
 import dev.almostsomeone.premiumpvp.data.user.User;
@@ -50,12 +47,7 @@ public class PremiumPvP extends JavaPlugin {
         Settings.setup(this);
 
         // Register all commands
-        new KitPvPCMD(configuration);
-        new WorldCMD(configuration);
-        new CoinsCMD(configuration);
-
-        // Generate a topic in the servers HelpMap for improved usability.
-        PluginTopic.generate();
+        new CommandManager(this, configuration);
     }
 
     private void onStarted() {

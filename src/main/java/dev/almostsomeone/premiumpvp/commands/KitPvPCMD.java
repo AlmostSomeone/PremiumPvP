@@ -1,9 +1,9 @@
-package dev.almostsomeone.premiumpvp.commands.executors;
+package dev.almostsomeone.premiumpvp.commands;
 
 import dev.almostsomeone.premiumpvp.Configuration;
 import dev.almostsomeone.premiumpvp.PremiumPvP;
-import dev.almostsomeone.premiumpvp.commands.CommandBuilder;
 import dev.almostsomeone.premiumpvp.configuration.Settings;
+import dev.almostsomeone.premiumpvp.events.configuration.ConfigurationReloadEvent;
 import dev.almostsomeone.premiumpvp.events.gameplayer.GamePlayerJoinEvent;
 import dev.almostsomeone.premiumpvp.events.gameplayer.GamePlayerLeaveEvent;
 import dev.almostsomeone.premiumpvp.game.Game;
@@ -12,6 +12,7 @@ import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerState;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 
 import javax.annotation.Nonnull;
 import java.util.HashMap;
@@ -20,13 +21,18 @@ import java.util.Locale;
 import static dev.almostsomeone.premiumpvp.utilities.Chat.color;
 import static dev.almostsomeone.premiumpvp.utilities.Chat.format;
 
-public class KitPvPCMD extends CommandBuilder {
+class KitPvPCMD extends CommandBuilder {
 
     private boolean joinCommand = false;
     private boolean leaveCommand = false;
 
-    public KitPvPCMD(@Nonnull Configuration configuration) {
-        super(configuration, "commands.main", "kitpvp", true, false);
+    KitPvPCMD(@Nonnull Plugin plugin, @Nonnull Configuration configuration) {
+        super(plugin, configuration, "commands.main", "kitpvp", true, false);
+    }
+
+    @Override
+    protected void reload() {
+        super.reload();
 
         subCommands.put("", new HashMap<>() {{
             put("help", "Get help with this command.");
@@ -38,10 +44,14 @@ public class KitPvPCMD extends CommandBuilder {
         if(configuration.getSettings().getBoolean("participate.join.command", false)) {
             subCommands.get("").put("join", "Join the KitPvP");
             joinCommand = true;
+        } else {
+            joinCommand = false;
         }
         if(configuration.getSettings().getBoolean("participate.leave.command", false)) {
             subCommands.get("").put("leave", "Leave the KitPvP");
             leaveCommand = true;
+        } else {
+            leaveCommand = false;
         }
     }
 
@@ -75,6 +85,7 @@ public class KitPvPCMD extends CommandBuilder {
                     try {
                         Settings.load();
                         configuration.reload();
+                        Bukkit.getPluginManager().callEvent(new ConfigurationReloadEvent());
                         PremiumPvP.getGame().getBoardManager().reloadBoard();
                         player.sendMessage(format(player, configuration.getMessages().get("commands.kitpvp.config.reload-success")));
                     } catch (Exception exception) {
