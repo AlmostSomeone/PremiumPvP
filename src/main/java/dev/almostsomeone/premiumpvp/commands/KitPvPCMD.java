@@ -1,14 +1,8 @@
 package dev.almostsomeone.premiumpvp.commands;
 
 import dev.almostsomeone.premiumpvp.Configuration;
-import dev.almostsomeone.premiumpvp.PremiumPvP;
 import dev.almostsomeone.premiumpvp.configuration.Settings;
 import dev.almostsomeone.premiumpvp.events.configuration.ConfigurationReloadEvent;
-import dev.almostsomeone.premiumpvp.events.gameplayer.GamePlayerJoinEvent;
-import dev.almostsomeone.premiumpvp.events.gameplayer.GamePlayerLeaveEvent;
-import dev.almostsomeone.premiumpvp.game.Game;
-import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
-import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerState;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -41,13 +35,13 @@ class KitPvPCMD extends CommandBuilder {
             put("save", "Force the plugin to save its data");
         }});
 
-        if(configuration.getSettings().getBoolean("participate.join.command", false)) {
+        if (configuration.getSettings().getBoolean("participate.join.command", false)) {
             subCommands.get("").put("join", "Join the KitPvP");
             joinCommand = true;
         } else {
             joinCommand = false;
         }
-        if(configuration.getSettings().getBoolean("participate.leave.command", false)) {
+        if (configuration.getSettings().getBoolean("participate.leave.command", false)) {
             subCommands.get("").put("leave", "Leave the KitPvP");
             leaveCommand = true;
         } else {
@@ -57,14 +51,14 @@ class KitPvPCMD extends CommandBuilder {
 
     @Override
     public boolean execute(@Nonnull CommandSender sender, @Nonnull String label, String[] args) {
-        if(!(sender instanceof Player player)) {
+        if (!(sender instanceof Player player)) {
             sender.sendMessage(color(configuration.getMessages().get("global.only-players")));
             return true;
         }
-        Game game = PremiumPvP.getGame();
+        /*Game game = PremiumPvP.getGame();
         GamePlayer gamePlayer = game.getGamePlayerManager().getGamePlayer(player.getUniqueId());
-
-        if(args.length == 0) {
+*/
+        if (args.length == 0) {
             player.sendMessage(format(player, configuration.getMessages().get("commands.help.use-help").replaceAll("\\{command}", "/" + label)));
             return true;
         } else {
@@ -84,9 +78,9 @@ class KitPvPCMD extends CommandBuilder {
                 case "reload" -> {
                     try {
                         Settings.load();
-                        configuration.reload();
+                        configuration.load();
                         Bukkit.getPluginManager().callEvent(new ConfigurationReloadEvent());
-                        PremiumPvP.getGame().getBoardManager().reloadBoard();
+                        //PremiumPvP.getGame().getBoardManager().reloadBoard();
                         player.sendMessage(format(player, configuration.getMessages().get("commands.kitpvp.config.reload-success")));
                     } catch (Exception exception) {
                         exception.printStackTrace();
@@ -95,7 +89,7 @@ class KitPvPCMD extends CommandBuilder {
                 }
                 case "save" -> {
                     try {
-                        game.getGamePlayerManager().saveAll();
+                        //game.getGamePlayerManager().saveAll();
                         player.sendMessage(format(player, configuration.getMessages().get("commands.kitpvp.data.save-success")));
                     } catch (Exception exception) {
                         exception.printStackTrace();
@@ -104,20 +98,20 @@ class KitPvPCMD extends CommandBuilder {
                 }
                 case "join" -> {
                     if (!joinCommand) break;
-                    if (!gamePlayer.getGamePlayerState().equals(GamePlayerState.NONE)) {
+                    /*if (!gamePlayer.getGamePlayerState().equals(GamePlayerState.NONE)) {
                         player.sendMessage(format(player, configuration.getMessages().get("commands.kitpvp.already-joined")));
                         break;
                     }
-                    Bukkit.getPluginManager().callEvent(new GamePlayerJoinEvent(game, player.getUniqueId()));
+                    Bukkit.getPluginManager().callEvent(new GamePlayerJoinEvent(game, player.getUniqueId()));*/
                     player.sendMessage(format(player, configuration.getMessages().get("commands.kitpvp.join")));
                 }
                 case "leave" -> {
                     if (!leaveCommand) break;
-                    if (gamePlayer.getGamePlayerState().equals(GamePlayerState.NONE)) {
+                    /*if (gamePlayer.getGamePlayerState().equals(GamePlayerState.NONE)) {
                         player.sendMessage(format(player, configuration.getMessages().get("commands.kitpvp.not-joined")));
                         break;
                     }
-                    Bukkit.getPluginManager().callEvent(new GamePlayerLeaveEvent(player.getUniqueId()));
+                    Bukkit.getPluginManager().callEvent(new GamePlayerLeaveEvent(player.getUniqueId()));*/
                     player.sendMessage(format(player, configuration.getMessages().get("commands.kitpvp.leave")));
                 }
                 default ->

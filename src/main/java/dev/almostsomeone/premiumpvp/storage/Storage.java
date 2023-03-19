@@ -1,7 +1,6 @@
 package dev.almostsomeone.premiumpvp.storage;
 
-import dev.almostsomeone.premiumpvp.PremiumPvP;
-import dev.almostsomeone.premiumpvp.configuration.Settings;
+import dev.almostsomeone.premiumpvp.Configuration;
 import dev.almostsomeone.premiumpvp.storage.sql.MySQL;
 import dev.almostsomeone.premiumpvp.storage.sql.SQL;
 import dev.almostsomeone.premiumpvp.storage.sql.SQLite;
@@ -9,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
+import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
@@ -18,22 +18,22 @@ import java.util.logging.Level;
 public class Storage {
 
     private final Plugin plugin;
+    private final Configuration configuration;
     private final SQL sql;
 
-    public Storage(final Plugin plugin) {
+    public Storage(@Nonnull Plugin plugin, @Nonnull Configuration configuration) {
         this.plugin = plugin;
-        YamlConfiguration config = Settings.getConfig();
+        this.configuration = configuration;
 
         // Set the SQL method
-        String method = config.getString("storage.method", "sqlite");
+        String method = configuration.getSettings().getString("storage.method", "sqlite");
         if (method.equalsIgnoreCase("mysql")) sql = setMySQL();
         else sql = setSQLite();
 
-        openPool();
-
-        // Auto-Save the data
-        long interval = config.getInt("performance.auto-save.interval", 300) * 20L;
-        Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, () -> PremiumPvP.getGame().save(), interval, interval);
+        // TODO Auto-Save the data
+        long interval = configuration.getSettings().getInt("performance.auto-save.interval", 300) * 20L;
+        Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, () -> {
+        }, interval, interval); //TODO
     }
 
     public Connection getConnection() throws SQLException {
@@ -52,7 +52,7 @@ public class Storage {
     }
 
     private SQL setMySQL() {
-        YamlConfiguration config = Settings.getConfig();
+        YamlConfiguration config = configuration.getSettings();
         String host = config.getString("storage.host", "localhost");
         String port = config.getString("storage.port", "3306");
         String database = config.getString("storage.database", "premiumpvp");
@@ -63,10 +63,10 @@ public class Storage {
 
     private SQL setSQLite() {
         File file = new File(plugin.getDataFolder(), "Database.db");
-        if(!file.exists()) {
+        if (!file.exists()) {
             try {
                 plugin.getLogger().log(Level.INFO, () -> "Creating local database...");
-                if(file.createNewFile())
+                if (file.createNewFile())
                     plugin.getLogger().log(Level.INFO, () -> "Successfully generated local database");
                 else
                     plugin.getLogger().log(Level.WARNING, () -> "Could not generate local database");

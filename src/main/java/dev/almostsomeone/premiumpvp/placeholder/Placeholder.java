@@ -17,7 +17,7 @@ public class Placeholder {
 
     public static void setup(final Plugin plugin) {
         Plugin placeholderAPI = plugin.getServer().getPluginManager().getPlugin("PlaceholderAPI");
-        if(placeholderAPI != null) {
+        if (placeholderAPI != null) {
             external = true;
             plugin.getLogger().log(Level.INFO, () -> "Hooking into PlaceholderAPI v" + placeholderAPI.getDescription().getVersion());
             new PapiExpansion(plugin).register();
@@ -29,12 +29,12 @@ public class Placeholder {
     }
 
     public static String setPlaceholders(OfflinePlayer player, String string) {
-        if(external) return PlaceholderAPI.setPlaceholders(player, string);
+        if (external) return PlaceholderAPI.setPlaceholders(player, string);
         else return integratedPlaceholders.setPlaceholders(player, string);
     }
 
-    public static List<PlaceholderPack> getRegisteredPacks(){
-        if(integratedPlaceholders == null) return null;
+    public static List<PlaceholderPack> getRegisteredPacks() {
+        if (integratedPlaceholders == null) return null;
         return integratedPlaceholders.getRegisteredPacks();
     }
 }

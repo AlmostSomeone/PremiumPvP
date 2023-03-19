@@ -24,7 +24,7 @@ public class SQL {
     }
 
     public void closePool() {
-        if(hikariDataSource != null && !hikariDataSource.isClosed()) hikariDataSource.close();
+        if (hikariDataSource != null && !hikariDataSource.isClosed()) hikariDataSource.close();
     }
 
     public Connection getConnection() throws SQLException {

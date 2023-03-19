@@ -48,13 +48,13 @@ class Version {
                 // The request is executed asynchronously as to not block the main thread.
                 Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
                     // Check if the update notify is disabled
-                    if(!configuration.getSettings().getBoolean("update-notify", true)) {
+                    if (!configuration.getSettings().getBoolean("update-notify", true)) {
                         cancel(); // Cancel the runnable as checking for updates is disabled.
                         return;
                     }
 
                     // Cancel the runnable as a development release has been detected.
-                    if(getVersion().endsWith("-dev")) {
+                    if (getVersion().endsWith("-dev")) {
                         return;
                     }
 

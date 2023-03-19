@@ -29,11 +29,11 @@ public class InfoFile {
     public void load() {
         plugin.getLogger().log(Level.INFO, () -> "Loading file " + name + "...");
         File dir = new File(plugin.getDataFolder() + File.separator);
-        if(path != null) {
+        if (path != null) {
             dir = new File(plugin.getDataFolder() + File.separator + path + File.separator);
-            if(!dir.exists()){
+            if (!dir.exists()) {
                 try {
-                    if(dir.mkdir()) plugin.getLogger().log(Level.INFO, () -> path + " directory created.");
+                    if (dir.mkdir()) plugin.getLogger().log(Level.INFO, () -> path + " directory created.");
                     else plugin.getLogger().log(Level.WARNING, () -> "Something went wrong creating directory " + path);
                 } catch (Exception exception) {
                     exception.printStackTrace();

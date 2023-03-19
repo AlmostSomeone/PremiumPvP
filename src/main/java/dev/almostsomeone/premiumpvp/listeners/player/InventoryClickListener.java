@@ -1,9 +1,5 @@
 package dev.almostsomeone.premiumpvp.listeners.player;
 
-import dev.almostsomeone.premiumpvp.PremiumPvP;
-import dev.almostsomeone.premiumpvp.game.Game;
-import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
-import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerState;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,9 +10,9 @@ public class InventoryClickListener implements Listener {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
-        Game game = PremiumPvP.getGame();
+        /*Game game = PremiumPvP.getGame();
         GamePlayer gamePlayer = game.getGamePlayerManager().getGamePlayer(player.getUniqueId());
         if(gamePlayer.getGamePlayerState().equals(GamePlayerState.LOBBY))
-            if(!game.getLobby().isAllowMove()) event.setCancelled(true);
+            if(!game.getLobby().isAllowMove()) event.setCancelled(true);*/
     }
 }

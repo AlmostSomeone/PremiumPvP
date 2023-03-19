@@ -37,11 +37,11 @@ public class IntegratedPlaceholders {
     }
 
     public String setPlaceholders(OfflinePlayer player, String string) {
-        if(player == null || string == null)
+        if (player == null || string == null)
             return null;
-        if(containsPlaceholders(percentPattern, string))
+        if (containsPlaceholders(percentPattern, string))
             string = percentReplacer.apply(string, player);
-        if(containsPlaceholders(bracketPattern, string))
+        if (containsPlaceholders(bracketPattern, string))
             string = bracketReplacer.apply(string, player);
         return string;
     }

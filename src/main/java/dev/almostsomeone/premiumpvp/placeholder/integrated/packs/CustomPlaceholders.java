@@ -1,15 +1,9 @@
 package dev.almostsomeone.premiumpvp.placeholder.integrated.packs;
 
-import dev.almostsomeone.premiumpvp.PremiumPvP;
 import dev.almostsomeone.premiumpvp.placeholder.integrated.PlaceholderPack;
-import dev.almostsomeone.premiumpvp.data.user.User;
-import dev.almostsomeone.premiumpvp.game.Game;
-import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
-import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayerManager;
 import org.bukkit.OfflinePlayer;
 
 import javax.annotation.Nonnull;
-import java.util.Locale;
 
 public class CustomPlaceholders extends PlaceholderPack {
 
@@ -20,7 +14,7 @@ public class CustomPlaceholders extends PlaceholderPack {
 
     @Override
     public String apply(OfflinePlayer offlinePlayer, String param) {
-        Game game = PremiumPvP.getGame();
+        /*Game game = PremiumPvP.getGame();
         GamePlayerManager gamePlayerManager = game.getGamePlayerManager();
 
         // Make sure the game player exists
@@ -52,6 +46,7 @@ public class CustomPlaceholders extends PlaceholderPack {
             case "player_arrowsshot" -> user.getStatistics().getArrowsShot().toString();
             case "player_bountiesclaimed" -> user.getStatistics().getBountiesClaimed().toString();
             default -> null;
-        };
+        };*/
+        return null; //remove
     }
 }

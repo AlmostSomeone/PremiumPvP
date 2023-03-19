@@ -31,6 +31,10 @@ public class CommandManager implements Listener {
         generate();
     }
 
+    static void addCommand(@Nonnull String name, @Nonnull CommandBuilder commandBuilder) {
+        commands.put(name, commandBuilder);
+    }
+
     private void generate() {
         List<HelpTopic> commandHelpTopics = new ArrayList<>();
         commands.values().forEach(c -> commandHelpTopics.add(new GenericCommandHelpTopic(c)));
@@ -41,10 +45,6 @@ public class CommandManager implements Listener {
                 commandHelpTopics,
                 "Below a list of all PremiumPvP commands:"
         ));
-    }
-
-    static void addCommand(@Nonnull String name, @Nonnull CommandBuilder commandBuilder) {
-        commands.put(name, commandBuilder);
     }
 
     @EventHandler

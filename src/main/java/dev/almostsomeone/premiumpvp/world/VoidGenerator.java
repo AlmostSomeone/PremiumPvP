@@ -50,7 +50,7 @@ public class VoidGenerator extends ChunkGenerator {
     @Override
     public Location getFixedSpawnLocation(@NotNull World world, @NotNull Random random) {
         Location location = new Location(world, 0, 70, 0);
-        if(!location.subtract(0, 1, 0).getBlock().getType().isSolid())
+        if (!location.subtract(0, 1, 0).getBlock().getType().isSolid())
             location.subtract(0, 1, 0).getBlock().setType(Material.BEDROCK);
         return location;
     }

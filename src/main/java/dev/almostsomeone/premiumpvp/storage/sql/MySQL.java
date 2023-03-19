@@ -4,7 +4,7 @@ import com.zaxxer.hikari.HikariConfig;
 
 public class MySQL extends SQL {
 
-    public MySQL(String host, String port, String database, String username, String password){
+    public MySQL(String host, String port, String database, String username, String password) {
         hikariConfig = new HikariConfig();
         hikariConfig.setDriverClassName("com.mysql.jdbc.Driver");
         hikariConfig.setJdbcUrl("jdbc:mysql://" + host + ":" + port + "/" + database);

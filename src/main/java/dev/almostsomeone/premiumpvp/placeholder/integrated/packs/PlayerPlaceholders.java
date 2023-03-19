@@ -16,7 +16,7 @@ public class PlayerPlaceholders extends PlaceholderPack {
 
     @Override
     public String apply(OfflinePlayer offlinePlayer, String param) {
-        if(!offlinePlayer.isOnline())
+        if (!offlinePlayer.isOnline())
             return null;
         return switch (param.toLowerCase(Locale.ROOT)) {
             case "name" -> offlinePlayer.getName();

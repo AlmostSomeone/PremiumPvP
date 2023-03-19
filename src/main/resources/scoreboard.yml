@@ -10,7 +10,7 @@ scoreboards:
   none:
     enabled: false  # Enable or disable the scoreboard when the player is not in the pvp
     title: "&6&lKITPVP" # The title from the scoreboard
-    lines:  # All the lines the scoreboard will show
+    lines: # All the lines the scoreboard will show
       - "{empty}"
       - "&7Welcome %player_displayname%"
       - "{empty}"

@@ -17,7 +17,7 @@ public class Configuration {
         messages = new Messages(plugin, settings.get().getString("language", "EN"));
     }
 
-    public void reload() {
+    public void load() {
         settings.load();
         messages.load();
     }

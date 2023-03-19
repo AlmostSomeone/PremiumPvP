@@ -1,7 +1,6 @@
 package dev.almostsomeone.premiumpvp.game;
 
 import dev.almostsomeone.premiumpvp.configuration.Settings;
-import dev.almostsomeone.premiumpvp.game.gameplayer.GamePlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -21,21 +20,18 @@ import static dev.almostsomeone.premiumpvp.utilities.Chat.color;
 
 public class Lobby {
 
-    private final Game game;
-
-    public Lobby(Game game) {
-        this.game = game;
+    public Lobby() {
     }
 
-    public void teleport(GamePlayer gamePlayer) {
-        Player player = gamePlayer.getPlayer();
+    public void teleport() {
+        Player player = null;
         if (player == null) return;
 
         player.getInventory().clear();
         player.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
         getHotbarItems().forEach((slot, item) -> player.getInventory().setItem(slot, item));
 
-        game.getBoardManager().showBoard(gamePlayer);
+        //game.getBoardManager().showBoard(gamePlayer);
     }
 
     public boolean isAllowDrop() {
@@ -86,7 +82,7 @@ public class Lobby {
                         if (enchanted) itemMeta.addEnchant(Enchantment.LUCK, 1, true);
                         itemStack.setItemMeta(itemMeta);
                     }
-                    hotbarItems.put(slot-1, itemStack);
+                    hotbarItems.put(slot - 1, itemStack);
                 } catch (NumberFormatException exception) {
                     Bukkit.getLogger().log(Level.WARNING, () -> "The slot " + slotStr + " is not valid. Skipping hotbar configuration.");
                 }

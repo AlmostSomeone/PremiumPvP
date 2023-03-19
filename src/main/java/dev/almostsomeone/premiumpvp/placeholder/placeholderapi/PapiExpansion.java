@@ -1,7 +1,7 @@
 package dev.almostsomeone.premiumpvp.placeholder.placeholderapi;
 
-import dev.almostsomeone.premiumpvp.placeholder.integrated.packs.CustomPlaceholders;
 import dev.almostsomeone.premiumpvp.placeholder.integrated.PlaceholderPack;
+import dev.almostsomeone.premiumpvp.placeholder.integrated.packs.CustomPlaceholders;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.Plugin;

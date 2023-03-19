@@ -1,11 +1,7 @@
 package dev.almostsomeone.premiumpvp.storage.sql;
 
-import dev.almostsomeone.premiumpvp.PremiumPvP;
 import dev.almostsomeone.premiumpvp.configuration.Settings;
 
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +13,7 @@ public record StorageTable(String tableName) {
     }
 
     public boolean doesExist() {
-        Connection connection = null;
+        /*Connection connection = null;
         try {
             connection = PremiumPvP.getStorage().getConnection();
             DatabaseMetaData metaData = connection.getMetaData();
@@ -31,12 +27,12 @@ public record StorageTable(String tableName) {
                 connection.close();
             } catch (SQLException ignored) {
             }
-        }
+        }*/
         return false;
     }
 
     public List<Map<String, Object>> executeQuery(String query) {
-        Connection connection = null;
+        /*Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = PremiumPvP.getStorage().getConnection();
@@ -69,12 +65,12 @@ public record StorageTable(String tableName) {
                 preparedStatement.close();
             } catch (SQLException ignored) {
             }
-        }
+        }*/
         return null;
     }
 
     public void executeUpdate(String query) {
-        Connection connection = null;
+        /*Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = PremiumPvP.getStorage().getConnection();
@@ -93,5 +89,6 @@ public record StorageTable(String tableName) {
             } catch (SQLException ignored) {
             }
         }
+         */
     }
 }

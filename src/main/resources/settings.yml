@@ -25,8 +25,17 @@ storage:
   username: root # If you use SQLite, you don't need to change this.
   password: root # If you use SQLite, you don't need to change this.
   database: premiumpvp # If you use SQLite, you don't need to change this.
-  table: data # If you use SQLite, you don't need to change this.
   prefix: ppvp # If you use SQLite, you don't need to change this.
+
+# Customize what is- and what is not synced.
+# This might be useful if you do not wish to sync a specific type of data between servers using PremiumPvP.
+# If you wish to sync between servers, use the same pipe name. If you don't, use unique names.
+sync-pipe:
+  user-data:
+    leveling: 'Default'
+    economy: 'Default'
+    statistics: 'Default'
+  kit-data: 'Default'
 
 # Configure how players can participate in KitPvP
 # I'd recommend leaving this as it is if you only have this gamemode on the server.
@@ -41,18 +50,18 @@ participate:
 
 # Here are the basic game settings.
 # This allows you to modify the pvp experience to your likings.
-#settings:
-#  combattimer:
-#    enabled: true
-#    seconds: 10
-#    kill-on-leave: true
-#  drop-items: false
+settings:
+  combattimer:
+    enabled: true
+    seconds: 10
+    kill-on-leave: true
+  drop-items: false
 
 # The server's economy settings.
 # Please configure this carefully, especially when your server is already launched.
-#economy:
-#  starters-balance: 100
-#  kill-reward: 10
+economy:
+  starters-balance: 100
+  kill-reward: 10
 
 # Configure the commands to your likings.
 # You can toggle commands, change their names, add aliases, set their descriptions and also set permissions.
@@ -116,7 +125,7 @@ lobby:
         - "&7ready to fight your enemies!"
         - ""
         - "&7Use &6RMB &7to open."
-      menu: kit-selector # Which PremiumPvP menu should be opened when you click on the item? Use "kit-selector", "kit-shop", "bounty" or "duels".
+      menu: kit-selector # Which PremiumPvP menu should be opened when you click on the item? Use "kit-selector" or "kit-shop".
       #command: heal %player% # The command that should be executed when you click on the item. Use %player% to use the player's name.
     4:
       material: EMERALD
@@ -127,25 +136,6 @@ lobby:
         - ""
         - "&7Use &aRMB &7to open."
       menu: kit-shop
-    6:
-        material: GOLD_INGOT
-        name: "&eBounty"
-        lore:
-            - "&7See the bounties"
-            - "&7that are available."
-            - ""
-            - "&7Use &eRMB &7to open."
-        menu: bounty
-    8:
-      material: DIAMOND_SWORD
-      enchanted: true
-      name: "&bDuels"
-      lore:
-        - "&7Invite your friends"
-        - "&7to a fair fight."
-        - ""
-        - "&7Use &bRMB &7to open."
-      menu: duels
 
 # World settings allow you to configure settings for your worlds.
 # For example, you can lock a world to specific weather types, making it easy to add themes to your maps.
@@ -167,7 +157,7 @@ world-settings:
     weather-lock: CLEAR
     hunger: false
     fall-damage: true
-  specifics:  # These are settings for specific worlds. Exceptions on duels worlds can also be added here. Adding a non-existent world will make PremiumPvP generate this world.
+  specifics: # These are settings for specific worlds. Exceptions on duels worlds can also be added here. Adding a non-existent world will make PremiumPvP generate this world.
     world:
       # If your server's default world is "world", we can not change: void, type or generate-structures.
       # You can however use PremiumPvP as a void generator in your bukkit.yml.
