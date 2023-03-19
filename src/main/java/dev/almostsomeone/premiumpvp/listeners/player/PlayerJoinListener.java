@@ -7,7 +7,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 public class PlayerJoinListener implements Listener {
 
     @EventHandler
-    public void playerJoin(PlayerJoinEvent event) {
+    private void playerJoin(PlayerJoinEvent event) {
         //Bukkit.getPluginManager().callEvent(new GamePlayerLoadEvent(PremiumPvP.getGame(), event.getPlayer().getUniqueId()));
     }
 }

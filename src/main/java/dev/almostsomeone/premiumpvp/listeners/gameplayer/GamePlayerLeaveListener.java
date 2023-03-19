@@ -15,7 +15,7 @@ public class GamePlayerLeaveListener implements Listener {
     private final FileConfiguration config = Settings.getConfig();
 
     @EventHandler
-    public void gamePlayerLeave(PlayerQuitEvent event) { //TODO UserQuitEvent
+    private void gamePlayerLeave(PlayerQuitEvent event) { //TODO UserQuitEvent
         if (config.isSet("participate.leave.execute-command")) {
             ConsoleCommandSender consoleSender = Bukkit.getServer().getConsoleSender();
             String command = Objects.requireNonNull(

@@ -48,7 +48,7 @@ public class CommandManager implements Listener {
     }
 
     @EventHandler
-    public void onConfigurationReload(ConfigurationReloadEvent event) {
+    private void onConfigurationReload(ConfigurationReloadEvent event) {
         commands.values().forEach(CommandBuilder::reload);
     }
 }

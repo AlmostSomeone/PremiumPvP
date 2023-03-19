@@ -7,7 +7,7 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 public class PlayerDropItemListener implements Listener {
 
     @EventHandler
-    public void onPlayerDropItem(PlayerDropItemEvent event) {
+    private void onPlayerDropItem(PlayerDropItemEvent event) {
         /*Player player = event.getPlayer();
         Game game = PremiumPvP.getGame();
         GamePlayer gamePlayer = game.getGamePlayerManager().getGamePlayer(player.getUniqueId());

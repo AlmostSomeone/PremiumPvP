@@ -8,7 +8,7 @@ import org.bukkit.event.player.PlayerChangedWorldEvent;
 public class PlayerChangedWorldListener implements Listener {
 
     @EventHandler
-    public void playerChangedWorld(PlayerChangedWorldEvent event) {
+    private void playerChangedWorld(PlayerChangedWorldEvent event) {
         Player player = event.getPlayer();
 
         // Don't do anything if the player is not in the game

@@ -8,7 +8,7 @@ import org.bukkit.event.entity.EntityPickupItemEvent;
 public class EntityPickupItemListener implements Listener {
 
     @EventHandler
-    public void onEntityPickupItem(EntityPickupItemEvent event) {
+    private void onEntityPickupItem(EntityPickupItemEvent event) {
         if (!(event.getEntity() instanceof Player player)) {
         }
 /*
